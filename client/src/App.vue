@@ -10,6 +10,9 @@ import { RouterLink, RouterView } from 'vue-router';
             <nav>
                 <RouterLink to="/">Home</RouterLink>
             </nav>
+            <h1 class="text-3xl font-bold underline">
+                Hello world!
+            </h1>
         </div>
     </header>
 
