@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+
+    pocketbase:
+        image: ctrlouis/pocketbase:0.18.6
+        container_name: waxpacker_pocketbase
+        # ports:
+            # - 8080:8080
+        volumes:
+            - ./pb_data:/pb/pb_data
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.router-waxpacker-pocketbase.rule=Host(`pocketbase.waxpacker.localhost`)
+            - traefik.http.services.service-waxpacker-pocketbase.loadbalancer.server.port=8080
+        networks:
+            - reverse-proxy
+
+networks:
+    reverse-proxy:
+        name: traefik
+        external: true

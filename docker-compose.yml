@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+
+    waxpacker:
+        image: node:18
+        ports:
+            - 80:5173
+        working_dir: /app
+        volumes:
+            - ./client:/app
+        command: ["npm", "run", "dev"]
+
+    pocketbase:
+        image: ctrlouis/pocketbase:0.18.6
+        container_name: waxpacker_pocketbase
+        ports:
+            - 8080:8080
+        volumes:
+            - ./pb_data:/pb/pb_data
