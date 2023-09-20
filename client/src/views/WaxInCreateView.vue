@@ -38,7 +38,8 @@ async function onCreate() {
     try {
         await createWaxInItem(data);
     } catch(error) {
-        console.error(error);
+        console.error(error.message);
+        alert(error.message);
     }
 }
 
