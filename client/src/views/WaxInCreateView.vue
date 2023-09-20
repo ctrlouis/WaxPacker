@@ -10,9 +10,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { DateTime } from 'luxon';
 import { useWaxInItem } from '@/composables/useWaxInItem';
 
+const router = useRouter();
 const {
     createWaxInItem,
 } = useWaxInItem();
@@ -37,6 +39,7 @@ async function onCreate() {
     }
     try {
         await createWaxInItem(data);
+        router.push({ name: 'WaxInView' });
     } catch(error) {
         console.error(error.message);
         alert(error.message);
