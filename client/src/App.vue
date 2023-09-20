@@ -3,20 +3,23 @@ import { RouterLink, RouterView } from 'vue-router';
 </script>
 
 <template>
-    <!-- <header>
-        <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-        <div class="wrapper">
-            <nav>
-                <RouterLink to="/">Home</RouterLink>
-            </nav>
-            <h1 class="text-3xl font-bold underline">
-                Hello world!
-            </h1>
-        </div>
-    </header> -->
+    <header>
+        
+    </header>
 
     <RouterView />
+
+    <nav>
+        <RouterLink to="/">
+            <q-btn flat round icon="home" /> <div class="font-bold">Acceuil</div>
+        </RouterLink>
+        <RouterLink to="/w/in">
+            <q-btn flat round icon="input" /> <div class="font-bold">Entrés</div>
+        </RouterLink>
+        <RouterLink to="/w/out">
+            <q-btn flat round icon="output" /> <div class="font-bold">Sorties</div>
+        </RouterLink>
+    </nav>
 </template>
 
 <style scoped>

@@ -1,6 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
+import WaxInView from '../views/WaxInView.vue';
+import WaxInCreateView from '../views/WaxInCreateView.vue';
+import WaxOutView from '../views/WaxOutView.vue';
 import { useAuthentication } from '@/stores/authentication';
 
 const router = createRouter({
@@ -15,6 +18,21 @@ const router = createRouter({
             path: '/login',
             name: 'login',
             component: LoginView,
+        },
+        {
+            path: '/w/in',
+            name: 'WaxInView',
+            component: WaxInView,
+        },
+        {
+            path: '/w/in/new',
+            name: 'WaxInCreateView',
+            component: WaxInCreateView,
+        },
+        {
+            path: '/w/out',
+            name: 'WaxOutView',
+            component: WaxOutView,
         },
     ],
 });
