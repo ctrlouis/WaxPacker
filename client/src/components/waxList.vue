@@ -1,21 +1,11 @@
 <template>
     <q-list bordered separator>
-        <q-item v-for="item in list" clickable v-ripple>
-            <q-item-section>
-                {{ item.label }} - {{ item.number }}
-            </q-item-section>
-            <q-item-section>
-                {{ item.weight_original }} Kg
-            </q-item-section>
-            <q-item-section>
-                <q-icon v-if="item.bio" name="eco" size="sm" class="text-green"/>
-            </q-item-section>
-        </q-item>
+        <WaxListItem v-for="item in list" :item="item" />
     </q-list>
 </template>
 
 <script setup lang="ts">
-import type { RecordModel } from 'pocketbase';
+import WaxListItem from '@/components/waxListItem.vue';
 
 defineProps([ 'list' ]);
 </script>
