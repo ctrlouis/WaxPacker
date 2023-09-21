@@ -48,15 +48,13 @@ const {
 } = useWaxInItem();
 
 const removeAlert = ref(false);
-
-function askDelete() {
+function askDelete(event: Event) {
+    event.stopPropagation();
     removeAlert.value = true;
 }
-
 function closeAskDelete() {
     removeAlert.value = false;
 }
-
 function onRemove() {
     removeWaxInItem(props.item.id);
     closeAskDelete();
