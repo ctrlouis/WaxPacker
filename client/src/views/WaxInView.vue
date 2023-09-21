@@ -1,6 +1,6 @@
 <template>
     <h1>Lots d'entrés</h1>
-    <waxList :list="waxInList" />
+    <waxList :type="waxType" :list="waxInList" />
     <RouterLink to="/w/in/new">
         <q-btn round icon="add" color="orange" />
     </RouterLink>
@@ -15,6 +15,8 @@ const {
     waxInList,
     syncWaxInList,
 } = useWaxInList();
+
+const waxType = 'in';
 
 onMounted(async () => {
     await syncWaxInList();

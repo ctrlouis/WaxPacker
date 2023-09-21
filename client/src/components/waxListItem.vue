@@ -39,7 +39,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useWaxInItem } from '@/composables/useWaxInItem';
 
-const props = defineProps([ 'item' ]);
+const props = defineProps([ 'type', 'item' ]);
 
 const router = useRouter();
 
@@ -61,6 +61,10 @@ function onRemove() {
 }
 
 function goItemPage() {
-    router.push({ name: 'WaxInItemView', params: { id: props.item.id } });
+    if (props.type === 'in') {
+        router.push({ name: 'WaxInItemView', params: { id: props.item.id } });
+    } else if (props.type === 'out') {
+        router.push({ name: 'WaxOutItemView', params: { id: props.item.id } });
+    }
 }
 </script>

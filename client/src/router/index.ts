@@ -1,10 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
+
 import WaxInView from '../views/WaxInView.vue';
-import WaxInCreateView from '../views/WaxInCreateView.vue';
 import WaxInItemView from '../views/WaxInItemView.vue';
+import WaxInCreateView from '../views/WaxInCreateView.vue';
+
 import WaxOutView from '../views/WaxOutView.vue';
+import WaxOutItemView from '../views/WaxOutItemView.vue';
+import WaxOutCreateView from '../views/WaxOutCreateView.vue';
+
 import { useAuthentication } from '@/stores/authentication';
 
 const router = createRouter({
@@ -39,6 +44,16 @@ const router = createRouter({
             path: '/w/out',
             name: 'WaxOutView',
             component: WaxOutView,
+        },
+        {
+            path: '/w/out/new',
+            name: 'WaxOutCreateView',
+            component: WaxOutCreateView,
+        },
+        {
+            path: '/w/out/:id',
+            name: 'WaxOutItemView',
+            component: WaxOutItemView,
         },
     ],
 });
