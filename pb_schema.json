@@ -1,315 +1,329 @@
 [
-  {
-      "id": "_pb_users_auth_",
-      "name": "users",
-      "type": "auth",
-      "system": false,
-      "schema": [
-          {
-              "system": false,
-              "id": "users_name",
-              "name": "name",
-              "type": "text",
-              "required": false,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "min": null,
-                  "max": null,
-                  "pattern": ""
-              }
-          },
-          {
-              "system": false,
-              "id": "users_avatar",
-              "name": "avatar",
-              "type": "file",
-              "required": false,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "maxSelect": 1,
-                  "maxSize": 5242880,
-                  "mimeTypes": [
-                      "image/jpeg",
-                      "image/png",
-                      "image/svg+xml",
-                      "image/gif",
-                      "image/webp"
-                  ],
-                  "thumbs": null,
-                  "protected": false
-              }
-          }
-      ],
-      "indexes": [],
-      "listRule": "id = @request.auth.id",
-      "viewRule": "id = @request.auth.id",
-      "createRule": "",
-      "updateRule": "id = @request.auth.id",
-      "deleteRule": "id = @request.auth.id",
-      "options": {
-          "allowEmailAuth": true,
-          "allowOAuth2Auth": true,
-          "allowUsernameAuth": true,
-          "exceptEmailDomains": null,
-          "manageRule": null,
-          "minPasswordLength": 8,
-          "onlyEmailDomains": null,
-          "requireEmail": false
-      }
-  },
-  {
-      "id": "z6h6qdj72mhgb5i",
-      "name": "wax_in",
-      "type": "base",
-      "system": false,
-      "schema": [
-          {
-              "system": false,
-              "id": "arcqbsev",
-              "name": "label",
-              "type": "text",
-              "required": false,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "min": null,
-                  "max": null,
-                  "pattern": ""
-              }
-          },
-          {
-              "system": false,
-              "id": "8h5vgok1",
-              "name": "number",
-              "type": "text",
-              "required": true,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "min": null,
-                  "max": null,
-                  "pattern": ""
-              }
-          },
-          {
-              "system": false,
-              "id": "6l2jwne8",
-              "name": "weight_original",
-              "type": "number",
-              "required": true,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "min": 0,
-                  "max": null,
-                  "noDecimal": false
-              }
-          },
-          {
-              "system": false,
-              "id": "6habjvxh",
-              "name": "entry_date",
-              "type": "date",
-              "required": true,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "min": "",
-                  "max": ""
-              }
-          },
-          {
-              "system": false,
-              "id": "9hmevrte",
-              "name": "bio",
-              "type": "bool",
-              "required": false,
-              "presentable": false,
-              "unique": false,
-              "options": {}
-          },
-          {
-              "system": false,
-              "id": "qydbna0d",
-              "name": "pictures",
-              "type": "file",
-              "required": false,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "maxSelect": 99,
-                  "maxSize": 5242880,
-                  "mimeTypes": [],
-                  "thumbs": [],
-                  "protected": false
-              }
-          }
-      ],
-      "indexes": [],
-      "listRule": "",
-      "viewRule": "",
-      "createRule": "",
-      "updateRule": "",
-      "deleteRule": "",
-      "options": {}
-  },
-  {
-      "id": "y31pnu6yoalkihu",
-      "name": "wax_out",
-      "type": "base",
-      "system": false,
-      "schema": [
-          {
-              "system": false,
-              "id": "lrftp27f",
-              "name": "number",
-              "type": "text",
-              "required": false,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "min": null,
-                  "max": null,
-                  "pattern": ""
-              }
-          },
-          {
-              "system": false,
-              "id": "37xqddgy",
-              "name": "label",
-              "type": "text",
-              "required": false,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "min": null,
-                  "max": null,
-                  "pattern": ""
-              }
-          },
-          {
-              "system": false,
-              "id": "0ks3aoua",
-              "name": "weight_original",
-              "type": "number",
-              "required": false,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "min": 0,
-                  "max": null,
-                  "noDecimal": false
-              }
-          },
-          {
-              "system": false,
-              "id": "5fk3jxno",
-              "name": "bio",
-              "type": "bool",
-              "required": false,
-              "presentable": false,
-              "unique": false,
-              "options": {}
-          },
-          {
-              "system": false,
-              "id": "wglrbkxh",
-              "name": "pictures",
-              "type": "file",
-              "required": false,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "maxSelect": 99,
-                  "maxSize": 5242880,
-                  "mimeTypes": [],
-                  "thumbs": [],
-                  "protected": false
-              }
-          },
-          {
-              "system": false,
-              "id": "emosnv15",
-              "name": "start_date",
-              "type": "date",
-              "required": false,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "min": "",
-                  "max": ""
-              }
-          }
-      ],
-      "indexes": [],
-      "listRule": "",
-      "viewRule": "",
-      "createRule": "",
-      "updateRule": "",
-      "deleteRule": "",
-      "options": {}
-  },
-  {
-      "id": "ndwyutt6jcfhs5x",
-      "name": "wax_in_to_out",
-      "type": "base",
-      "system": false,
-      "schema": [
-          {
-              "system": false,
-              "id": "qewzlcby",
-              "name": "wax_in",
-              "type": "relation",
-              "required": true,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "collectionId": "z6h6qdj72mhgb5i",
-                  "cascadeDelete": true,
-                  "minSelect": null,
-                  "maxSelect": 1,
-                  "displayFields": null
-              }
-          },
-          {
-              "system": false,
-              "id": "fnh2jcbe",
-              "name": "weight",
-              "type": "number",
-              "required": false,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "min": null,
-                  "max": null,
-                  "noDecimal": false
-              }
-          },
-          {
-              "system": false,
-              "id": "s5smwtu7",
-              "name": "wax_out",
-              "type": "relation",
-              "required": true,
-              "presentable": false,
-              "unique": false,
-              "options": {
-                  "collectionId": "y31pnu6yoalkihu",
-                  "cascadeDelete": true,
-                  "minSelect": null,
-                  "maxSelect": 1,
-                  "displayFields": null
-              }
-          }
-      ],
-      "indexes": [],
-      "listRule": null,
-      "viewRule": null,
-      "createRule": null,
-      "updateRule": null,
-      "deleteRule": null,
-      "options": {}
-  }
+    {
+        "id": "_pb_users_auth_",
+        "name": "users",
+        "type": "auth",
+        "system": false,
+        "schema": [
+            {
+                "system": false,
+                "id": "users_name",
+                "name": "name",
+                "type": "text",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            },
+            {
+                "system": false,
+                "id": "users_avatar",
+                "name": "avatar",
+                "type": "file",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "maxSelect": 1,
+                    "maxSize": 5242880,
+                    "mimeTypes": [
+                        "image/jpeg",
+                        "image/png",
+                        "image/svg+xml",
+                        "image/gif",
+                        "image/webp"
+                    ],
+                    "thumbs": null,
+                    "protected": false
+                }
+            }
+        ],
+        "indexes": [],
+        "listRule": "id = @request.auth.id",
+        "viewRule": "id = @request.auth.id",
+        "createRule": "",
+        "updateRule": "id = @request.auth.id",
+        "deleteRule": "id = @request.auth.id",
+        "options": {
+            "allowEmailAuth": true,
+            "allowOAuth2Auth": true,
+            "allowUsernameAuth": true,
+            "exceptEmailDomains": null,
+            "manageRule": null,
+            "minPasswordLength": 8,
+            "onlyEmailDomains": null,
+            "requireEmail": false
+        }
+    },
+    {
+        "id": "y31pnu6yoalkihu",
+        "name": "wax_out",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "system": false,
+                "id": "lrftp27f",
+                "name": "number",
+                "type": "text",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            },
+            {
+                "system": false,
+                "id": "37xqddgy",
+                "name": "label",
+                "type": "text",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            },
+            {
+                "system": false,
+                "id": "0ks3aoua",
+                "name": "weight_original",
+                "type": "number",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": 0,
+                    "max": null,
+                    "noDecimal": false
+                }
+            },
+            {
+                "system": false,
+                "id": "5fk3jxno",
+                "name": "bio",
+                "type": "bool",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {}
+            },
+            {
+                "system": false,
+                "id": "wglrbkxh",
+                "name": "pictures",
+                "type": "file",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "maxSelect": 99,
+                    "maxSize": 5242880,
+                    "mimeTypes": [],
+                    "thumbs": [],
+                    "protected": false
+                }
+            },
+            {
+                "system": false,
+                "id": "emosnv15",
+                "name": "start_date",
+                "type": "date",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": "",
+                    "max": ""
+                }
+            }
+        ],
+        "indexes": [],
+        "listRule": "",
+        "viewRule": "",
+        "createRule": "",
+        "updateRule": "",
+        "deleteRule": "",
+        "options": {}
+    },
+    {
+        "id": "z6h6qdj72mhgb5i",
+        "name": "wax_in",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "system": false,
+                "id": "arcqbsev",
+                "name": "label",
+                "type": "text",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            },
+            {
+                "system": false,
+                "id": "8h5vgok1",
+                "name": "number",
+                "type": "text",
+                "required": true,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            },
+            {
+                "system": false,
+                "id": "6l2jwne8",
+                "name": "weight_original",
+                "type": "number",
+                "required": true,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": 0,
+                    "max": null,
+                    "noDecimal": false
+                }
+            },
+            {
+                "system": false,
+                "id": "myb6sa2j",
+                "name": "weight_left",
+                "type": "number",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": 0,
+                    "max": null,
+                    "noDecimal": false
+                }
+            },
+            {
+                "system": false,
+                "id": "6habjvxh",
+                "name": "entry_date",
+                "type": "date",
+                "required": true,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": "",
+                    "max": ""
+                }
+            },
+            {
+                "system": false,
+                "id": "9hmevrte",
+                "name": "bio",
+                "type": "bool",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {}
+            },
+            {
+                "system": false,
+                "id": "qydbna0d",
+                "name": "pictures",
+                "type": "file",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "maxSelect": 99,
+                    "maxSize": 5242880,
+                    "mimeTypes": [],
+                    "thumbs": [],
+                    "protected": false
+                }
+            }
+        ],
+        "indexes": [],
+        "listRule": "",
+        "viewRule": "",
+        "createRule": "",
+        "updateRule": "",
+        "deleteRule": "",
+        "options": {}
+    },
+    {
+        "id": "ndwyutt6jcfhs5x",
+        "name": "wax_in_to_out",
+        "type": "base",
+        "system": false,
+        "schema": [
+            {
+                "system": false,
+                "id": "qewzlcby",
+                "name": "wax_in",
+                "type": "relation",
+                "required": true,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "collectionId": "z6h6qdj72mhgb5i",
+                    "cascadeDelete": true,
+                    "minSelect": null,
+                    "maxSelect": 1,
+                    "displayFields": null
+                }
+            },
+            {
+                "system": false,
+                "id": "fnh2jcbe",
+                "name": "weight",
+                "type": "number",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "noDecimal": false
+                }
+            },
+            {
+                "system": false,
+                "id": "s5smwtu7",
+                "name": "wax_out",
+                "type": "relation",
+                "required": true,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "collectionId": "y31pnu6yoalkihu",
+                    "cascadeDelete": true,
+                    "minSelect": null,
+                    "maxSelect": 1,
+                    "displayFields": null
+                }
+            }
+        ],
+        "indexes": [],
+        "listRule": "",
+        "viewRule": "",
+        "createRule": "",
+        "updateRule": "",
+        "deleteRule": "",
+        "options": {}
+    }
 ]
