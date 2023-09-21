@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { useAuthentication } from '@/stores/authentication';
-import type { RecordModel } from 'pocketbase';
+import type { RecordListOptions, RecordModel } from 'pocketbase';
 
 export function useWaxInList() {
 
@@ -8,13 +8,13 @@ export function useWaxInList() {
 
     const waxInList = ref<RecordModel[]>();
 
-    async function getWaxInList() {
-        const resultList = await authentication.pb.collection('wax_in').getList(1, 50, {});
+    async function getWaxInList(options: RecordListOptions ={}) {
+        const resultList = await authentication.pb.collection('wax_in').getList(1, 50, options);
         return resultList;
     }
 
-    async function syncWaxInList() {
-        const resultList = await getWaxInList();
+    async function syncWaxInList(options: RecordListOptions ={}) {
+        const resultList = await getWaxInList(options);
         waxInList.value = resultList.items;
     }
 

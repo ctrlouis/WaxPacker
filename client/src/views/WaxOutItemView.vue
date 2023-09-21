@@ -35,6 +35,9 @@
         </q-item>
     </q-list>
 
+    <h2>Tracabilité</h2>
+    <waxOutTrace />
+
     <h2>Actions</h2>
     <q-list v-if="waxOutItem">
         <q-item clickable v-ripple dark>
@@ -73,6 +76,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useWaxOutItem } from '@/composables/useWaxOutItem';
+import waxOutTrace from '@/components/waxOutTrace.vue';
 
 const router = useRouter();
 const route = useRoute();
