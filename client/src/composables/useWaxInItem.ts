@@ -10,9 +10,17 @@ export function useWaxInItem() {
 
     const item = ref<RecordModel>();
 
+    async function get(id: string) {
+        const record = await authentication.pb.collection(collectionName).getOne(id, {});
+        return record;
+    }
+
+    async function sync(id: string) {
+        item.value = await get(id);
+    }
+
     async function create(data: {}) {
         const record = await authentication.pb.collection(collectionName).create(data);
-        console.log(record);
     }
 
     async function remove(id: string) {
@@ -21,6 +29,8 @@ export function useWaxInItem() {
 
     return {
         waxInItem: item,
+        getWaxInItem: get,
+        syncWaxInItem: sync,
         createWaxInItem: create,
         removeWaxInItem: remove,
     }

@@ -1,5 +1,5 @@
 <template>
-    <q-item clickable v-ripple>
+    <q-item clickable v-ripple @click="goItemPage">
         <q-item-section>
             {{ item.label }} - {{ item.number }}
         </q-item-section>
@@ -27,8 +27,8 @@
             </q-card-section>
 
             <q-card-actions align="right">
-                <q-btn flat label="Annuler" color="warning" @click="closeAskDelete" />
-                <q-btn label="Supprimer" color="warning" @click="onRemove" />
+                <q-btn flat label="Annuler" color="red" @click="closeAskDelete" />
+                <q-btn label="Supprimer" color="red" @click="onRemove" />
             </q-card-actions>
         </q-card>
     </q-dialog>
@@ -36,9 +36,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useWaxInItem } from '@/composables/useWaxInItem';
 
 const props = defineProps([ 'item' ]);
+
+const router = useRouter();
 
 const {
     removeWaxInItem,
@@ -57,5 +60,9 @@ function closeAskDelete() {
 function onRemove() {
     removeWaxInItem(props.item.id);
     closeAskDelete();
+}
+
+function goItemPage() {
+    router.push({ name: 'WaxInItemView', params: { id: props.item.id } });
 }
 </script>
