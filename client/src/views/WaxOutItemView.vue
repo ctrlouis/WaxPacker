@@ -36,6 +36,7 @@
     </q-list>
 
     <h2>Tracabilité</h2>
+    <waxInOutTraceTable />
     <waxInOutTraceAdd :waxOutItem="waxOutItem" @traceAdd="onTraceAdd" />
 
     <h2>Actions</h2>
@@ -77,6 +78,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 import waxInOutTraceAdd from '@/components/waxInOutTraceAdd.vue';
+import waxInOutTraceTable from '@/components/waxInOutTraceTable.vue';
 
 const router = useRouter();
 const route = useRoute();
