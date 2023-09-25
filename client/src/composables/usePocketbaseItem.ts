@@ -19,6 +19,21 @@ export function usePocketbaseItem(collectionName: string) {
 
     async function create(data: {}) {
         const record = await authentication.pb.collection(collectionName).create(data);
+        return record;
+    }
+
+    async function update(data: {}, id: string) {
+        let itemID: string;
+        if (id) {
+            itemID = id;
+        } else if (item.value) {
+            itemID = item.value.id;
+        }
+        else {
+            itemID = '';
+        }
+        const record = await authentication.pb.collection(collectionName).update(itemID, data);
+        return record;
     }
 
     async function remove(id: string) {
@@ -30,6 +45,7 @@ export function usePocketbaseItem(collectionName: string) {
         get,
         sync,
         create,
+        update,
         remove,
     }
 }
