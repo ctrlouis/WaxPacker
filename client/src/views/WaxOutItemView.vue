@@ -23,8 +23,26 @@
         </q-item>
         <q-item clickable v-ripple dark>
             <q-item-section>
+                <q-item-label>Quantité sortie</q-item-label>
+                <q-item-label caption>{{ waxOutItem.weight_out }}</q-item-label>
+            </q-item-section>
+        </q-item>
+        <q-item clickable v-ripple dark>
+            <q-item-section>
+                <q-item-label>Quantité restante</q-item-label>
+                <q-item-label caption>{{ waxOutItem.weight_out }}</q-item-label>
+            </q-item-section>
+        </q-item>
+        <q-item clickable v-ripple dark>
+            <q-item-section>
                 <q-item-label>Date de début</q-item-label>
                 <q-item-label caption>{{ waxOutItem.start_date }}</q-item-label>
+            </q-item-section>
+        </q-item>
+        <q-item clickable v-ripple dark>
+            <q-item-section>
+                <q-item-label>Type de lot</q-item-label>
+                <q-item-label caption>{{ waxPerso }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
@@ -105,6 +123,14 @@ function onRemove() {
         router.push({ name: 'WaxOutView' });
     }
 }
+
+const waxPerso = computed(() => {
+    let type = "mélange";
+    if (waxOutItem.value && waxOutItem.value.perso === true) {
+        type = 'perso'
+    }
+    return type;
+});
 
 const waxType = computed(() => {
     let type = "conventionnel";

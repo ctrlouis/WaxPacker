@@ -60,90 +60,55 @@
         }
     },
     {
-        "id": "y31pnu6yoalkihu",
-        "name": "wax_out",
+        "id": "ndwyutt6jcfhs5x",
+        "name": "wax_in_out_trace",
         "type": "base",
         "system": false,
         "schema": [
             {
                 "system": false,
-                "id": "lrftp27f",
-                "name": "number",
-                "type": "text",
-                "required": false,
+                "id": "qewzlcby",
+                "name": "wax_in",
+                "type": "relation",
+                "required": true,
                 "presentable": false,
                 "unique": false,
                 "options": {
-                    "min": null,
-                    "max": null,
-                    "pattern": ""
+                    "collectionId": "z6h6qdj72mhgb5i",
+                    "cascadeDelete": true,
+                    "minSelect": null,
+                    "maxSelect": 1,
+                    "displayFields": null
                 }
             },
             {
                 "system": false,
-                "id": "37xqddgy",
-                "name": "label",
-                "type": "text",
-                "required": false,
-                "presentable": false,
-                "unique": false,
-                "options": {
-                    "min": null,
-                    "max": null,
-                    "pattern": ""
-                }
-            },
-            {
-                "system": false,
-                "id": "0ks3aoua",
-                "name": "weight_original",
+                "id": "fnh2jcbe",
+                "name": "weight",
                 "type": "number",
                 "required": false,
                 "presentable": false,
                 "unique": false,
                 "options": {
-                    "min": 0,
+                    "min": null,
                     "max": null,
                     "noDecimal": false
                 }
             },
             {
                 "system": false,
-                "id": "5fk3jxno",
-                "name": "bio",
-                "type": "bool",
-                "required": false,
-                "presentable": false,
-                "unique": false,
-                "options": {}
-            },
-            {
-                "system": false,
-                "id": "wglrbkxh",
-                "name": "pictures",
-                "type": "file",
-                "required": false,
+                "id": "s5smwtu7",
+                "name": "wax_out",
+                "type": "relation",
+                "required": true,
                 "presentable": false,
                 "unique": false,
                 "options": {
-                    "maxSelect": 99,
-                    "maxSize": 5242880,
-                    "mimeTypes": [],
-                    "thumbs": [],
-                    "protected": false
-                }
-            },
-            {
-                "system": false,
-                "id": "emosnv15",
-                "name": "start_date",
-                "type": "date",
-                "required": false,
-                "presentable": false,
-                "unique": false,
-                "options": {
-                    "min": "",
-                    "max": ""
+                    "collectionId": "y31pnu6yoalkihu",
+                    "cascadeDelete": true,
+                    "minSelect": null,
+                    "maxSelect": 1,
+                    "displayFields": null
                 }
             }
         ],
@@ -232,6 +197,16 @@
             },
             {
                 "system": false,
+                "id": "90adbw8c",
+                "name": "perso",
+                "type": "bool",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {}
+            },
+            {
+                "system": false,
                 "id": "9hmevrte",
                 "name": "bio",
                 "type": "bool",
@@ -266,31 +241,57 @@
         "options": {}
     },
     {
-        "id": "ndwyutt6jcfhs5x",
-        "name": "wax_in_out_trace",
+        "id": "y31pnu6yoalkihu",
+        "name": "wax_out",
         "type": "base",
         "system": false,
         "schema": [
             {
                 "system": false,
-                "id": "qewzlcby",
-                "name": "wax_in",
-                "type": "relation",
-                "required": true,
+                "id": "lrftp27f",
+                "name": "number",
+                "type": "text",
+                "required": false,
                 "presentable": false,
                 "unique": false,
                 "options": {
-                    "collectionId": "z6h6qdj72mhgb5i",
-                    "cascadeDelete": true,
-                    "minSelect": null,
-                    "maxSelect": 1,
-                    "displayFields": null
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
                 }
             },
             {
                 "system": false,
-                "id": "fnh2jcbe",
-                "name": "weight",
+                "id": "37xqddgy",
+                "name": "label",
+                "type": "text",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": null,
+                    "max": null,
+                    "pattern": ""
+                }
+            },
+            {
+                "system": false,
+                "id": "0ks3aoua",
+                "name": "weight_original",
+                "type": "number",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": 0,
+                    "max": null,
+                    "noDecimal": false
+                }
+            },
+            {
+                "system": false,
+                "id": "h0x16nan",
+                "name": "weight_out",
                 "type": "number",
                 "required": false,
                 "presentable": false,
@@ -303,18 +304,51 @@
             },
             {
                 "system": false,
-                "id": "s5smwtu7",
-                "name": "wax_out",
-                "type": "relation",
-                "required": true,
+                "id": "caz61pgg",
+                "name": "perso",
+                "type": "bool",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {}
+            },
+            {
+                "system": false,
+                "id": "5fk3jxno",
+                "name": "bio",
+                "type": "bool",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {}
+            },
+            {
+                "system": false,
+                "id": "wglrbkxh",
+                "name": "pictures",
+                "type": "file",
+                "required": false,
                 "presentable": false,
                 "unique": false,
                 "options": {
-                    "collectionId": "y31pnu6yoalkihu",
-                    "cascadeDelete": true,
-                    "minSelect": null,
-                    "maxSelect": 1,
-                    "displayFields": null
+                    "maxSelect": 99,
+                    "maxSize": 5242880,
+                    "mimeTypes": [],
+                    "thumbs": [],
+                    "protected": false
+                }
+            },
+            {
+                "system": false,
+                "id": "emosnv15",
+                "name": "start_date",
+                "type": "date",
+                "required": false,
+                "presentable": false,
+                "unique": false,
+                "options": {
+                    "min": "",
+                    "max": ""
                 }
             }
         ],

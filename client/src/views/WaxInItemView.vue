@@ -35,6 +35,12 @@
         </q-item>
         <q-item clickable v-ripple dark>
             <q-item-section>
+                <q-item-label>Type de lot</q-item-label>
+                <q-item-label caption>{{ waxPerso }}</q-item-label>
+            </q-item-section>
+        </q-item>
+        <q-item clickable v-ripple dark>
+            <q-item-section>
                 <q-item-label>Type de cire</q-item-label>
                 <q-item-label caption>{{ waxType }}</q-item-label>
             </q-item-section>
@@ -109,6 +115,14 @@ function onRemove() {
         router.push({ name: 'WaxInView' });
     }
 }
+
+const waxPerso = computed(() => {
+    let type = "mélange";
+    if (waxOutItem.value && waxOutItem.value.perso === true) {
+        type = 'perso'
+    }
+    return type;
+});
 
 const waxType = computed(() => {
     let type = "conventionnel";
