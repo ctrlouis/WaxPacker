@@ -36,8 +36,8 @@
     </q-list>
 
     <h2>Tracabilité</h2>
-    <waxInOutTraceTable />
-    <waxInOutTraceAdd :waxOutItem="waxOutItem" @traceAdd="onTraceAdd" />
+    <waxInOutTraceTable v-if="waxOutItem" :waxOutItem="waxOutItem" />
+    <waxInOutTraceAdd v-if="waxOutItem" :waxOutItem="waxOutItem" @traceAdd="onTraceAdd" />
 
     <h2>Actions</h2>
     <q-list v-if="waxOutItem">

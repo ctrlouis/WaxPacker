@@ -21,6 +21,8 @@ const {
     sync: syncWaxInOuTrace,
 } = usePocketbaseList('wax_in_out_trace');
 
+const props = defineProps([ 'waxInItem', 'waxOutItem' ]);
+
 const columns = ref([
     {
         name: 'wax_in',
@@ -47,8 +49,15 @@ const columns = ref([
 
 onMounted(async () => {
     const options = {
+        filter: "",
         expand: 'wax_in,wax_out',
     };
+    console.log(props.waxOutItem.id);
+    if (props.waxInItem) {
+        options.filter = `wax_in='${props.waxInItem.id}'`;
+    } else if (props.waxOutItem) {
+        options.filter = `wax_out='${props.waxOutItem.id}'`;
+    }
     await syncWaxInOuTrace(options);
 })
 </script>
