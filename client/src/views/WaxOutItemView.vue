@@ -36,7 +36,7 @@
     </q-list>
 
     <h2>Tracabilité</h2>
-    <waxOutTrace />
+    <waxInOutTraceAdd :waxOutItem="waxOutItem" @traceAdd="onTraceAdd" />
 
     <h2>Actions</h2>
     <q-list v-if="waxOutItem">
@@ -76,7 +76,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useWaxOutItem } from '@/composables/useWaxOutItem';
-import waxOutTrace from '@/components/waxOutTrace.vue';
+import waxInOutTraceAdd from '@/components/waxInOutTraceAdd.vue';
 
 const router = useRouter();
 const route = useRoute();
@@ -111,6 +111,10 @@ const waxType = computed(() => {
     }
     return type;
 });
+
+function onTraceAdd() {
+    
+}
 
 onMounted(async () => {
     await syncWaxOutItem(id.value);

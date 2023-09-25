@@ -10,16 +10,9 @@
             <q-card-section class="q-pt-none">
                 <q-select
                     dark
-                    filled
-                    v-model="newTrace"
-                    use-input
-                    hide-selected
-                    fill-input
-                    input-debounce="0"
+                    v-model="waxInSelected"
+                    label="Lot d'entrée"
                     :options="selectOptions"
-                    @filter="filterFn"
-                    hint="Basic filtering"
-                    style="width: 250px; padding-bottom: 32px"
                 >
                     <template v-slot:no-option>
                         <q-item>
@@ -29,33 +22,48 @@
                         </q-item>
                     </template>
                 </q-select>
-                {{ selectOptions }}
+                <q-input v-if="waxInSelected" v-model="weight" dark type="number" min="0" :max="waxInSelected.weight_left" />
+                {{  waxInSelected  }}
             </q-card-section>
 
             <q-card-actions align="right">
                 <q-btn flat label="Annuler" color="primary" @click="close" />
-                <q-btn label="Ajouter" color="primary" @click="onAdd" />
+                <q-btn label="Ajouter" color="primary" @click="onCreate" />
             </q-card-actions>
         </q-card>
     </q-dialog>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, toValue } from 'vue';
+import { ref, computed } from 'vue';
 import type { RecordModel } from 'pocketbase';
 import { useWaxInList } from '@/composables/useWaxInList';
+import { useWaxInOutTrace } from '@/composables/useWaxInOutTrace';
+
+interface SelectRecordModel {
+    label: string,
+    value: RecordModel,
+}
+
+const props = defineProps([ 'waxOutItem' ]);
+const emit = defineEmits([ 'traceAdd' ]);
 
 const {
     waxInList,
     syncWaxInList,
 } = useWaxInList();
 
+const {
+    createWaxInOutTrace,
+} = useWaxInOutTrace();
+
 const show = ref(false);
-const newTrace = ref<RecordModel>();
-const traceFilter = ref("");
+const waxInSelected = ref<SelectRecordModel|null>();
+const weight = ref(0);
 
 function open() {
     show.value = true;
+    waxInSelected.value = null;
     const options = {
         filter: "weight_left > 0",
     }
@@ -66,21 +74,30 @@ function close() {
     show.value = false;
 }
 
-function onAdd() {
-    // do something
-}
-
-function filterFn(val: string, update: Function) {
-    update(() => {
-        traceFilter.value = val.toLowerCase();
-    });
+async function onCreate() {
+    if (waxInSelected.value) {
+        console.log(waxInSelected);
+        
+        const data = {
+            wax_in: waxInSelected.value.value.id,
+            weight: weight.value,
+            wax_out: props.waxOutItem.id,
+        }
+        try {
+            await createWaxInOutTrace(data);
+            show.value = false;
+            emit('traceAdd');
+        } catch(error) {
+            console.error(error.message);
+            alert(error.message);
+        }
+    }
 }
 
 const selectOptions = computed(() => {
     let options: any[] = [];
     if (waxInList.value) {
-        options = waxInList.value.filter(item => item.number.toLowerCase().indexOf(traceFilter.value) > -1);
-        options = options.map((item: RecordModel) => {
+        options = waxInList.value.map((item: RecordModel) => {
             return { label: item.number, value: item }
         });
     }
