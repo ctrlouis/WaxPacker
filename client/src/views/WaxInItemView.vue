@@ -41,6 +41,9 @@
         </q-item>
     </q-list>
 
+    <h2>Tracabilité</h2>
+    <waxInOutTraceTable v-if="waxInItem" :waxInItem="waxInItem" />
+
     <h2>Actions</h2>
     <q-list v-if="waxInItem">
         <q-item clickable v-ripple dark>
@@ -79,7 +82,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
-
+import waxInOutTraceTable from '@/components/waxInOutTraceTable.vue';
 
 const router = useRouter();
 const route = useRoute();
