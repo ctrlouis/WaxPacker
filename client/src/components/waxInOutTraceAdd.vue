@@ -38,7 +38,7 @@
 import { ref, computed } from 'vue';
 import type { RecordModel } from 'pocketbase';
 import { usePocketbaseList } from '@/composables/usePocketbaseList';
-import { useWaxInOutTrace } from '@/composables/useWaxInOutTrace';
+import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 
 interface SelectRecordModel {
     label: string,
@@ -54,8 +54,8 @@ const {
 } = usePocketbaseList('wax_in');
 
 const {
-    createWaxInOutTrace,
-} = useWaxInOutTrace();
+    create: createWaxInOutTrace,
+} = usePocketbaseItem('wax_in_out_trace');
 
 const show = ref(false);
 const waxInSelected = ref<SelectRecordModel|null>();
