@@ -267,7 +267,7 @@
     },
     {
         "id": "ndwyutt6jcfhs5x",
-        "name": "wax_in_to_out",
+        "name": "wax_in_out_trace",
         "type": "base",
         "system": false,
         "schema": [
