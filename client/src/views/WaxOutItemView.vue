@@ -37,7 +37,7 @@
 
     <h2>Tracabilité</h2>
     <waxInOutTraceTable v-if="waxOutItem" :waxOutItem="waxOutItem" />
-    <waxInOutTraceAdd v-if="waxOutItem" :waxOutItem="waxOutItem" @traceAdd="onTraceAdd" />
+    <waxInOutTraceAdd v-if="waxOutItem" :waxOutItem="waxOutItem" />
 
     <h2>Actions</h2>
     <q-list v-if="waxOutItem">
@@ -113,10 +113,6 @@ const waxType = computed(() => {
     }
     return type;
 });
-
-function onTraceAdd() {
-    
-}
 
 onMounted(async () => {
     await syncWaxOutItem(id.value);
