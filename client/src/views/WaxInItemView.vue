@@ -118,7 +118,7 @@ function onRemove() {
 
 const waxPerso = computed(() => {
     let type = "mélange";
-    if (waxOutItem.value && waxOutItem.value.perso === true) {
+    if (waxInItem.value && waxInItem.value.perso === true) {
         type = 'perso'
     }
     return type;
