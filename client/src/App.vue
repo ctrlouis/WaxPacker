@@ -19,6 +19,9 @@ import { RouterLink, RouterView } from 'vue-router';
         <RouterLink to="/w/out">
             <q-btn flat round icon="output" /> <div class="font-bold">Sorties</div>
         </RouterLink>
+        <RouterLink to="/t">
+            <q-btn flat round icon="person" /> <div class="font-bold">Tiers</div>
+        </RouterLink>
     </nav>
 </template>
 

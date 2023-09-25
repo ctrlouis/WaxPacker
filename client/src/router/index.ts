@@ -10,6 +10,9 @@ import WaxOutView from '../views/WaxOutView.vue';
 import WaxOutItemView from '../views/WaxOutItemView.vue';
 import WaxOutCreateView from '../views/WaxOutCreateView.vue';
 
+import ThirdPartiesView from '../views/ThirdPartiesView.vue';
+import ThirdPartiesCreateView from '../views/ThirdPartiesCreateView.vue';
+
 import { useAuthentication } from '@/stores/authentication';
 
 const router = createRouter({
@@ -54,6 +57,16 @@ const router = createRouter({
             path: '/w/out/:id',
             name: 'WaxOutItemView',
             component: WaxOutItemView,
+        },
+        {
+            path: '/t',
+            name: 'ThirdPartiesView',
+            component: ThirdPartiesView,
+        },
+        {
+            path: '/t/new',
+            name: 'ThirdPartiesCreateView',
+            component: ThirdPartiesCreateView,
         },
     ],
 });
