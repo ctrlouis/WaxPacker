@@ -37,7 +37,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import type { RecordModel } from 'pocketbase';
-import { useWaxInList } from '@/composables/useWaxInList';
+import { usePocketbaseList } from '@/composables/usePocketbaseList';
 import { useWaxInOutTrace } from '@/composables/useWaxInOutTrace';
 
 interface SelectRecordModel {
@@ -49,9 +49,9 @@ const props = defineProps([ 'waxOutItem' ]);
 const emit = defineEmits([ 'traceAdd' ]);
 
 const {
-    waxInList,
-    syncWaxInList,
-} = useWaxInList();
+    list: waxInList,
+    sync: syncWaxInList,
+} = usePocketbaseList('wax_in');
 
 const {
     createWaxInOutTrace,
