@@ -23,6 +23,12 @@
         </q-item>
         <q-item clickable v-ripple dark>
             <q-item-section>
+                <q-item-label>Quantité restante</q-item-label>
+                <q-item-label caption>{{ waxInItem.weight_left }}</q-item-label>
+            </q-item-section>
+        </q-item>
+        <q-item clickable v-ripple dark>
+            <q-item-section>
                 <q-item-label>Date d'entrée</q-item-label>
                 <q-item-label caption>{{ waxInItem.entry_date }}</q-item-label>
             </q-item-section>
