@@ -23,7 +23,7 @@
             </q-card-section>
 
             <q-card-section class="q-pt-none">
-                <p>Etes vous sur de vouloir supprimer le lot d'entrée {{ item.label }} - {{ item.number }} ?</p>
+                <p>Etes vous sur de vouloir supprimer le lot {{ item.label }} - {{ item.number }} ?</p>
             </q-card-section>
 
             <q-card-actions align="right">
@@ -47,6 +47,10 @@ const {
     remove: removeWaxInItem,
 } = usePocketbaseItem('wax_in');
 
+const {
+    remove: removeWaxOutItem,
+} = usePocketbaseItem('wax_out');
+
 const removeAlert = ref(false);
 function askDelete(event: Event) {
     event.stopPropagation();
@@ -56,7 +60,11 @@ function closeAskDelete() {
     removeAlert.value = false;
 }
 function onRemove() {
-    removeWaxInItem(props.item.id);
+    if (props.type === 'in') {
+        removeWaxInItem(props.item.id);
+    } else if (props.type === 'out') {
+        removeWaxOutItem(props.item.id);
+    }
     closeAskDelete();
 }
 

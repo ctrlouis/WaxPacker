@@ -75,7 +75,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { useWaxOutItem } from '@/composables/useWaxOutItem';
+import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 import waxInOutTraceAdd from '@/components/waxInOutTraceAdd.vue';
 
 const router = useRouter();
@@ -83,10 +83,10 @@ const route = useRoute();
 const id = ref(String(route.params.id));
 
 const {
-    waxOutItem,
-    syncWaxOutItem,
-    removeWaxOutItem,
-} = useWaxOutItem();
+    item: waxOutItem,
+    sync: syncWaxOutItem,
+    remove: removeWaxOutItem,
+} = usePocketbaseItem('wax_out');
 
 const removeAlert = ref(false);
 function askDelete(event: Event) {
