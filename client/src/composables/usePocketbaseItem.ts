@@ -2,9 +2,7 @@ import { ref } from 'vue';
 import { useAuthentication } from '@/stores/authentication';
 import type { RecordModel } from 'pocketbase';
 
-const collectionName = 'wax_in';
-
-export function useWaxInItem() {
+export function usePocketbaseItem(collectionName: string) {
 
     const authentication = useAuthentication();
 
@@ -28,10 +26,10 @@ export function useWaxInItem() {
     }
 
     return {
-        waxInItem: item,
-        getWaxInItem: get,
-        syncWaxInItem: sync,
-        createWaxInItem: create,
-        removeWaxInItem: remove,
+        item,
+        get,
+        sync,
+        create,
+        remove,
     }
 }

@@ -37,15 +37,15 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useWaxInItem } from '@/composables/useWaxInItem';
+import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 
 const props = defineProps([ 'type', 'item' ]);
 
 const router = useRouter();
 
 const {
-    removeWaxInItem,
-} = useWaxInItem();
+    remove: removeWaxInItem,
+} = usePocketbaseItem('wax_in');
 
 const removeAlert = ref(false);
 function askDelete(event: Event) {

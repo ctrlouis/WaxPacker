@@ -12,12 +12,12 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { DateTime } from 'luxon';
-import { useWaxInItem } from '@/composables/useWaxInItem';
+import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 
 const router = useRouter();
 const {
-    createWaxInItem,
-} = useWaxInItem();
+    create: createWaxInItem,
+} = usePocketbaseItem('wax_in');
 
 const number = ref(defaultNumber());
 const label = ref("");

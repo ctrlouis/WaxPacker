@@ -72,17 +72,18 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { useWaxInItem } from '@/composables/useWaxInItem';
+import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
+
 
 const router = useRouter();
 const route = useRoute();
 const id = ref(String(route.params.id));
 
 const {
-    waxInItem,
-    syncWaxInItem,
-    removeWaxInItem,
-} = useWaxInItem();
+    item: waxInItem,
+    sync: syncWaxInItem,
+    remove: removeWaxInItem,
+} = usePocketbaseItem('wax_in');
 
 const removeAlert = ref(false);
 function askDelete(event: Event) {
