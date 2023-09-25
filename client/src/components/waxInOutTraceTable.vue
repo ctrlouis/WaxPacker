@@ -52,7 +52,6 @@ onMounted(async () => {
         filter: "",
         expand: 'wax_in,wax_out',
     };
-    console.log(props.waxOutItem.id);
     if (props.waxInItem) {
         options.filter = `wax_in='${props.waxInItem.id}'`;
     } else if (props.waxOutItem) {
