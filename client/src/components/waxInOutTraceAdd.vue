@@ -22,8 +22,7 @@
                         </q-item>
                     </template>
                 </q-select>
-                <q-input v-if="waxInSelected" v-model="weight" dark type="number" min="0" :max="waxInSelected.weight_left" />
-                {{  waxInSelected  }}
+                <q-input v-if="waxInSelected" v-model="weight" dark type="number" min="0" :max="waxInSelected.value.weight_left" />
             </q-card-section>
 
             <q-card-actions align="right">
