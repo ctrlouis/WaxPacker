@@ -34,6 +34,7 @@ async function onCreate() {
         number: number.value,
         label: label.value,
         weight_original: weightOriginal.value,
+        weight_left: weightOriginal.value,
         entry_date: entryDate.value,
         bio: bio.value,
     }
