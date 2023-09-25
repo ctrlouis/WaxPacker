@@ -8,13 +8,13 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { useWaxOutList } from '@/composables/useWaxOutList';
+import { usePocketbaseList } from '@/composables/usePocketbaseList';
 import waxList from '@/components/waxList.vue';
 
 const { 
-    waxOutList,
-    syncWaxOutList,
-} = useWaxOutList();
+    list: waxOutList,
+    sync: syncWaxOutList,
+} = usePocketbaseList('wax_out');
 
 const waxType = 'out';
 
