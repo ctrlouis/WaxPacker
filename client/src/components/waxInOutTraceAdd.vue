@@ -53,6 +53,10 @@ const {
 } = usePocketbaseList('wax_in');
 
 const {
+    update: updateWaxInItem,
+} = usePocketbaseItem('wax_in');
+
+const {
     create: createWaxInOutTrace,
 } = usePocketbaseItem('wax_in_out_trace');
 
@@ -75,15 +79,18 @@ function close() {
 
 async function onCreate() {
     if (waxInSelected.value) {
-        console.log(waxInSelected);
-        
-        const data = {
-            wax_in: waxInSelected.value.value.id,
-            weight: weight.value,
-            wax_out: props.waxOutItem.id,
-        }
         try {
-            await createWaxInOutTrace(data);
+            if (weight > waxInSelected.value.value.weight_left) throw new Error(`La quantité utilisé ne peut pas être supérieur à la quantité restante du lot d'entrée`);
+            const createTraceData = {
+                wax_in: waxInSelected.value.value.id,
+                weight: weight.value,
+                wax_out: props.waxOutItem.id,
+            }
+            const updateWaxInData = {
+                weight_left: waxInSelected.value.value.weight_left - weight.value,
+            }
+            await createWaxInOutTrace(createTraceData);
+            await updateWaxInItem(updateWaxInData, waxInSelected.value.value.id);
             show.value = false;
             emit('traceAdd');
         } catch(error) {
