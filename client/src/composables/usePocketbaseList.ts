@@ -1,6 +1,11 @@
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useAuthentication } from '@/stores/authentication';
 import type { RecordListOptions, RecordModel } from 'pocketbase';
+
+interface option {
+    label: string,
+    value: RecordModel,
+}
 
 export function usePocketbaseList(collectionName: string) {
 
@@ -34,11 +39,24 @@ export function usePocketbaseList(collectionName: string) {
     //     }
     // }
 
+    const generateListAsOptions = (labelField: string) => {
+        return computed(() => {
+            let options: option[] = [];
+            if (list.value) {
+                options = list.value.map((item: RecordModel) => {
+                    return { label: item[labelField], value: item }
+                });
+            }
+            return options;
+        });
+    }
+
     return {
         list,
         get,
         sync,
         // subscribe,
         // unsubscribe,
+        generateListAsOptions,
     }
 }
