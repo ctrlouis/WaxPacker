@@ -2,7 +2,7 @@
      <q-table
         flat
         bordered
-        :columns!="columns"
+        :columns="columns"
         :rows="waxInOuTrace"
         row-key="name"
         dark
@@ -28,25 +28,21 @@ const columns = ref([
         name: 'wax_in',
         label: "Lot d'entrée",
         align: 'center',
-        field: (row: RecordModel) => {
-            if (row && row.expand) row.expand.wax_in.number
-        },
+        field: (row: any) =>  row.expand.wax_in.number,
         sortable: true,
     },
     {
         name: 'weight',
-        label: "Poids initial (kg)",
+        label: "Poids (kg)",
         align: 'center',
-        field: (row: RecordModel) => row.weight,
+        field: (row: any) => row.weight,
         sortable: true,
     },
     {
         name: 'wax_out',
         label: "Lot de sortie",
         align: 'center',
-        field: (row: RecordModel) => {
-            if (row && row.expand) row.expand.wax_out.number;
-        },
+        field: (row: any) => row.expand.wax_out.number,
         sortable: true,
     },
 ]);
