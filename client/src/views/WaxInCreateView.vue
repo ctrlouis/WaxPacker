@@ -1,11 +1,12 @@
 <template>
-    <h1>Ajouter un lot d'entré</h1>
+    <h1>Ajouter un lot d'entrée</h1>
     <q-input v-model="number" dark standout label="Numéro de lot" required />
     <q-input v-model="label" dark standout label="Nom" />
     <q-input v-model="weightOriginal" dark standout label="Quantité (Kg)" type="number" min="0" />
     <q-input v-model="entryDate" dark standout label="Date d'entrée" type="date" />
     <q-toggle v-model="perso" color="green" label="Lot perso" />
     <q-toggle v-model="bio" color="green" label="Bio" />
+    <ThirdPartiesSelect v-model="thirdPartieSelected" />
     <q-btn label="Ajouter" color="orange" @click="onCreate" />
 </template>
 
@@ -14,6 +15,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { DateTime } from 'luxon';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
+import ThirdPartiesSelect from '@/components/thirdPartiesSelect.vue';
 
 const router = useRouter();
 const {
@@ -26,6 +28,7 @@ const weightOriginal = ref(0);
 const entryDate = ref(DateTime.now().toFormat('yyyy-MM-dd'));
 const perso = ref(false);
 const bio = ref(false);
+const thirdPartieSelected = ref();
 
 function defaultNumber() {
     return `EC-${DateTime.now().toFormat('yyMMdd')}`;
@@ -40,6 +43,7 @@ async function onCreate() {
         entry_date: entryDate.value,
         perso: perso.value,
         bio: bio.value,
+        third_partie: thirdPartieSelected.value.value.id
     }
     try {
         await createWaxInItem(data);
@@ -51,5 +55,4 @@ async function onCreate() {
         }
     }
 }
-
 </script>
