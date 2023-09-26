@@ -47,9 +47,11 @@ async function onCreate() {
     try {
         await createThirdPartiesItem(data);
         router.push({ name: 'ThirdPartiesView' });
-    } catch(error) {
-        console.error(error.message);
-        alert(error.message);
+    } catch(error: any) {
+        if (error && error.message) {
+            console.error(error.message);
+            alert(error.message);
+        }
     }
 }
 

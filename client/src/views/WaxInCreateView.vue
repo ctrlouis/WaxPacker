@@ -41,9 +41,11 @@ async function onCreate() {
     try {
         await createWaxInItem(data);
         router.push({ name: 'WaxInView' });
-    } catch(error) {
-        console.error(error.message);
-        alert(error.message);
+    } catch(error: any) {
+        if (error && error.message) {
+            console.error(error.message);
+            alert(error.message);
+        }
     }
 }
 

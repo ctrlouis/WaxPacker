@@ -93,9 +93,11 @@ async function onCreate() {
             await updateWaxInItem(updateWaxInData, waxInSelected.value.value.id);
             show.value = false;
             emit('traceAdd');
-        } catch(error) {
-            console.error(error.message);
-            alert(error.message);
+        } catch(error: any) {
+            if (error && error.message) {
+                console.error(error.message);
+                alert(error.message);
+            }
         }
     }
 }

@@ -79,7 +79,7 @@
                 <div class="text-h6">Suppression</div>
             </q-card-section>
 
-            <q-card-section class="q-pt-none">
+            <q-card-section v-if="waxOutItem" class="q-pt-none">
                 <p>Etes vous sur de vouloir supprimer le lot d'entrée {{ waxOutItem.label }} - {{ waxOutItem.number }} ?</p>
             </q-card-section>
 

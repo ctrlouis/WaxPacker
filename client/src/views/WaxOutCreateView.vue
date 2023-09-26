@@ -40,9 +40,11 @@ async function onCreate() {
     try {
         await createWaxOutItem(data);
         router.push({ name: 'WaxOutView' });
-    } catch(error) {
-        console.error(error.message);
-        alert(error.message);
+    } catch(error: any) {
+        if (error && error.message) {
+            console.error(error.message);
+            alert(error.message);
+        }
     }
 }
 
