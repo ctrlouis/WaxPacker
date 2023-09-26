@@ -15,6 +15,11 @@ list:
 	@printf "$(bold)build_docker_image$(grey) - Build docker image\n$(normal)"
 	@printf "$(bold)build_docker_image_alpine$(grey) - Build docker image alpine\n$(normal)"
 
+init: copy_sample npm_install
+
+copy_sample:
+	cp ./client/.env.local.example ./client/.env.local
+
 npm_install:
 	docker run -it --rm -v ${PWD}/client:/app -w /app node:$(node_version) npm install
 
