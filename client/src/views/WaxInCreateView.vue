@@ -4,6 +4,7 @@
     <q-input v-model="label" dark standout label="Nom" />
     <q-input v-model="weightOriginal" dark standout label="Quantité (Kg)" type="number" min="0" />
     <q-input v-model="entryDate" dark standout label="Date d'entrée" type="date" />
+    <q-toggle v-model="perso" color="green" label="Lot perso" />
     <q-toggle v-model="bio" color="green" label="Bio" />
     <q-btn label="Ajouter" color="orange" @click="onCreate" />
 </template>
@@ -23,6 +24,7 @@ const number = ref(defaultNumber());
 const label = ref("");
 const weightOriginal = ref(0);
 const entryDate = ref(DateTime.now().toFormat('yyyy-MM-dd'));
+const perso = ref(false);
 const bio = ref(false);
 
 function defaultNumber() {
@@ -36,6 +38,7 @@ async function onCreate() {
         weight_original: weightOriginal.value,
         weight_left: weightOriginal.value,
         entry_date: entryDate.value,
+        perso: perso.value,
         bio: bio.value,
     }
     try {
