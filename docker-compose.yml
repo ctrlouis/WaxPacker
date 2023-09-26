@@ -12,7 +12,7 @@ services:
         command: ["npm", "run", "dev"]
 
     pocketbase:
-        image: ctrlouis/pocketbase:0.18.6
+        image: ctrlouis/pocketbase:0.18.8
         container_name: waxpacker_pocketbase
         ports:
             - 8080:8080
