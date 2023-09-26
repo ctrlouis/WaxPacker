@@ -12,7 +12,7 @@
                     dark
                     v-model="waxInSelected"
                     label="Lot d'entrée"
-                    :options="selectOptions"
+                    :options="selectWaxInOptions"
                 >
                     <template v-slot:no-option>
                         <q-item>
@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import type { RecordModel } from 'pocketbase';
 import { usePocketbaseList } from '@/composables/usePocketbaseList';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
@@ -50,6 +50,7 @@ const emit = defineEmits([ 'traceAdd' ]);
 const {
     list: waxInList,
     sync: syncWaxInList,
+    generateListAsOptions: generateselectWaxInAsOptions,
 } = usePocketbaseList('wax_in');
 
 const {
@@ -64,13 +65,13 @@ const show = ref(false);
 const waxInSelected = ref<SelectRecordModel|null>();
 const weight = ref(0);
 
-function open() {
+async function open() {
     show.value = true;
     waxInSelected.value = null;
     const options = {
         filter: "weight_left > 0",
     }
-    syncWaxInList(options);
+    await syncWaxInList(options);
 }
 
 function close() {
@@ -102,13 +103,5 @@ async function onCreate() {
     }
 }
 
-const selectOptions = computed(() => {
-    let options: any[] = [];
-    if (waxInList.value) {
-        options = waxInList.value.map((item: RecordModel) => {
-            return { label: item.number, value: item }
-        });
-    }
-    return options;
-});
+const selectWaxInOptions = generateselectWaxInAsOptions('number');
 </script>
