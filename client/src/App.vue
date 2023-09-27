@@ -1,29 +1,55 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
-</script>
-
 <template>
-    <header>
-        
-    </header>
+  <!-- <div class="q-pa-md"> -->
+    <q-layout view="hHh Lpr lff" container class="shadow-2 rounded-borders">
+        <q-header elevated :class="$q.dark.isActive ? 'bg-secondary' : 'bg-black'">
+            <q-toolbar>
+                <q-btn flat round dense icon="menu" @click="toggleDrawer" />
+                <q-toolbar-title>Header</q-toolbar-title>
+            </q-toolbar>
+        </q-header>
 
-    <RouterView />
+        <q-drawer
+            v-model="drawer"
+            dark
+            show-if-above
+            :width="200"
+            :breakpoint="700"
+            elevated
+        >
+            <q-scroll-area class="fit">
+                <RouterLink to="/" class="flex row align-item">
+                    <q-btn flat round icon="home" /> <div class="font-bold">Acceuil</div>
+                </RouterLink>
+                <RouterLink to="/w/in">
+                    <q-btn flat round icon="input" /> <div class="font-bold">Entrés</div>
+                </RouterLink>
+                <RouterLink to="/w/out">
+                    <q-btn flat round icon="output" /> <div class="font-bold">Sorties</div>
+                </RouterLink>
+                <RouterLink to="/t">
+                    <q-btn flat round icon="person" /> <div class="font-bold">Tiers</div>
+                </RouterLink>
+            </q-scroll-area>
+        </q-drawer>
 
-    <nav>
-        <RouterLink to="/">
-            <q-btn flat round icon="home" /> <div class="font-bold">Acceuil</div>
-        </RouterLink>
-        <RouterLink to="/w/in">
-            <q-btn flat round icon="input" /> <div class="font-bold">Entrés</div>
-        </RouterLink>
-        <RouterLink to="/w/out">
-            <q-btn flat round icon="output" /> <div class="font-bold">Sorties</div>
-        </RouterLink>
-        <RouterLink to="/t">
-            <q-btn flat round icon="person" /> <div class="font-bold">Tiers</div>
-        </RouterLink>
-    </nav>
+        <q-page-container>
+            <q-page padding>
+                <RouterView />
+            </q-page>
+        </q-page-container>
+    </q-layout>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import { RouterLink, RouterView } from 'vue-router';
+
+const drawer = ref(false);
+
+function toggleDrawer() {
+    drawer.value = !drawer.value;
+}
+</script>
 
 <style scoped>
 header {
