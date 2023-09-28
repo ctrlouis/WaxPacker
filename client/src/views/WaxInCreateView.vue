@@ -33,7 +33,7 @@ const {
 const number = ref(defaultNumber());
 const label = ref("");
 const weightOriginal = ref(0);
-const entryDate = ref(DateTime.now().toFormat('yyyy-MM-dd'));
+const entryDate = ref();
 const perso = ref(false);
 const bio = ref(false);
 const thirdPartieSelected = ref();
@@ -50,7 +50,17 @@ function initEdit() {
         entryDate.value = waxInItem.value.entry_date;
         perso.value = waxInItem.value.perso;
         bio.value = waxInItem.value.bio;
+        initDate();
     }
+}
+
+function initDate() {
+    const format = ('yyyy-MM-dd');
+    let date = DateTime.now().toFormat(format);
+    if (waxInItem.value) {
+        date = DateTime.fromSQL(waxInItem.value.entry_date).toFormat(format);
+    }
+    entryDate.value = date;
 }
 
 async function onCreate() {
@@ -109,6 +119,7 @@ const mode = computed(() => {
 });
 
 onMounted(async () => {
+    initDate();
     if (mode.value === 'edit') {
         await syncWaxInItem(id.value);
         initEdit();
