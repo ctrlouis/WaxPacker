@@ -17,17 +17,17 @@
             elevated
         >
             <q-scroll-area class="fit">
-                <RouterLink to="/" class="flex row align-item">
-                    <q-btn flat round icon="home" /> <div class="font-bold">Acceuil</div>
+                <RouterLink to="/">
+                    <q-btn class="my-2" flat rounded icon="home" label="Acceuil" />
                 </RouterLink>
                 <RouterLink to="/w/in">
-                    <q-btn flat round icon="input" /> <div class="font-bold">Entrés</div>
+                    <q-btn class="my-2" flat rounded icon="input" label="Entrés" />
                 </RouterLink>
                 <RouterLink to="/w/out">
-                    <q-btn flat round icon="output" /> <div class="font-bold">Sorties</div>
+                    <q-btn class="my-2" flat rounded icon="output" label="Sorties" />
                 </RouterLink>
                 <RouterLink to="/t">
-                    <q-btn flat round icon="person" /> <div class="font-bold">Tiers</div>
+                    <q-btn class="my-2" flat rounded icon="person" label="Tiers" />
                 </RouterLink>
             </q-scroll-area>
         </q-drawer>
