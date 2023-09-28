@@ -23,6 +23,21 @@
                     </template>
                 </q-select>
                 <q-input v-if="waxInSelected" v-model="weight" dark type="number" min="0" :max="waxInSelected.value.weight_left" />
+                <q-select
+                    v-if="waxInSelected"
+                    dark
+                    v-model="thirdPartiesSelected"
+                    label="Lot d'entrée"
+                    :options="selectThirdPartiesOptions"
+                >
+                    <template v-slot:no-option>
+                        <q-item>
+                            <q-item-section class="text-grey">
+                            Aucuns resultats
+                            </q-item-section>
+                        </q-item>
+                    </template>
+                </q-select>
             </q-card-section>
 
             <q-card-actions align="right">
@@ -54,6 +69,12 @@ const {
 } = usePocketbaseList('wax_in');
 
 const {
+    list: thirdPartiesList,
+    sync: syncThirdPartiesList,
+    generateListAsOptions: generateThirdPartiesListAsOptions,
+} = usePocketbaseList('third_parties');
+
+const {
     update: updateWaxInItem,
 } = usePocketbaseItem('wax_in');
 
@@ -63,6 +84,7 @@ const {
 
 const show = ref(false);
 const waxInSelected = ref<SelectRecordModel|null>();
+const thirdPartiesSelected = ref<SelectRecordModel|null>();
 const weight = ref(0);
 
 async function open() {
@@ -72,6 +94,7 @@ async function open() {
         filter: "weight_left > 0",
     }
     await syncWaxInList(options);
+    await syncThirdPartiesList();
 }
 
 function close() {
@@ -104,4 +127,5 @@ async function onCreate() {
 }
 
 const selectWaxInOptions = generateselectWaxInAsOptions('number');
+const selectThirdPartiesOptions = generateThirdPartiesListAsOptions('name');
 </script>

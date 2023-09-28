@@ -44,6 +44,11 @@ const router = createRouter({
             component: WaxInItemView,
         },
         {
+            path: '/w/in/:id/edit',
+            name: 'WaxInEditView',
+            component: WaxInCreateView,
+        },
+        {
             path: '/w/out',
             name: 'WaxOutView',
             component: WaxOutView,

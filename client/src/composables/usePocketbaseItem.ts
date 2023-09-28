@@ -22,15 +22,14 @@ export function usePocketbaseItem(collectionName: string) {
         return record;
     }
 
-    async function update(data: {}, id: string) {
+    async function update(data: {}, id: string|null =null) {
         let itemID: string;
         if (id) {
             itemID = id;
         } else if (item.value) {
             itemID = item.value.id;
-        }
-        else {
-            itemID = '';
+        } else {
+            throw new Error("No ID provided for update");
         }
         const record = await authentication.pb.collection(collectionName).update(itemID, data);
         return record;

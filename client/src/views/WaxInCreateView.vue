@@ -1,5 +1,6 @@
 <template>
-    <h1>Ajouter un lot d'entrée</h1>
+    <h1 v-if="mode === 'create'">Ajouter un lot d'entrée</h1>
+    <h1 v-if="mode === 'edit'">Modifier un lot d'entrée</h1>
     <q-input v-model="number" dark standout label="Numéro de lot" required />
     <q-input v-model="label" dark standout label="Nom" />
     <q-input v-model="weightOriginal" dark standout label="Quantité (Kg)" type="number" min="0" />
@@ -7,19 +8,26 @@
     <q-toggle v-model="perso" color="green" label="Lot perso" />
     <q-toggle v-model="bio" color="green" label="Bio" />
     <ThirdPartiesSelect v-model="thirdPartieSelected" />
-    <q-btn label="Ajouter" color="orange" @click="onCreate" />
+    <q-btn v-if="mode === 'create'" label="Ajouter" color="orange" @click="onCreate" />
+    <q-btn v-if="mode === 'edit'" label="Modifier" color="orange" @click="onEdit" />
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { DateTime } from 'luxon';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 import ThirdPartiesSelect from '@/components/thirdPartiesSelect.vue';
 
+const route = useRoute();
 const router = useRouter();
+const id = ref(String(route.params.id));
+
 const {
+    item: waxInItem,
+    sync: syncWaxInItem,
     create: createWaxInItem,
+    update: updateWaxInItem,
 } = usePocketbaseItem('wax_in');
 
 const number = ref(defaultNumber());
@@ -34,18 +42,29 @@ function defaultNumber() {
     return `EC-${DateTime.now().toFormat('yyMMdd')}`;
 }
 
-async function onCreate() {
-    const data = {
-        number: number.value,
-        label: label.value,
-        weight_original: weightOriginal.value,
-        weight_left: weightOriginal.value,
-        entry_date: entryDate.value,
-        perso: perso.value,
-        bio: bio.value,
-        third_partie: thirdPartieSelected.value.value.id
+function initEdit() {
+    if (waxInItem.value) {
+        number.value = waxInItem.value.number;
+        label.value = waxInItem.value.label;
+        weightOriginal.value = waxInItem.value.weight_original;
+        entryDate.value = waxInItem.value.entry_date;
+        perso.value = waxInItem.value.perso;
+        bio.value = waxInItem.value.bio;
     }
+}
+
+async function onCreate() {
     try {
+        const data = {
+            number: number.value,
+            label: label.value,
+            weight_original: weightOriginal.value,
+            weight_left: weightOriginal.value,
+            entry_date: entryDate.value,
+            perso: perso.value,
+            bio: bio.value,
+            third_partie: thirdPartieSelected.value.value.id
+        }
         await createWaxInItem(data);
         router.push({ name: 'WaxInView' });
     } catch(error: any) {
@@ -55,4 +74,44 @@ async function onCreate() {
         }
     }
 }
+
+async function onEdit() {
+    try {
+        if (!waxInItem.value) throw new Error("Aucuns lot d'entrée trouvé");
+        const data: any = {};
+        if (number.value !== waxInItem.value.number) data.number = number.value;
+        if (label.value !== waxInItem.value.label) data.label = label.value;
+        if (weightOriginal.value !== waxInItem.value.weight_original) data.weight_original = weightOriginal.value;
+        if (entryDate.value !== waxInItem.value.entry_date) data.entry_date = entryDate.value;
+        if (perso.value !== waxInItem.value.perso) data.perso = perso.value;
+        if (bio.value !== waxInItem.value.bio) data.bio = bio.value;
+        await updateWaxInItem(data);
+    } catch(error: any) {
+        if (error && error.message) {
+            console.error(error.message);
+            alert(error.message);
+        }
+    }
+}
+
+function goItemPage() {
+    router.push({ name: 'WaxInItemView', params: { id: id.value } });
+}
+
+const mode = computed(() => {
+    let mode = null;
+    if (route.name === 'WaxInCreateView') {
+        mode = 'create';
+    } else if (route.name === 'WaxInEditView') {
+        mode = 'edit';
+    }
+    return mode;
+});
+
+onMounted(async () => {
+    if (mode.value === 'edit') {
+        await syncWaxInItem(id.value);
+        initEdit();
+    }
+});
 </script>

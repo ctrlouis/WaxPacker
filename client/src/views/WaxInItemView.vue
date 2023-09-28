@@ -64,7 +64,8 @@
             </q-item-section>
         </q-item>
     </q-list>
-    <q-btn round icon="edit" color="orange" />
+
+    <q-btn round icon="edit" color="orange" @click="goEditPage" />
 
     <q-dialog v-model="removeAlert">
         <q-card dark>
@@ -114,6 +115,10 @@ function onRemove() {
         closeAskDelete();
         router.push({ name: 'WaxInView' });
     }
+}
+
+function goEditPage() {
+    router.push({ name: 'WaxInEditView', params: { id: id.value } });
 }
 
 const waxPerso = computed(() => {
