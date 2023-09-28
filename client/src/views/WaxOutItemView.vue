@@ -30,7 +30,7 @@
         <q-item clickable v-ripple dark>
             <q-item-section>
                 <q-item-label>Quantité restante</q-item-label>
-                <q-item-label caption>{{ waxOutItem.weight_out }}</q-item-label>
+                <q-item-label caption>{{ weightLeft }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
@@ -123,6 +123,14 @@ function onRemove() {
         router.push({ name: 'WaxOutView' });
     }
 }
+
+const weightLeft = computed(() => {
+    let weight = 0;
+    if (waxOutItem.value) {
+        weight = waxOutItem.value.weight_original - waxOutItem.value.weight_out;
+    }
+    return weight;
+});
 
 const waxPerso = computed(() => {
     let type = "mélange";
