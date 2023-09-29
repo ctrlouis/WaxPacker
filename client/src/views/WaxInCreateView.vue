@@ -9,6 +9,8 @@
     <q-toggle v-model="bio" color="green" label="Bio" />
     <ThirdPartiesSelect v-model="thirdPartieSelected" />
     <q-btn v-if="mode === 'create'" label="Ajouter" color="orange" @click="onCreate" />
+    <q-btn v-if="mode === 'edit'" flat label="test" color="orange" @click="test" />
+    <q-btn v-if="mode === 'edit'" flat label="Annuler" color="orange" @click="goItemPage" />
     <q-btn v-if="mode === 'edit'" label="Modifier" color="orange" @click="onEdit" />
 </template>
 
@@ -51,6 +53,7 @@ function initEdit() {
         perso.value = waxInItem.value.perso;
         bio.value = waxInItem.value.bio;
         initDate();
+        initTirdPartie();
     }
 }
 
@@ -61,6 +64,21 @@ function initDate() {
         date = DateTime.fromSQL(waxInItem.value.entry_date).toFormat(format);
     }
     entryDate.value = date;
+}
+
+function test() {
+
+}
+
+function initTirdPartie() {
+    let thirdPartie = null;
+    if (waxInItem.value && waxInItem.value.expand && waxInItem.value.expand.third_partie) {
+        thirdPartie = {
+            label: waxInItem.value.expand.third_partie.name,
+            value: waxInItem.value.expand.third_partie,
+        };
+    }
+    thirdPartieSelected.value = thirdPartie;
 }
 
 async function onCreate() {
@@ -121,7 +139,8 @@ const mode = computed(() => {
 onMounted(async () => {
     initDate();
     if (mode.value === 'edit') {
-        await syncWaxInItem(id.value);
+        const options = { expand: 'third_partie' };
+        await syncWaxInItem(id.value, options);
         initEdit();
     }
 });

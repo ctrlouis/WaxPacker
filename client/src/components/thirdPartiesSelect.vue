@@ -44,6 +44,5 @@ watch(() => props.modelValue, (newValue) => {
 
 onMounted(async () => {
     await syncThirdPartiesList();
-    console.log(thirdPartiesListOptions.value);
 });
 </script>

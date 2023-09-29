@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import { useAuthentication } from '@/stores/authentication';
-import type { RecordModel } from 'pocketbase';
+import type { RecordListOptions, RecordModel } from 'pocketbase';
 
 export function usePocketbaseItem(collectionName: string) {
 
@@ -8,13 +8,13 @@ export function usePocketbaseItem(collectionName: string) {
 
     const item = ref<RecordModel>();
 
-    async function get(id: string) {
-        const record = await authentication.pb.collection(collectionName).getOne(id, {});
+    async function get(id: string, options: RecordListOptions ={}) {
+        const record = await authentication.pb.collection(collectionName).getOne(id, options);
         return record;
     }
 
-    async function sync(id: string) {
-        item.value = await get(id);
+    async function sync(id: string, options: RecordListOptions ={}) {
+        item.value = await get(id, options);
     }
 
     async function create(data: {}) {
