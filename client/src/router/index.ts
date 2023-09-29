@@ -4,7 +4,7 @@ import LoginView from '../views/LoginView.vue';
 
 import WaxInView from '../views/WaxInView.vue';
 import WaxInItemView from '../views/WaxInItemView.vue';
-import WaxInCreateView from '../views/WaxInCreateView.vue';
+import WaxInCreateView from '../views/WaxInCreateEditView.vue';
 
 import WaxOutView from '../views/WaxOutView.vue';
 import WaxOutItemView from '../views/WaxOutItemView.vue';

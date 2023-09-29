@@ -65,10 +65,6 @@ function initDate() {
     entryDate.value = date;
 }
 
-function test() {
-
-}
-
 function initTirdPartie() {
     let thirdPartie = null;
     if (waxInItem.value && waxInItem.value.expand && waxInItem.value.expand.third_partie) {
