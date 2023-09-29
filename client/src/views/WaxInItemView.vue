@@ -47,6 +47,21 @@
         </q-item>
     </q-list>
 
+    <h2>Media</h2>
+    <q-file dark standout bottom-slots v-model="media" label="Lier un document" counter>
+        <template v-slot:prepend>
+            <q-icon name="attach_file" @click.stop.prevent />
+        </template>
+        <template v-slot:append>
+            <q-icon name="close" @click.stop.prevent="media = null" class="cursor-pointer" />
+        </template>
+    </q-file>
+    <q-btn dark label="Lier" @click="uploadFile" />
+    <div v-if="waxInItem" v-for="media in waxInItem.pictures">
+        {{  baseFileUrl + "/" + media }}
+    </div>
+    <img v-if="waxInItem" v-for="media in waxInItem.pictures" :src="baseFileUrl + '/' + media" />
+
     <h2>Tracabilité</h2>
     <waxInOutTraceTable v-if="waxInItem" :waxInItem="waxInItem" />
 
@@ -94,12 +109,40 @@ import waxInOutTraceTable from '@/components/waxInOutTraceTable.vue';
 const router = useRouter();
 const route = useRoute();
 const id = ref(String(route.params.id));
+const media = ref();
 
 const {
     item: waxInItem,
     sync: syncWaxInItem,
+    update: updateWaxInItem,
     remove: removeWaxInItem,
 } = usePocketbaseItem('wax_in');
+
+async function uploadFile() {
+    try {
+        if (!waxInItem.value) throw new Error("Aucuns lot d'entrée trouvé");
+        const formData = new FormData();
+        formData.append('documents', media.value);
+        formData.append('pictures', media.value);
+        await updateWaxInItem(formData, waxInItem.value.id);
+    } catch(error: any) {
+        if (error && error.message) {
+            console.error(error.message);
+            alert(error.message);
+        }
+    }
+    
+    // const fileInput = document.getElementById('fileInput');
+    // // listen to file input changes and add the selected files to the form data
+    // fileInput.addEventListener('change', function () {
+    //     for (let file of fileInput.files) {
+    //         formData.append('documents', file);
+    //     }
+    // });
+
+    // upload and create new record
+    // const createdRecord = await pb.collection('example').create(formData);
+}
 
 const removeAlert = ref(false);
 function askDelete(event: Event) {
@@ -137,7 +180,16 @@ const waxType = computed(() => {
     return type;
 });
 
+const baseFileUrl = computed(() => {
+    let url = "";
+    if (waxInItem.value) {
+        url = `${import.meta.env.VITE_POCKETBASE_URL}/api/files/${waxInItem.value.collectionId}/${waxInItem.value.id}`;
+    }
+    return url;
+});
+
 onMounted(async () => {
     await syncWaxInItem(id.value);
+    console.log(waxInItem.value.pictures);
 });
 </script>
