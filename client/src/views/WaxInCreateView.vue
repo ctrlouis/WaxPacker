@@ -112,6 +112,7 @@ async function onEdit() {
         if (entryDate.value !== waxInItem.value.entry_date) data.entry_date = entryDate.value;
         if (perso.value !== waxInItem.value.perso) data.perso = perso.value;
         if (bio.value !== waxInItem.value.bio) data.bio = bio.value;
+        if (thirdPartieSelected.value !== waxInItem.value.third_partie) data.third_partie = thirdPartieSelected.value.value.id;
         await updateWaxInItem(data);
     } catch(error: any) {
         if (error && error.message) {
