@@ -4,11 +4,11 @@ import LoginView from '../views/LoginView.vue';
 
 import WaxInView from '../views/WaxInView.vue';
 import WaxInItemView from '../views/WaxInItemView.vue';
-import WaxInCreateView from '../views/WaxInCreateEditView.vue';
+import WaxInCreateEditView from '../views/WaxInCreateEditView.vue';
 
 import WaxOutView from '../views/WaxOutView.vue';
 import WaxOutItemView from '../views/WaxOutItemView.vue';
-import WaxOutCreateView from '../views/WaxOutCreateView.vue';
+import WaxOutCreateEditView from '../views/WaxOutCreateEditView.vue';
 
 import ThirdPartiesView from '../views/ThirdPartiesView.vue';
 import ThirdPartiesCreateView from '../views/ThirdPartiesCreateView.vue';
@@ -36,7 +36,7 @@ const router = createRouter({
         {
             path: '/w/in/new',
             name: 'WaxInCreateView',
-            component: WaxInCreateView,
+            component: WaxInCreateEditView,
         },
         {
             path: '/w/in/:id',
@@ -46,7 +46,7 @@ const router = createRouter({
         {
             path: '/w/in/:id/edit',
             name: 'WaxInEditView',
-            component: WaxInCreateView,
+            component: WaxInCreateEditView,
         },
         {
             path: '/w/out',
@@ -56,12 +56,17 @@ const router = createRouter({
         {
             path: '/w/out/new',
             name: 'WaxOutCreateView',
-            component: WaxOutCreateView,
+            component: WaxOutCreateEditView,
         },
         {
             path: '/w/out/:id',
             name: 'WaxOutItemView',
             component: WaxOutItemView,
+        },
+        {
+            path: '/w/out/:id/edit',
+            name: 'WaxOutEditView',
+            component: WaxOutCreateEditView,
         },
         {
             path: '/t',
