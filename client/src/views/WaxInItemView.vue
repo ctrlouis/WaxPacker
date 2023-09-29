@@ -57,10 +57,7 @@
         </template>
     </q-file>
     <q-btn dark label="Lier" @click="uploadFile" />
-    <div v-if="waxInItem" v-for="media in waxInItem.pictures">
-        {{  baseFileUrl + "/" + media }}
-    </div>
-    <img v-if="waxInItem" v-for="media in waxInItem.pictures" :src="baseFileUrl + '/' + media" />
+    <mediaList v-if="waxInItem" :collectionID="waxInItem.collectionId" :recordID="waxInItem.id" :medias="waxInItem.pictures" />
 
     <h2>Tracabilité</h2>
     <waxInOutTraceTable v-if="waxInItem" :waxInItem="waxInItem" />
@@ -104,6 +101,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
+import mediaList from '@/components/mediaList.vue';
 import waxInOutTraceTable from '@/components/waxInOutTraceTable.vue';
 
 const router = useRouter();
@@ -131,17 +129,6 @@ async function uploadFile() {
             alert(error.message);
         }
     }
-    
-    // const fileInput = document.getElementById('fileInput');
-    // // listen to file input changes and add the selected files to the form data
-    // fileInput.addEventListener('change', function () {
-    //     for (let file of fileInput.files) {
-    //         formData.append('documents', file);
-    //     }
-    // });
-
-    // upload and create new record
-    // const createdRecord = await pb.collection('example').create(formData);
 }
 
 const removeAlert = ref(false);
@@ -180,16 +167,7 @@ const waxType = computed(() => {
     return type;
 });
 
-const baseFileUrl = computed(() => {
-    let url = "";
-    if (waxInItem.value) {
-        url = `${import.meta.env.VITE_POCKETBASE_URL}/api/files/${waxInItem.value.collectionId}/${waxInItem.value.id}`;
-    }
-    return url;
-});
-
 onMounted(async () => {
     await syncWaxInItem(id.value);
-    console.log(waxInItem.value.pictures);
 });
 </script>
