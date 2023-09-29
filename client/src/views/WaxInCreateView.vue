@@ -9,7 +9,6 @@
     <q-toggle v-model="bio" color="green" label="Bio" />
     <ThirdPartiesSelect v-model="thirdPartieSelected" />
     <q-btn v-if="mode === 'create'" label="Ajouter" color="orange" @click="onCreate" />
-    <q-btn v-if="mode === 'edit'" flat label="test" color="orange" @click="test" />
     <q-btn v-if="mode === 'edit'" flat label="Annuler" color="orange" @click="goItemPage" />
     <q-btn v-if="mode === 'edit'" label="Modifier" color="orange" @click="onEdit" />
 </template>
