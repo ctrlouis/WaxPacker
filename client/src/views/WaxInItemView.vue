@@ -48,16 +48,18 @@
     </q-list>
 
     <h2>Media</h2>
-    <q-file dark standout bottom-slots v-model="media" label="Lier un document" counter>
-        <template v-slot:prepend>
-            <q-icon name="attach_file" @click.stop.prevent />
-        </template>
-        <template v-slot:append>
-            <q-icon name="close" @click.stop.prevent="media = null" class="cursor-pointer" />
-        </template>
-    </q-file>
-    <q-btn dark label="Lier" @click="uploadFile" />
-    <mediaList v-if="waxInItem" :collectionID="waxInItem.collectionId" :recordID="waxInItem.id" :medias="waxInItem.pictures" />
+    <h3 v-if="waxInItem && waxInItem.pictures.length > 0">Photos du lot</h3>
+    <mediaList v-if="waxInItem && waxInItem.pictures.length > 0" :collectionID="waxInItem.collectionId" :recordID="waxInItem.id" :medias="waxInItem.pictures" mediaType="pictures" />
+    <h3 v-if="waxInItem && waxInItem.analyzes.length > 0">Analyses</h3>
+    <mediaList v-if="waxInItem && waxInItem.analyzes.length > 0" :collectionID="waxInItem.collectionId" :recordID="waxInItem.id" :medias="waxInItem.analyzes" mediaType="analyzes" />
+    <h3 v-if="waxInItem && waxInItem.certificates.length > 0">Certificat</h3>
+    <mediaList v-if="waxInItem && waxInItem.certificates.length > 0" :collectionID="waxInItem.collectionId" :recordID="waxInItem.id" :medias="waxInItem.certificates" mediaType="certificates" />
+    <h3 v-if="waxInItem && waxInItem.delivery_notes.length > 0">Bon de livraison</h3>
+    <mediaList v-if="waxInItem && waxInItem.delivery_notes.length > 0" :collectionID="waxInItem.collectionId" :recordID="waxInItem.id" :medias="waxInItem.delivery_notes" mediaType="delivery_notes" />
+    <h3 v-if="waxInItem && waxInItem.other_files.length > 0">Divers</h3>
+    <mediaList v-if="waxInItem && waxInItem.other_files.length > 0" :collectionID="waxInItem.collectionId" :recordID="waxInItem.id" :medias="waxInItem.other_files" mediaType="other_files" />
+
+    <waxInMediaUploader :waxInItem="waxInItem" />
 
     <h2>Tracabilité</h2>
     <waxInOutTraceTable v-if="waxInItem" :waxInItem="waxInItem" />
@@ -102,33 +104,18 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 import mediaList from '@/components/mediaList.vue';
+import waxInMediaUploader from '@/components/waxInMediaUploader.vue';
 import waxInOutTraceTable from '@/components/waxInOutTraceTable.vue';
 
 const router = useRouter();
 const route = useRoute();
 const id = ref(String(route.params.id));
-const media = ref();
 
 const {
     item: waxInItem,
     sync: syncWaxInItem,
-    update: updateWaxInItem,
     remove: removeWaxInItem,
 } = usePocketbaseItem('wax_in');
-
-async function uploadFile() {
-    try {
-        if (!waxInItem.value) throw new Error("Aucuns lot d'entrée trouvé");
-        const formData = new FormData();
-        formData.append('pictures', media.value);
-        await updateWaxInItem(formData, waxInItem.value.id);
-    } catch(error: any) {
-        if (error && error.message) {
-            console.error(error.message);
-            alert(error.message);
-        }
-    }
-}
 
 const removeAlert = ref(false);
 function askDelete(event: Event) {
