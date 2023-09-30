@@ -23,25 +23,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 
-const props = defineProps([ 'waxInItem' ]);
+const props = defineProps([ 'waxItem' ]);
 
 const {
     update: updateWaxInItem,
-} = usePocketbaseItem('wax_in');
+} = usePocketbaseItem(props.waxItem.collectionName);
 
 const show = ref(false);
 const media = ref();
 const mediaType = ref();
-const mediaTypeOptions = ref([
-    { label: 'Photos du lot', value: 'pictures' },
-    { label: 'Analyses', value: 'analyzes' },
-    { label: 'Certificat', value: 'certificates' },
-    { label: 'Bon de livraison', value: 'delivery_notes' },
-    { label: 'Divers', value: 'other_files' },
-]);
 
 function onShow() {
     show.value = true;
@@ -55,7 +48,7 @@ async function uploadFile() {
     try {
         const formData = new FormData();
         formData.append(mediaType.value.value, media.value);
-        await updateWaxInItem(formData, props.waxInItem.id);
+        await updateWaxInItem(formData, props.waxItem.id);
         onHide();
     } catch(error: any) {
         if (error && error.message) {
@@ -64,4 +57,26 @@ async function uploadFile() {
         }
     }
 }
+
+const mediaTypeOptions = computed(() => {
+    let options = <any>[];
+    if (props.waxItem.collectionName === 'wax_in') {
+        options = [
+            { label: 'Photos du lot', value: 'pictures' },
+            { label: 'Analyses', value: 'analyzes' },
+            { label: 'Certificat', value: 'certificates' },
+            { label: 'Bon de livraison', value: 'delivery_notes' },
+            { label: 'Divers', value: 'other_files' },
+        ];
+    } else if (props.waxItem.collectionName === 'wax_out') {
+        options = [
+            { label: 'Photos du lot', value: 'pictures' },
+            { label: 'Analyses', value: 'analyzes' },
+            { label: 'Certificat', value: 'certificates' },
+            { label: 'Bon de livraison', value: 'delivery_notes' },
+            { label: 'Divers', value: 'other_files' },
+        ];
+    }
+    return options;
+});
 </script>

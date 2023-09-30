@@ -12,11 +12,11 @@
 import { computed } from 'vue';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 
-const props = defineProps([ 'baseUrl', 'name', 'recordID', 'mediaType' ]);
+const props = defineProps([ 'baseUrl', 'mediaType', 'name', 'waxItem' ]);
 
 const {
     update: updateWaxInItem,
-} = usePocketbaseItem('wax_in');
+} = usePocketbaseItem(props.waxItem.collectionName);
 
 async function onRemove() {
     const propertie = `${props.mediaType}-`;
@@ -24,7 +24,7 @@ async function onRemove() {
     data[propertie] = [ props.name ];
     console.log(data);
     
-    await updateWaxInItem(data, props.recordID);
+    await updateWaxInItem(data, props.waxItem.id);
 }
 
 const url = computed(() => {

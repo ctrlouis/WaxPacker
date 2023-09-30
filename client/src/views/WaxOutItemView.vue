@@ -53,6 +53,20 @@
         </q-item>
     </q-list>
 
+    <h2>Media</h2>
+    <h3 v-if="waxOutItem && waxOutItem.pictures.length > 0">Photos du lot</h3>
+    <mediaList v-if="waxOutItem && waxOutItem.pictures.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.pictures" mediaType="pictures" />
+    <h3 v-if="waxOutItem && waxOutItem.analyzes.length > 0">Analyses</h3>
+    <mediaList v-if="waxOutItem && waxOutItem.analyzes.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.analyzes" mediaType="analyzes" />
+    <h3 v-if="waxOutItem && waxOutItem.certificates.length > 0">Certificat</h3>
+    <mediaList v-if="waxOutItem && waxOutItem.certificates.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.certificates" mediaType="certificates" />
+    <h3 v-if="waxOutItem && waxOutItem.delivery_notes.length > 0">Bon de livraison</h3>
+    <mediaList v-if="waxOutItem && waxOutItem.delivery_notes.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.delivery_notes" mediaType="delivery_notes" />
+    <h3 v-if="waxOutItem && waxOutItem.other_files.length > 0">Divers</h3>
+    <mediaList v-if="waxOutItem && waxOutItem.other_files.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.other_files" mediaType="other_files" />
+
+    <waxInMediaUploader v-if="waxOutItem" :waxItem="waxOutItem" />
+
     <h2>Tracabilité</h2>
     <waxInOutTraceTable v-if="waxOutItem" :waxOutItem="waxOutItem" />
     <waxInOutTraceAdd v-if="waxOutItem" :waxOutItem="waxOutItem" />
@@ -96,6 +110,8 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
+import mediaList from '@/components/mediaList.vue';
+import waxInMediaUploader from '@/components/waxInMediaUploader.vue';
 import waxInOutTraceAdd from '@/components/waxInOutTraceAdd.vue';
 import waxInOutTraceTable from '@/components/waxInOutTraceTable.vue';
 

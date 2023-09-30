@@ -49,17 +49,17 @@
 
     <h2>Media</h2>
     <h3 v-if="waxInItem && waxInItem.pictures.length > 0">Photos du lot</h3>
-    <mediaList v-if="waxInItem && waxInItem.pictures.length > 0" :collectionID="waxInItem.collectionId" :recordID="waxInItem.id" :medias="waxInItem.pictures" mediaType="pictures" />
+    <mediaList v-if="waxInItem && waxInItem.pictures.length > 0" :waxItem="waxInItem" :medias="waxInItem.pictures" mediaType="pictures" />
     <h3 v-if="waxInItem && waxInItem.analyzes.length > 0">Analyses</h3>
-    <mediaList v-if="waxInItem && waxInItem.analyzes.length > 0" :collectionID="waxInItem.collectionId" :recordID="waxInItem.id" :medias="waxInItem.analyzes" mediaType="analyzes" />
+    <mediaList v-if="waxInItem && waxInItem.analyzes.length > 0" :waxItem="waxInItem" :medias="waxInItem.analyzes" mediaType="analyzes" />
     <h3 v-if="waxInItem && waxInItem.certificates.length > 0">Certificat</h3>
-    <mediaList v-if="waxInItem && waxInItem.certificates.length > 0" :collectionID="waxInItem.collectionId" :recordID="waxInItem.id" :medias="waxInItem.certificates" mediaType="certificates" />
+    <mediaList v-if="waxInItem && waxInItem.certificates.length > 0" :waxItem="waxInItem" :medias="waxInItem.certificates" mediaType="certificates" />
     <h3 v-if="waxInItem && waxInItem.delivery_notes.length > 0">Bon de livraison</h3>
-    <mediaList v-if="waxInItem && waxInItem.delivery_notes.length > 0" :collectionID="waxInItem.collectionId" :recordID="waxInItem.id" :medias="waxInItem.delivery_notes" mediaType="delivery_notes" />
+    <mediaList v-if="waxInItem && waxInItem.delivery_notes.length > 0" :waxItem="waxInItem" :medias="waxInItem.delivery_notes" mediaType="delivery_notes" />
     <h3 v-if="waxInItem && waxInItem.other_files.length > 0">Divers</h3>
-    <mediaList v-if="waxInItem && waxInItem.other_files.length > 0" :collectionID="waxInItem.collectionId" :recordID="waxInItem.id" :medias="waxInItem.other_files" mediaType="other_files" />
+    <mediaList v-if="waxInItem && waxInItem.other_files.length > 0" :waxItem="waxInItem" :medias="waxInItem.other_files" mediaType="other_files" />
 
-    <waxInMediaUploader :waxInItem="waxInItem" />
+    <waxInMediaUploader v-if="waxInItem" :waxItem="waxInItem" />
 
     <h2>Tracabilité</h2>
     <waxInOutTraceTable v-if="waxInItem" :waxInItem="waxInItem" />
