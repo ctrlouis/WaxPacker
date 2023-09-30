@@ -1,5 +1,5 @@
 <template>
-    <mediaItem v-for="media in medias" :baseUrl="baseUrl" :name="media" />
+    <mediaItem v-for="media in medias" :baseUrl="baseUrl" :name="media" :recordID="recordID" />
 </template>
 
 <script setup lang="ts">

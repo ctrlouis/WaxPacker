@@ -120,7 +120,6 @@ async function uploadFile() {
     try {
         if (!waxInItem.value) throw new Error("Aucuns lot d'entrée trouvé");
         const formData = new FormData();
-        formData.append('documents', media.value);
         formData.append('pictures', media.value);
         await updateWaxInItem(formData, waxInItem.value.id);
     } catch(error: any) {
