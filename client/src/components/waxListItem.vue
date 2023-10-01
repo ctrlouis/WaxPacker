@@ -1,7 +1,7 @@
 <template>
     <q-item clickable v-ripple @click="goItemPage">
         <q-item-section>
-            {{ item.label }} - {{ item.number }}
+            #{{ item.number }} {{ item.label }}
         </q-item-section>
         <q-item-section>
             {{ item.weight_original }} Kg
