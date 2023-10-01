@@ -24,7 +24,7 @@ const sortOptions = [
     { label: "Label", value: 'label', arrangement: '+' },
     { label: "Poids original", value: 'weight_original', arrangement: '+' },
     { label: "Poids restant", value: 'weight_left', arrangement: '+' },
-    { label: "Date d'entrée", value: 'weight_left', arrangement: '+' },
+    { label: "Date d'entrée", value: 'entry_date', arrangement: '+' },
     { label: "Tier", value: "third_partie", arrangement: '+' },
     { label: "Lot perso", value: "perso", arrangement: '+' },
     { label: "Bio", value: "bio", arrangement: '+' },
@@ -40,7 +40,7 @@ async function onSort() {
 
 onMounted(async () => {
     const options = {
-        sort: '-entry_date',
+        sort: `${sort.value.arrangement}${sort.value.value}`,
     };
     await syncWaxInList(options);
 });
