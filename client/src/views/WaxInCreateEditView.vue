@@ -78,6 +78,8 @@ function initTirdPartie() {
 
 async function onCreate() {
     try {
+        let thirdPartieID = null;
+        if (thirdPartieSelected.value && thirdPartieSelected.value.value.id) thirdPartieID = thirdPartieSelected.value.value.id;
         const data = {
             number: number.value,
             label: label.value,
@@ -86,7 +88,7 @@ async function onCreate() {
             entry_date: entryDate.value,
             perso: perso.value,
             bio: bio.value,
-            third_partie: thirdPartieSelected.value.value.id
+            third_partie: thirdPartieID,
         }
         await createWaxInItem(data);
         router.push({ name: 'WaxInView' });
