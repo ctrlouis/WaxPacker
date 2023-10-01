@@ -7,6 +7,9 @@
             {{ item.weight_original }} Kg
         </q-item-section>
         <q-item-section>
+        </q-item-section>
+        <q-item-section>
+            <q-icon v-if="item.perso" name="person" size="sm" class="text-grey"/>
             <q-icon v-if="item.bio" name="eco" size="sm" class="text-green"/>
         </q-item-section>
         <q-item-section>
