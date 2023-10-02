@@ -44,7 +44,7 @@ function initEdit() {
     if (waxOutItem.value) {
         number.value = waxOutItem.value.number;
         label.value = waxOutItem.value.label;
-        weightOriginal.value = waxOutItem.value.weight_original;
+        weightOriginal.value = waxOutItem.value.weight_net;
         startDate.value = waxOutItem.value.start_date;
         perso.value = waxOutItem.value.perso;
         bio.value = waxOutItem.value.bio;
@@ -65,7 +65,7 @@ async function onCreate() {
     const data = {
         number: number.value,
         label: label.value,
-        weight_original: weightOriginal.value,
+        weight_net: weightOriginal.value,
         start_date: startDate.value,
         perso: perso.value,
         bio: bio.value,
@@ -87,7 +87,7 @@ async function onEdit() {
         const data: any = {};
         if (number.value !== waxOutItem.value.number) data.number = number.value;
         if (label.value !== waxOutItem.value.label) data.label = label.value;
-        if (weightOriginal.value !== waxOutItem.value.weight_original) data.weight_original = weightOriginal.value;
+        if (weightOriginal.value !== waxOutItem.value.weight_net) data.weight_net = weightOriginal.value;
         if (startDate.value !== waxOutItem.value.entry_date) data.entry_date = startDate.value;
         if (perso.value !== waxOutItem.value.perso) data.perso = perso.value;
         if (bio.value !== waxOutItem.value.bio) data.bio = bio.value;

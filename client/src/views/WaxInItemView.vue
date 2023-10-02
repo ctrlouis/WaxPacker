@@ -18,7 +18,7 @@
         <q-item clickable v-ripple dark>
             <q-item-section>
                 <q-item-label>Quantité initial</q-item-label>
-                <q-item-label caption>{{ waxInItem.weight_original }}</q-item-label>
+                <q-item-label caption>{{ waxInItem.weight_net }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>

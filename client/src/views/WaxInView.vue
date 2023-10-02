@@ -22,7 +22,7 @@ const sort = ref({ label: "N° de lot", value: 'number', arrangement: '+' });
 const sortOptions = [
     { label: "N° de lot", value: 'number', arrangement: '+' },
     { label: "Label", value: 'label', arrangement: '+' },
-    { label: "Poids original", value: 'weight_original', arrangement: '+' },
+    { label: "Poids original", value: 'weight_net', arrangement: '+' },
     { label: "Poids restant", value: 'weight_left', arrangement: '+' },
     { label: "Date d'entrée", value: 'entry_date', arrangement: '+' },
     { label: "Tier", value: "third_partie", arrangement: '+' },

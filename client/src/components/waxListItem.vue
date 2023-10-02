@@ -4,7 +4,7 @@
             #{{ item.number }} {{ item.label }}
         </q-item-section>
         <q-item-section>
-            {{ item.weight_original }} Kg
+            {{ item.weight_net }} Kg
         </q-item-section>
         <q-item-section>
         </q-item-section>

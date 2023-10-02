@@ -18,7 +18,7 @@
         <q-item clickable v-ripple dark>
             <q-item-section>
                 <q-item-label>Quantité initial</q-item-label>
-                <q-item-label caption>{{ waxOutItem.weight_original }}</q-item-label>
+                <q-item-label caption>{{ waxOutItem.weight_net }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
@@ -148,7 +148,7 @@ function goEditPage() {
 const weightLeft = computed(() => {
     let weight = 0;
     if (waxOutItem.value) {
-        weight = waxOutItem.value.weight_original - waxOutItem.value.weight_out;
+        weight = waxOutItem.value.weight_net - waxOutItem.value.weight_out;
     }
     return weight;
 });

@@ -47,7 +47,7 @@ function initEdit() {
     if (waxInItem.value) {
         number.value = waxInItem.value.number;
         label.value = waxInItem.value.label;
-        weightOriginal.value = waxInItem.value.weight_original;
+        weightOriginal.value = waxInItem.value.weight_net;
         entryDate.value = waxInItem.value.entry_date;
         perso.value = waxInItem.value.perso;
         bio.value = waxInItem.value.bio;
@@ -83,7 +83,7 @@ async function onCreate() {
         const data = {
             number: number.value,
             label: label.value,
-            weight_original: weightOriginal.value,
+            weight_net: weightOriginal.value,
             weight_left: weightOriginal.value,
             entry_date: entryDate.value,
             perso: perso.value,
@@ -103,14 +103,16 @@ async function onCreate() {
 async function onEdit() {
     try {
         if (!waxInItem.value) throw new Error("Aucuns lot d'entrée trouvé");
+        let thirdPartieID = null;
+        if (thirdPartieSelected.value && thirdPartieSelected.value.value.id) thirdPartieID = thirdPartieSelected.value.value.id;
         const data: any = {};
         if (number.value !== waxInItem.value.number) data.number = number.value;
         if (label.value !== waxInItem.value.label) data.label = label.value;
-        if (weightOriginal.value !== waxInItem.value.weight_original) data.weight_original = weightOriginal.value;
+        if (weightOriginal.value !== waxInItem.value.weight_net) data.weight_net = weightOriginal.value;
         if (entryDate.value !== waxInItem.value.entry_date) data.entry_date = entryDate.value;
         if (perso.value !== waxInItem.value.perso) data.perso = perso.value;
         if (bio.value !== waxInItem.value.bio) data.bio = bio.value;
-        if (thirdPartieSelected.value !== waxInItem.value.third_partie) data.third_partie = thirdPartieSelected.value.value.id;
+        if (thirdPartieSelected.value !== waxInItem.value.third_partie) data.third_partie = thirdPartieID;
         await updateWaxInItem(data);
     } catch(error: any) {
         if (error && error.message) {
