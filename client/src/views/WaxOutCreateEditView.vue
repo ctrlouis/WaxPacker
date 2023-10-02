@@ -1,15 +1,23 @@
 <template>
-    <h1 v-if="mode === 'create'">Ajouter un lot de sortie</h1>
-    <h1 v-if="mode === 'edit'">Modifier le lot de sortie</h1>
-    <q-input v-model="number" dark standout label="Numéro de lot" required />
-    <q-input v-model="label" dark standout label="Nom" />
-    <q-input v-model="weightNet" dark standout label="Quantité (Kg)" type="number" min="0" />
-    <q-input v-model="startDate" dark standout label="Date de début" type="date" />
-    <q-toggle v-model="perso" color="green" label="Perso" />
-    <q-toggle v-model="bio" color="green" label="Bio" />
-    <q-btn v-if="mode === 'create'" label="Ajouter" color="orange" @click="onCreate" />
-    <q-btn v-if="mode === 'edit'" flat label="Annuler" color="orange" @click="goItemPage" />
-    <q-btn v-if="mode === 'edit'" label="Modifier" color="orange" @click="onEdit" />
+    <q-icon class="cursor-pointer" size="lg" dark name="arrow_back" @click="goListPage" />
+    <h1 v-if="mode === 'create'" class="mt-32 mb-4 text-5xl">Ajouter un lot de sortie</h1>
+    <h1 v-if="mode === 'edit'" class="mt-32 mb-4 text-5xl">Modifier le lot de sortie</h1>
+    <q-input v-model="number" class="mb-4" dark standout label="Numéro de lot" required />
+    <q-input v-model="label"  class="mb-4" dark standout label="Nom" />
+    <q-input v-model="weightNet" class="mb-4" dark standout label="Quantité (Kg)" type="number" min="0" />
+    <q-input v-model="startDate" class="mb-4" dark standout label="Date de début" type="date" />
+    <div>
+        <q-toggle v-model="perso" color="green" label="Perso" />
+    </div>
+    <div>
+        <q-toggle v-model="bio" color="green" label="Bio" />
+    </div>
+    <div class="flex justify-end">
+        <q-btn v-if="mode === 'create'" class="mr-4" flat label="Annuler" color="orange" @click="goListPage" />
+        <q-btn v-if="mode === 'create'" label="Ajouter" color="orange" @click="onCreate" />
+        <q-btn v-if="mode === 'edit'" class="mr-4" flat label="Annuler" color="orange" @click="goItemPage" />
+        <q-btn v-if="mode === 'edit'" label="Modifier" color="orange" @click="onEdit" />
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -102,6 +110,10 @@ async function onEdit() {
 
 function goItemPage() {
     router.push({ name: 'WaxOutItemView', params: { id: id.value } });
+}
+
+function goListPage() {
+    router.push({ name: 'WaxOutView' });
 }
 
 const mode = computed(() => {

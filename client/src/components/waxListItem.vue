@@ -1,25 +1,24 @@
 <template>
-    <q-item clickable v-ripple @click="goItemPage">
+    <q-item dark class="my-4 rounded" clickable v-ripple @click="goItemPage">
         <q-item-section>
-            #{{ item.number }} {{ item.label }}
+          <q-item-label class="mb-2 text-lg">{{ item.number }}</q-item-label>
+          <q-item-label class="text-md text-grey">{{ item.label }}</q-item-label>
         </q-item-section>
-        <q-item-section>
-            {{ item.weight_net }} Kg
+        <q-item-section side top>
+          <q-item-label class="text-sm">{{ item.weight_net }} Kg</q-item-label>
+            <div class="text-sm">
+                <q-icon v-if="item.perso" name="person" size="sm" class="text-grey"/>
+                <q-icon v-if="item.bio" name="eco" size="sm" class="text-green"/>
+            </div>
         </q-item-section>
-        <q-item-section>
-        </q-item-section>
-        <q-item-section>
-            <q-icon v-if="item.perso" name="person" size="sm" class="text-grey"/>
-            <q-icon v-if="item.bio" name="eco" size="sm" class="text-green"/>
-        </q-item-section>
-        <q-item-section>
+        <!-- <q-item-section>
             <div>
                 <q-btn flat round icon="delete" color="red" @click="askDelete" />
             </div>
-        </q-item-section>
+        </q-item-section> -->
     </q-item>
 
-    <q-dialog v-model="removeAlert">
+    <!-- <q-dialog v-model="removeAlert">
         <q-card dark>
             <q-card-section>
                 <div class="text-h6">Suppression</div>
@@ -34,7 +33,7 @@
                 <q-btn label="Supprimer" color="red" @click="onRemove" />
             </q-card-actions>
         </q-card>
-    </q-dialog>
+    </q-dialog> -->
 </template>
 
 <script setup lang="ts">

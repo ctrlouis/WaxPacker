@@ -1,5 +1,5 @@
 <template>
-    <q-list bordered separator>
+    <q-list>
         <WaxListItem v-for="item in list" :type="type" :item="item" />
     </q-list>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <q-btn flat :icon-right="icon" :label="sort.label" @click="onShow" />
+    <q-btn flat no-caps rounded :icon-right="icon" :label="sort.label" @click="onShow" />
     <q-dialog v-model="show" position="bottom">
         <div class="text-center">Trier par</div>
         <q-list>

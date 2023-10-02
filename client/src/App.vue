@@ -33,8 +33,10 @@
         </q-drawer>
 
         <q-page-container>
-            <q-page padding>
-                <RouterView />
+            <q-page class="p-4 flex justify-center">
+                <div class="w-100 md:w-4/5 lg:w-1/2">
+                    <RouterView />
+                </div>
             </q-page>
         </q-page-container>
     </q-layout>

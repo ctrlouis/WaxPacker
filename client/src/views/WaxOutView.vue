@@ -1,10 +1,14 @@
 <template>
-    <h1>Lots de sorties</h1>
-    <sortList v-model="sort" :options="sortOptions" @sort="onSort" />
+    <h1 class="mt-32 mb-4 text-5xl">Lots de sorties</h1>
+    <div class="mb-4 text-right">
+        <sortList v-model="sort" :options="sortOptions" @sort="onSort" />
+    </div>
     <waxList :type="waxType" :list="waxOutList" />
-    <RouterLink to="/w/out/new">
-        <q-btn round icon="add" color="orange" />
-    </RouterLink>
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+        <RouterLink to="/w/out/new">
+            <q-btn round icon="add" color="orange" />
+        </RouterLink>
+    </q-page-sticky>
 </template>
 
 <script setup lang="ts">

@@ -1,7 +1,8 @@
 <template>
     <q-select
-        dark
         v-model="thirdPartieSelected"
+        dark
+        standout
         label="Tier"
         :options="thirdPartiesListOptions"
         @update:model-value="onUpdate"

@@ -1,32 +1,42 @@
 <template>
-    <h1 v-if="mode === 'create'">Ajouter un lot d'entrée</h1>
-    <h1 v-if="mode === 'edit'">Modifier un lot d'entrée</h1>
-    <q-input v-model="number" dark standout label="Numéro de lot" required />
-    <q-input v-model="label" dark standout label="Nom" />
-    <q-input v-if="showMoreWeight" v-model="weightRaw" dark standout label="Quantité brute (Kg)" type="number" min="0">
+    <q-icon class="cursor-pointer" size="lg" dark name="arrow_back" @click="goListPage" />
+    <h1 v-if="mode === 'create'" class="mt-32 mb-4 text-5xl">Ajouter un lot d'entrée</h1>
+    <h1 v-if="mode === 'edit'" class="mt-32 mb-4 text-5xl">Modifier un lot d'entrée</h1>
+    <q-input v-model="number" class="mb-4" dark standout label="Numéro de lot" required />
+    <q-input v-model="label" class="mb-4" dark standout label="Nom" />
+    <q-input v-if="showMoreWeight" v-model="weightRaw" class="mb-4" dark standout label="Quantité brute (Kg)" type="number" min="0">
         <template v-slot:append>
-            <q-icon v-if="showMoreWeight && !isScale" name="scale" color="orange" class="cursor-pointer" @click="scaleWeightRaw" />
+            <q-icon v-if="showMoreWeight && !isScale" class="mb-4 cursor-pointer" name="scale" color="orange" @click="scaleWeightRaw" />
         </template>
     </q-input>
-    <q-input v-if="showMoreWeight" v-model="lossCoef" dark standout label="Coefficient de perte (%)" type="number" min="0" max="100">
+    <q-input v-if="showMoreWeight" v-model="lossCoef" class="mb-4" dark standout label="Coefficient de perte (%)" type="number" min="0" max="100">
         <template v-slot:append>
             <q-icon v-if="showMoreWeight && !isScale" name="scale" color="orange" class="cursor-pointer" @click="scaleLossCoef" />
         </template>
     </q-input>
-    <q-input v-model="weightNet" dark standout label="Poids net (Kg)" type="number" min="0">
+    <q-input v-model="weightNet" class="mb-4" dark standout label="Poids net (Kg)" type="number" min="0">
         <template v-slot:append>
             <q-icon v-if="showMoreWeight && !isScale" name="scale" color="orange" class="cursor-pointer" @click="scaleWeightNet" />
         </template>
     </q-input>
-    <q-btn v-if="!showMoreWeight" dark icon="add" label="voir plus" @click="showMoreWeightToggle" />
-    <q-btn v-if="showMoreWeight" dark icon="remove" label="voir moins" @click="showMoreWeightToggle" />
-    <q-input v-model="entryDate" dark standout label="Date d'entrée" type="date" />
-    <q-toggle v-model="perso" color="green" label="Lot perso" />
-    <q-toggle v-model="bio" color="green" label="Bio" />
-    <ThirdPartiesSelect v-model="thirdPartieSelected" />
-    <q-btn v-if="mode === 'create'" label="Ajouter" color="orange" @click="onCreate" />
-    <q-btn v-if="mode === 'edit'" flat label="Annuler" color="orange" @click="goItemPage" />
-    <q-btn v-if="mode === 'edit'" label="Modifier" color="orange" @click="onEdit" />
+    <div class="flex justify-center">
+        <q-btn v-if="!showMoreWeight" class="mb-4" dark icon="add" label="voir plus" @click="showMoreWeightToggle" />
+        <q-btn v-if="showMoreWeight" class="mb-4" dark icon="remove" label="voir moins" @click="showMoreWeightToggle" />
+    </div>
+    <q-input v-model="entryDate" class="mb-4" dark standout label="Date d'entrée" type="date" />
+    <div>
+        <q-checkbox v-model="perso" class="mb-4" dark color="teal" label="Lot perso" />
+    </div>
+    <div>
+        <q-checkbox v-model="bio" class="mb-4" dark color="green" label="Bio" />
+    </div>
+    <ThirdPartiesSelect v-model="thirdPartieSelected" class="mb-4" />
+    <div class="flex justify-end">
+        <q-btn v-if="mode === 'create'" class="mr-4" flat label="Annuler" color="orange" @click="goListPage" />
+        <q-btn v-if="mode === 'create'" label="Ajouter" color="orange" @click="onCreate" />
+        <q-btn v-if="mode === 'edit'" class="mr-4" flat label="Annuler" color="orange" @click="goItemPage" />
+        <q-btn v-if="mode === 'edit'" label="Modifier" color="orange" @click="onEdit" />
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -51,7 +61,7 @@ const number = ref(defaultNumber());
 const label = ref("");
 const weightRaw = ref(0);
 const lossCoef = ref(0);
-const weightNet = ref(0);
+const weightNet = ref();
 const entryDate = ref();
 const perso = ref(false);
 const bio = ref(false);
@@ -155,6 +165,10 @@ async function onEdit() {
 
 function goItemPage() {
     router.push({ name: 'WaxInItemView', params: { id: id.value } });
+}
+
+function goListPage() {
+    router.push({ name: 'WaxOutView' });
 }
 
 function showMoreWeightToggle() {
