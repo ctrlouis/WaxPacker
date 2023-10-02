@@ -74,6 +74,10 @@ function initEdit() {
         bio.value = waxInItem.value.bio;
         initDate();
         initTirdPartie();
+        
+        if (waxInItem.value.loss_coefficient !== 0) {
+            showMoreWeight.value = true;
+        }
     }
 }
 
@@ -101,6 +105,10 @@ async function onCreate() {
     try {
         let thirdPartieID = null;
         if (thirdPartieSelected.value && thirdPartieSelected.value.value.id) thirdPartieID = thirdPartieSelected.value.value.id;
+        if (!showMoreWeight) {
+            lossCoef.value = 0;
+            scaleWeightRaw;
+        }
         const data = {
             number: number.value,
             label: label.value,

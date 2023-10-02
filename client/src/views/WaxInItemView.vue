@@ -15,9 +15,21 @@
                 <q-item-label caption>{{ waxInItem.number }}</q-item-label>
             </q-item-section>
         </q-item>
+        <q-item v-if="waxInItem.lossCoef !== 0" clickable v-ripple dark>
+            <q-item-section>
+                <q-item-label>Poids brute (Kg)</q-item-label>
+                <q-item-label caption>{{ waxInItem.weight_raw }}</q-item-label>
+            </q-item-section>
+        </q-item>
+        <q-item v-if="waxInItem.lossCoef !== 0" clickable v-ripple dark>
+            <q-item-section>
+                <q-item-label>Coefficent de perte (%)</q-item-label>
+                <q-item-label caption>{{ waxInItem.loss_coefficient }}</q-item-label>
+            </q-item-section>
+        </q-item>
         <q-item clickable v-ripple dark>
             <q-item-section>
-                <q-item-label>Quantité initial</q-item-label>
+                <q-item-label>Poids net (Kg)</q-item-label>
                 <q-item-label caption>{{ waxInItem.weight_net }}</q-item-label>
             </q-item-section>
         </q-item>
