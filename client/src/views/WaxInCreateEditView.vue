@@ -3,11 +3,19 @@
     <h1 v-if="mode === 'edit'">Modifier un lot d'entrée</h1>
     <q-input v-model="number" dark standout label="Numéro de lot" required />
     <q-input v-model="label" dark standout label="Nom" />
-    <q-input v-if="showMoreWeight" v-model="weightNet" dark standout label="Quantité brute (Kg)" type="number" min="0" />
-    <q-input v-if="showMoreWeight" v-model="lossCoef" dark standout label="Coefficient de perte (%)" type="number" min="0" max="100" />
+    <q-input v-if="showMoreWeight" v-model="weightRaw" dark standout label="Quantité brute (Kg)" type="number" min="0">
+        <template v-slot:append>
+            <q-icon v-if="showMoreWeight && !isScale" name="scale" color="orange" class="cursor-pointer" @click="scaleWeightRaw" />
+        </template>
+    </q-input>
+    <q-input v-if="showMoreWeight" v-model="lossCoef" dark standout label="Coefficient de perte (%)" type="number" min="0" max="100">
+        <template v-slot:append>
+            <q-icon v-if="showMoreWeight && !isScale" name="scale" color="orange" class="cursor-pointer" @click="scaleLossCoef" />
+        </template>
+    </q-input>
     <q-input v-model="weightNet" dark standout label="Poids net (Kg)" type="number" min="0">
         <template v-slot:append>
-            <q-icon v-if="isScale" name="scale" class="cursor-pointer" @click="scale" />
+            <q-icon v-if="showMoreWeight && !isScale" name="scale" color="orange" class="cursor-pointer" @click="scaleWeightNet" />
         </template>
     </q-input>
     <q-btn v-if="!showMoreWeight" dark icon="add" label="voir plus" @click="showMoreWeightToggle" />
@@ -96,6 +104,8 @@ async function onCreate() {
         const data = {
             number: number.value,
             label: label.value,
+            weight_raw: weightRaw.value,
+            loss_coefficient: lossCoef.value,
             weight_net: weightNet.value,
             weight_left: weightNet.value,
             entry_date: entryDate.value,
@@ -144,11 +154,15 @@ function showMoreWeightToggle() {
 }
 
 function scaleWeightNet() {
-    weightNet.value = weightRaw.value - (weightRaw.value * lossCoef.value);
+    weightNet.value = weightRaw.value/(1+(lossCoef.value/100));
 }
 
-function scaleWeighRaw() {
-    weightRaw.value = weightRaw.value - (weightRaw.value * lossCoef.value);
+function scaleWeightRaw() {
+    weightRaw.value = weightNet.value*(1+(lossCoef.value/100));
+}
+
+function scaleLossCoef() {
+    // do something
 }
 
 const mode = computed(() => {
@@ -162,8 +176,7 @@ const mode = computed(() => {
 });
 
 const isScale = computed(() => {
-    let result = weightRaw.value - (weightRaw.value * lossCoef.value);
-    return result === weightNet.value;
+    return weightNet.value == weightRaw.value / (1 + (lossCoef.value/100));
 });
 
 onMounted(async () => {
