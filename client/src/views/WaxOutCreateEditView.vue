@@ -3,7 +3,7 @@
     <h1 v-if="mode === 'edit'">Modifier le lot de sortie</h1>
     <q-input v-model="number" dark standout label="Numéro de lot" required />
     <q-input v-model="label" dark standout label="Nom" />
-    <q-input v-model="weightOriginal" dark standout label="Quantité (Kg)" type="number" min="0" />
+    <q-input v-model="weightNet" dark standout label="Quantité (Kg)" type="number" min="0" />
     <q-input v-model="startDate" dark standout label="Date de début" type="date" />
     <q-toggle v-model="perso" color="green" label="Perso" />
     <q-toggle v-model="bio" color="green" label="Bio" />
@@ -31,7 +31,7 @@ const {
 
 const number = ref(defaultNumber());
 const label = ref("");
-const weightOriginal = ref(0);
+const weightNet = ref(0);
 const startDate = ref(DateTime.now().toFormat('yyyy-MM-dd'));
 const perso = ref(false);
 const bio = ref(false);
@@ -44,7 +44,7 @@ function initEdit() {
     if (waxOutItem.value) {
         number.value = waxOutItem.value.number;
         label.value = waxOutItem.value.label;
-        weightOriginal.value = waxOutItem.value.weight_net;
+        weightNet.value = waxOutItem.value.weight_net;
         startDate.value = waxOutItem.value.start_date;
         perso.value = waxOutItem.value.perso;
         bio.value = waxOutItem.value.bio;
@@ -65,7 +65,7 @@ async function onCreate() {
     const data = {
         number: number.value,
         label: label.value,
-        weight_net: weightOriginal.value,
+        weight_net: weightNet.value,
         start_date: startDate.value,
         perso: perso.value,
         bio: bio.value,
@@ -87,7 +87,7 @@ async function onEdit() {
         const data: any = {};
         if (number.value !== waxOutItem.value.number) data.number = number.value;
         if (label.value !== waxOutItem.value.label) data.label = label.value;
-        if (weightOriginal.value !== waxOutItem.value.weight_net) data.weight_net = weightOriginal.value;
+        if (weightNet.value !== waxOutItem.value.weight_net) data.weight_net = weightNet.value;
         if (startDate.value !== waxOutItem.value.entry_date) data.entry_date = startDate.value;
         if (perso.value !== waxOutItem.value.perso) data.perso = perso.value;
         if (bio.value !== waxOutItem.value.bio) data.bio = bio.value;

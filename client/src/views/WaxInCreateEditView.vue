@@ -3,7 +3,15 @@
     <h1 v-if="mode === 'edit'">Modifier un lot d'entrée</h1>
     <q-input v-model="number" dark standout label="Numéro de lot" required />
     <q-input v-model="label" dark standout label="Nom" />
-    <q-input v-model="weightOriginal" dark standout label="Quantité (Kg)" type="number" min="0" />
+    <q-input v-if="showMoreWeight" v-model="weightNet" dark standout label="Quantité brute (Kg)" type="number" min="0" />
+    <q-input v-if="showMoreWeight" v-model="lossCoef" dark standout label="Coefficient de perte (%)" type="number" min="0" max="100" />
+    <q-input v-model="weightNet" dark standout label="Poids net (Kg)" type="number" min="0">
+        <template v-slot:append>
+            <q-icon v-if="isScale" name="scale" class="cursor-pointer" @click="scale" />
+        </template>
+    </q-input>
+    <q-btn v-if="!showMoreWeight" dark icon="add" label="voir plus" @click="showMoreWeightToggle" />
+    <q-btn v-if="showMoreWeight" dark icon="remove" label="voir moins" @click="showMoreWeightToggle" />
     <q-input v-model="entryDate" dark standout label="Date d'entrée" type="date" />
     <q-toggle v-model="perso" color="green" label="Lot perso" />
     <q-toggle v-model="bio" color="green" label="Bio" />
@@ -33,11 +41,14 @@ const {
 
 const number = ref(defaultNumber());
 const label = ref("");
-const weightOriginal = ref(0);
+const weightRaw = ref(0);
+const lossCoef = ref(0);
+const weightNet = ref(0);
 const entryDate = ref();
 const perso = ref(false);
 const bio = ref(false);
 const thirdPartieSelected = ref();
+const showMoreWeight = ref(false);
 
 function defaultNumber() {
     return `EC-${DateTime.now().toFormat('yyMMdd')}`;
@@ -47,7 +58,9 @@ function initEdit() {
     if (waxInItem.value) {
         number.value = waxInItem.value.number;
         label.value = waxInItem.value.label;
-        weightOriginal.value = waxInItem.value.weight_net;
+        weightRaw.value = waxInItem.value.weight_raw;
+        lossCoef.value = waxInItem.value.loss_coefficient;
+        weightNet.value = waxInItem.value.weight_net;
         entryDate.value = waxInItem.value.entry_date;
         perso.value = waxInItem.value.perso;
         bio.value = waxInItem.value.bio;
@@ -83,8 +96,8 @@ async function onCreate() {
         const data = {
             number: number.value,
             label: label.value,
-            weight_net: weightOriginal.value,
-            weight_left: weightOriginal.value,
+            weight_net: weightNet.value,
+            weight_left: weightNet.value,
             entry_date: entryDate.value,
             perso: perso.value,
             bio: bio.value,
@@ -108,7 +121,7 @@ async function onEdit() {
         const data: any = {};
         if (number.value !== waxInItem.value.number) data.number = number.value;
         if (label.value !== waxInItem.value.label) data.label = label.value;
-        if (weightOriginal.value !== waxInItem.value.weight_net) data.weight_net = weightOriginal.value;
+        if (weightNet.value !== waxInItem.value.weight_net) data.weight_net = weightNet.value;
         if (entryDate.value !== waxInItem.value.entry_date) data.entry_date = entryDate.value;
         if (perso.value !== waxInItem.value.perso) data.perso = perso.value;
         if (bio.value !== waxInItem.value.bio) data.bio = bio.value;
@@ -126,6 +139,18 @@ function goItemPage() {
     router.push({ name: 'WaxInItemView', params: { id: id.value } });
 }
 
+function showMoreWeightToggle() {
+    showMoreWeight.value = !showMoreWeight.value;
+}
+
+function scaleWeightNet() {
+    weightNet.value = weightRaw.value - (weightRaw.value * lossCoef.value);
+}
+
+function scaleWeighRaw() {
+    weightRaw.value = weightRaw.value - (weightRaw.value * lossCoef.value);
+}
+
 const mode = computed(() => {
     let mode = null;
     if (route.name === 'WaxInCreateView') {
@@ -134,6 +159,11 @@ const mode = computed(() => {
         mode = 'edit';
     }
     return mode;
+});
+
+const isScale = computed(() => {
+    let result = weightRaw.value - (weightRaw.value * lossCoef.value);
+    return result === weightNet.value;
 });
 
 onMounted(async () => {
