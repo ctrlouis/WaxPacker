@@ -1,18 +1,14 @@
 <template>
-    <q-item dark clickable v-ripple @click="goItemPage">
+
+    <q-item dark class="my-4 rounded" clickable v-ripple @click="goItemPage">
         <q-item-section>
-            <q-item-label>{{ item.name }}</q-item-label>
-            <q-item-label caption>{{ address }}</q-item-label>
+          <q-item-label class="mb-2 text-lg">{{ item.name }}</q-item-label>
+          <q-item-label class="text-md text-grey">{{ address }}</q-item-label>
         </q-item-section>
-        <q-item-section>
-            <q-icon name="phone" size="sm" />
-        </q-item-section>
-        <q-item-section>
-            <q-icon name="email" size="sm" />
-        </q-item-section>
-        <q-item-section>
-            <div>
-                <q-btn flat round icon="delete" color="red" @click="askDelete" />
+        <q-item-section side top>
+            <div class="text-sm">
+                <q-icon v-if="item.phone" name="phone" size="sm" />
+                <q-icon v-if="item.mail" name="email" size="sm" />
             </div>
         </q-item-section>
     </q-item>
@@ -66,6 +62,26 @@ function goItemPage() {
 }
 
 const address = computed(() => {
-    return `${props.item.address}, ${props.item.zip_code} ${props.item.city}, ${props.item.country} - ${props.item.state}`;
+    let a = "";
+    a += `${props.item.address}`;
+    if (props.item.zip_code || props.item.city) {
+        if (a.length > 0) a += ', ';
+        if (props.item.zip_code) {
+            a += props.item.zip_code;
+            if (props.item.city) a += ' ';
+        }
+        if (props.item.city) {
+            a += props.item.city;
+        }
+    }
+    if (props.item.country) {
+        if (a.length > 0) a += ', ';
+        a += props.item.country;
+    }
+    if (props.item.state) {
+        if (a.length > 0) a += ' - ';
+        a += props.item.state;
+    }
+    return a;
 });
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <q-list bordered separator>
+    <q-list>
         <ThirdPartiesItem v-for="item in list" :item="item" />
     </q-list>
 </template>

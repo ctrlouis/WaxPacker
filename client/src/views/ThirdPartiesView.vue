@@ -1,9 +1,11 @@
 <template>
-    <h1>Tiers</h1>
+    <h1 class="mt-32 mb-4 text-5xl">Tiers</h1>
     <ThirdPartiesList :list="thirdPartiesList" />
-    <RouterLink to="/t/new">
-        <q-btn round icon="add" color="orange" />
-    </RouterLink>
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+        <RouterLink to="/t/new">
+            <q-btn round icon="add" color="orange" />
+        </RouterLink>
+    </q-page-sticky>
 </template>
 
 <script setup lang="ts">

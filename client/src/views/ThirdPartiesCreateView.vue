@@ -1,15 +1,19 @@
 <template>
-    <h1>Ajouter un tier</h1>
-    <q-input v-model="name" dark standout label="Nom" required />
-    <q-input v-model="number" dark standout label="Numéro" />
-    <q-input v-model="mail" dark standout label="Mail" />
-    <q-input v-model="address" dark standout label="Adresse" />
-    <q-input v-model="zipCode" dark standout label="Code postal" />
-    <q-input v-model="city" dark standout label="Ville" />
-    <q-input v-model="country" dark standout label="Pays" />
-    <q-input v-model="state" dark standout label="Région" />
-    <q-input v-model="dolibarrID" dark standout label="dolibarr_id" />
-    <q-btn label="Ajouter" color="orange" @click="onCreate" />
+    <q-icon class="cursor-pointer" size="lg" dark name="arrow_back" @click="goListPage" />
+    <h1 class="mt-32 mb-4 text-5xl">Ajouter un tier</h1>
+    <q-input v-model="name" class="mb-4" dark standout label="Nom" required />
+    <q-input v-model="number" class="mb-4" dark standout label="Numéro" />
+    <q-input v-model="mail" class="mb-4" dark standout label="Mail" />
+    <q-input v-model="address" class="mb-4" dark standout label="Adresse" />
+    <q-input v-model="zipCode" class="mb-4" dark standout label="Code postal" />
+    <q-input v-model="city" class="mb-4" dark standout label="Ville" />
+    <q-input v-model="country" class="mb-4" dark standout label="Pays" />
+    <q-input v-model="state" class="mb-4" dark standout label="Région" />
+    <q-input v-model="dolibarrID" class="mb-4" dark standout label="dolibarr_id" />
+    <div class="flex justify-end">
+        <q-btn class="mr-4" flat label="Annuler" color="orange" @click="goListPage" />
+        <q-btn label="Ajouter" color="orange" @click="onCreate" />
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -55,4 +59,7 @@ async function onCreate() {
     }
 }
 
+function goListPage() {
+    router.push({ name: 'ThirdPartiesView' });
+}
 </script>
