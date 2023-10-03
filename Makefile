@@ -8,6 +8,7 @@ image_name := waxpacker
 all: list
 
 list:
+	@printf "$(bold)init$(grey) - Init project for development\n$(normal)"
 	@printf "$(bold)npm_install$(grey) - Install npm packages\n$(normal)"
 	@printf "$(bold)npm_update$(grey) - Update npm packages\n$(normal)"
 	@printf "$(bold)npm_upgrade$(grey) - Upgrade npm packages\n$(normal)"
