@@ -1,10 +1,12 @@
 <template>
-  <!-- <div class="q-pa-md"> -->
-    <q-layout view="hHh Lpr lff" container class="shadow-2 rounded-borders">
-        <q-header elevated :class="$q.dark.isActive ? 'bg-secondary' : 'bg-black'">
+    <RouterView v-if="!authentication.isConnected" />
+    
+    <q-layout v-else view="hHh Lpr lff" container class="shadow-2 rounded-borders">
+        <q-header elevated class="bg-black">
             <q-toolbar>
                 <q-btn flat round dense icon="menu" @click="toggleDrawer" />
-                <q-toolbar-title>Header</q-toolbar-title>
+                <q-toolbar-title>Quasar Framework</q-toolbar-title>
+                <headerParams />
             </q-toolbar>
         </q-header>
 
@@ -40,11 +42,16 @@
             </q-page>
         </q-page-container>
     </q-layout>
+
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import { RouterLink, RouterView } from 'vue-router';
+import { useAuthentication } from '@/stores/authentication';
+import headerParams from '@/components/headerParams.vue';
+
+const authentication = useAuthentication();
 
 const drawer = ref(false);
 
