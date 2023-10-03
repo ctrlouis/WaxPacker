@@ -1,7 +1,7 @@
 <template>
-    <h1>Détail du lot</h1>
+    <h1 class="mt-32 mb-4 text-5xl">Détail du lot</h1>
 
-    <h2>Informations</h2>
+    <h2 class="mt-4 text-base text-indigo-300">Informations</h2>
     <q-list v-if="waxOutItem">
         <q-item clickable v-ripple dark>
             <q-item-section>
@@ -53,7 +53,7 @@
         </q-item>
     </q-list>
 
-    <h2>Media</h2>
+    <h2 class="mt-4 text-base text-indigo-300">Media</h2>
     <h3 v-if="waxOutItem && waxOutItem.pictures.length > 0">Photos du lot</h3>
     <mediaList v-if="waxOutItem && waxOutItem.pictures.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.pictures" mediaType="pictures" />
     <h3 v-if="waxOutItem && waxOutItem.analyzes.length > 0">Analyses</h3>
@@ -67,18 +67,17 @@
 
     <waxInMediaUploader v-if="waxOutItem" :waxItem="waxOutItem" />
 
-    <h2>Tracabilité</h2>
+    <h2 class="mt-4 text-base text-indigo-300">Tracabilité</h2>
     <waxInOutTraceTable v-if="waxOutItem" :waxOutItem="waxOutItem" />
     <waxInOutTraceAdd v-if="waxOutItem" :waxOutItem="waxOutItem" />
 
-    <h2>Actions</h2>
+    <h2 class="mt-4 text-base text-indigo-300">Actions</h2>
     <q-list v-if="waxOutItem">
-        <q-item clickable v-ripple dark>
+        <q-item class="rounded" dark>
             <q-item-section>
-                <q-item-label>Supprimer</q-item-label>
-                <q-item-label caption>{{ waxOutItem.label }}</q-item-label>
+                <q-item-label class="text-lg">Supprimer le lot de sortie</q-item-label>
             </q-item-section>
-            <q-item-section>
+            <q-item-section side>
                 <div>
                     <q-btn flat label="supprimer" color="red" @click="askDelete" />
                 </div>
@@ -86,7 +85,9 @@
         </q-item>
     </q-list>
 
-    <q-btn round icon="edit" color="orange" @click="goEditPage" />
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+        <q-btn round icon="edit" color="orange" @click="goEditPage" />
+    </q-page-sticky>
 
     <q-dialog v-model="removeAlert">
         <q-card dark>

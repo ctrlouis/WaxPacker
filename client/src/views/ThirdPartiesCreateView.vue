@@ -1,5 +1,5 @@
 <template>
-    <q-icon class="cursor-pointer" size="lg" dark name="arrow_back" @click="goListPage" />
+    <q-icon class="absolute top-0 left-0 cursor-pointer" size="lg" dark name="arrow_back" @click="goListPage" />
     <h1 class="mt-32 mb-4 text-5xl">Ajouter un tier</h1>
     <q-input v-model="name" class="mb-4" dark standout label="Nom" required />
     <q-input v-model="number" class="mb-4" dark standout label="Numéro" />
@@ -17,12 +17,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { computed, onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 
+const route = useRoute();
 const router = useRouter();
+const id = ref(String(route.params.id));
+
 const {
+    item: thirdPartieItem,
+    sync: syncThirdPartieItem,
     create: createThirdPartiesItem,
 } = usePocketbaseItem('third_parties');
 
@@ -35,6 +40,13 @@ const city = ref("");
 const country = ref("");
 const state = ref("");
 const dolibarrID = ref("");
+
+function initEdit() {
+    if (thirdPartieItem.value) {
+        name.value = thirdPartieItem.value.name;
+        number.value = thirdPartieItem.value.number;
+    }
+}
 
 async function onCreate() {
     const data = {
@@ -62,4 +74,21 @@ async function onCreate() {
 function goListPage() {
     router.push({ name: 'ThirdPartiesView' });
 }
+
+const mode = computed(() => {
+    let mode = null;
+    if (route.name === 'ThirdPartiesCreateView') {
+        mode = 'create';
+    } else if (route.name === 'WaxInEditView') {
+        mode = 'edit';
+    }
+    return mode;
+});
+
+onMounted(async () => {
+    if (mode.value === 'edit') {
+        await syncThirdPartieItem(id.value);
+        initEdit();
+    }
+});
 </script>

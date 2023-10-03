@@ -13,7 +13,7 @@
         </q-item-section>
     </q-item>
 
-    <q-dialog v-model="removeAlert">
+    <!-- <q-dialog v-model="removeAlert">
         <q-card dark>
             <q-card-section>
                 <div class="text-h6">Suppression</div>
@@ -28,7 +28,7 @@
                 <q-btn label="Supprimer" color="red" @click="onRemove" />
             </q-card-actions>
         </q-card>
-    </q-dialog>
+    </q-dialog> -->
 </template>
 
 <script setup lang="ts">
@@ -40,25 +40,25 @@ const props = defineProps([ 'item' ]);
 
 const router = useRouter();
 
-const {
-    remove: removeThirdPartiesItem,
-} = usePocketbaseItem('third_parties');
+// const {
+//     remove: removeThirdPartiesItem,
+// } = usePocketbaseItem('third_parties');
 
-const removeAlert = ref(false);
-function askDelete(event: Event) {
-    event.stopPropagation();
-    removeAlert.value = true;
-}
-function closeAskDelete() {
-    removeAlert.value = false;
-}
-async function onRemove() {
-    await removeThirdPartiesItem(props.item.id);
-    closeAskDelete();
-}
+// const removeAlert = ref(false);
+// function askDelete(event: Event) {
+//     event.stopPropagation();
+//     removeAlert.value = true;
+// }
+// function closeAskDelete() {
+//     removeAlert.value = false;
+// }
+// async function onRemove() {
+//     await removeThirdPartiesItem(props.item.id);
+//     closeAskDelete();
+// }
 
 function goItemPage() {
-    router.push({ name: 'WaxInItemView', params: { id: props.item.id } });
+    router.push({ name: 'ThirdPartiesItemView', params: { id: props.item.id } });
 }
 
 const address = computed(() => {

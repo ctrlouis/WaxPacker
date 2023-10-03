@@ -34,7 +34,7 @@
 
         <q-page-container>
             <q-page class="p-4 flex justify-center">
-                <div class="w-100 md:w-4/5 lg:w-1/2">
+                <div class="w-100 md:w-4/5 lg:w-1/2 absolute">
                     <RouterView />
                 </div>
             </q-page>

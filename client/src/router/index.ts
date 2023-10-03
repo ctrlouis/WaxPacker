@@ -11,6 +11,7 @@ import WaxOutItemView from '../views/WaxOutItemView.vue';
 import WaxOutCreateEditView from '../views/WaxOutCreateEditView.vue';
 
 import ThirdPartiesView from '../views/ThirdPartiesView.vue';
+import ThirdPartiesItemView from '../views/ThirdPartiesItemView.vue';
 import ThirdPartiesCreateView from '../views/ThirdPartiesCreateView.vue';
 
 import { useAuthentication } from '@/stores/authentication';
@@ -76,6 +77,16 @@ const router = createRouter({
         {
             path: '/t/new',
             name: 'ThirdPartiesCreateView',
+            component: ThirdPartiesCreateView,
+        },
+        {
+            path: '/t/:id',
+            name: 'ThirdPartiesItemView',
+            component: ThirdPartiesItemView,
+        },
+        {
+            path: '/t/:id/edit',
+            name: 'ThirdPartiesEditView',
             component: ThirdPartiesCreateView,
         },
     ],

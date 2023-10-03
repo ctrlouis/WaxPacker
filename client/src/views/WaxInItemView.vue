@@ -1,65 +1,65 @@
 <template>
-    <h1>Détail du lot</h1>
+    <h1 class="mt-32 mb-4 text-5xl">Détail du lot</h1>
 
-    <h2>Informations</h2>
+    <h2 class="mt-4 text-base text-indigo-300">Informations</h2>
     <q-list v-if="waxInItem">
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Label</q-item-label>
-                <q-item-label caption>{{ waxInItem.label }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Label</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxInItem.label }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Numéro de lot</q-item-label>
-                <q-item-label caption>{{ waxInItem.number }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Numéro de lot</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxInItem.number }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item v-if="waxInItem.lossCoef !== 0" clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Poids brute (Kg)</q-item-label>
-                <q-item-label caption>{{ waxInItem.weight_raw }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Poids brute (Kg)</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxInItem.weight_raw }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item v-if="waxInItem.lossCoef !== 0" clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Coefficent de perte (%)</q-item-label>
-                <q-item-label caption>{{ waxInItem.loss_coefficient }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Coefficent de perte (%)</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxInItem.loss_coefficient }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Poids net (Kg)</q-item-label>
-                <q-item-label caption>{{ waxInItem.weight_net }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Poids net (Kg)</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxInItem.weight_net }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Quantité restante</q-item-label>
-                <q-item-label caption>{{ waxInItem.weight_left }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Quantité restante</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxInItem.weight_left }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Date d'entrée</q-item-label>
-                <q-item-label caption>{{ waxInItem.entry_date }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Date d'entrée</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxInItem.entry_date }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Type de lot</q-item-label>
-                <q-item-label caption>{{ waxPerso }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Type de lot</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxPerso }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Type de cire</q-item-label>
-                <q-item-label caption>{{ waxType }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Type de cire</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxType }}</q-item-label>
             </q-item-section>
         </q-item>
     </q-list>
 
-    <h2>Media</h2>
+    <h2 class="mt-4 text-base text-indigo-300">Media</h2>
     <h3 v-if="waxInItem && waxInItem.pictures.length > 0">Photos du lot</h3>
     <mediaList v-if="waxInItem && waxInItem.pictures.length > 0" :waxItem="waxInItem" :medias="waxInItem.pictures" mediaType="pictures" />
     <h3 v-if="waxInItem && waxInItem.analyzes.length > 0">Analyses</h3>
@@ -73,17 +73,16 @@
 
     <waxInMediaUploader v-if="waxInItem" :waxItem="waxInItem" />
 
-    <h2>Tracabilité</h2>
+    <h2 class="mt-4 text-base text-indigo-300">Tracabilité</h2>
     <waxInOutTraceTable v-if="waxInItem" :waxInItem="waxInItem" />
 
-    <h2>Actions</h2>
+    <h2 class="mt-4 text-base text-indigo-300">Actions</h2>
     <q-list v-if="waxInItem">
-        <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Supprimer</q-item-label>
-                <q-item-label caption>{{ waxInItem.label }}</q-item-label>
+        <q-item class="rounded" dark>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Supprimer le lot d'entrée</q-item-label>
             </q-item-section>
-            <q-item-section>
+            <q-item-section class="py-4">
                 <div>
                     <q-btn flat label="supprimer" color="red" @click="askDelete" />
                 </div>
@@ -91,7 +90,9 @@
         </q-item>
     </q-list>
 
-    <q-btn round icon="edit" color="orange" @click="goEditPage" />
+    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+        <q-btn round icon="edit" color="orange" @click="goEditPage" />
+    </q-page-sticky>
 
     <q-dialog v-model="removeAlert">
         <q-card dark>
