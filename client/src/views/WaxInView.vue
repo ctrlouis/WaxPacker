@@ -4,9 +4,9 @@
         <sortList v-model="sort" :options="sortOptions" @sort="onSort" />
     </div>
     <waxList :type="waxType" :list="waxInList" />
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+    <q-page-sticky position="bottom-right" :offset="[32, 32]">
         <RouterLink to="/w/in/new">
-            <q-btn round icon="add" color="orange" />
+            <q-btn round icon="add" color="orange" size="lg" />
         </RouterLink>
     </q-page-sticky>
 </template>

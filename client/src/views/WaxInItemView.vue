@@ -90,8 +90,8 @@
         </q-item>
     </q-list>
 
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
-        <q-btn round icon="edit" color="orange" @click="goEditPage" />
+    <q-page-sticky position="bottom-right" :offset="[32, 32]">
+        <q-btn round icon="edit" color="orange" size="lg" @click="goEditPage" />
     </q-page-sticky>
 
     <q-dialog v-model="removeAlert">
