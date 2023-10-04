@@ -1,12 +1,17 @@
 <template>
-    <div class="h-100 w-100 flex align-center justify-center item-center">
+    <div class="h-full w-full flex justify-center content-center">
         <div>
-            <h1 class="text-xl text-center">Login</h1>
-            <form class="flex flex-col">
-                <q-input v-model="username" class="my-1" dark round label="username" />
-                <q-input v-model="password" class="my-1" dark round label="password" type="password" />
-                <q-btn  class="my-1" dark color="primary" label="Connection" @click="connection" />
-            </form>
+            <h1 class="mb-4 text-4xl text-center">Connexion</h1>
+            <q-form @submit="connection" class="flex flex-col gap-y-2">
+                <q-input v-model="username" standout dark round placeholder="Identifiant" required />
+                <q-input v-model="password" standout dark round placeholder="Mot de passe" :type="!showPassword ? 'password' : 'text'" required>
+                    <template v-slot:append>
+                        <q-icon :name="showPassword ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="toggleShowPassword"
+                        />
+                    </template>
+                </q-input>
+                <q-btn label="Connection" type="submit" dark color="primary" :loading="loading" />
+            </q-form>
         </div>
     </div>
 </template>
@@ -20,13 +25,30 @@ const router = useRouter();
 const authentication = useAuthentication();
 const username = ref("");
 const password = ref("");
+const showPassword = ref(false);
+const loading = ref(false);
 
 async function connection() {
-    await authentication.login(username.value, password.value);
+    console.log("connection()");
+    try {
+        loading.value = true;
+        await authentication.login(username.value, password.value);
+    } catch(error: any) {
+        if (error && error.message) {
+            console.error(error.message);
+            alert(error.message);
+        }
+    } finally {
+        loading.value = false;
+    }
     if (authentication.isConnected) onConnection();
 }
 
 function onConnection() {
     router.push({ name: 'home' });
+}
+
+function toggleShowPassword() {
+    showPassword.value = !showPassword.value;
 }
 </script>

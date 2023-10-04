@@ -97,7 +97,9 @@ router.beforeEach((to, from, next) => {
 
     if (to.name !== 'login' && !authentication.isConnected) {
         next({ name: 'login' });
-    } else {
+    } else if (to.name === 'login' && authentication.isConnected) {
+        next({ name: 'home' });
+    }else {
         next();
     }
 });

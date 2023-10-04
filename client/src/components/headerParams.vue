@@ -17,7 +17,7 @@
 import { useRouter } from 'vue-router';
 import { useAuthentication } from '@/stores/authentication';
 
-const { router } = useRouter();
+const router = useRouter();
 const authentication = useAuthentication();
 
 function logout() {
