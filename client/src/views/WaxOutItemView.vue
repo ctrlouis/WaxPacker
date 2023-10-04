@@ -67,9 +67,13 @@
 
     <waxInMediaUploader v-if="waxOutItem" :waxItem="waxOutItem" />
 
-    <h2 class="mt-4 text-base text-indigo-300">Tracabilité</h2>
+    <h2 class="mt-4 text-base text-indigo-300">Tracabilité de fabrication</h2>
     <waxInOutTraceTable v-if="waxOutItem" :waxOutItem="waxOutItem" />
     <waxInOutTraceAdd v-if="waxOutItem" :waxOutItem="waxOutItem" />
+
+    <h2 class="mt-4 text-base text-indigo-300">Tracabilité de sorties</h2>
+    <waxOutTraceTable v-if="waxOutItem" :waxOutItem="waxOutItem" />
+    <waxOutTraceAdd v-if="waxOutItem" :waxOutItem="waxOutItem" />
 
     <h2 class="mt-4 text-base text-indigo-300">Actions</h2>
     <q-list v-if="waxOutItem">
@@ -115,6 +119,8 @@ import mediaList from '@/components/mediaList.vue';
 import waxInMediaUploader from '@/components/waxInMediaUploader.vue';
 import waxInOutTraceAdd from '@/components/waxInOutTraceAdd.vue';
 import waxInOutTraceTable from '@/components/waxInOutTraceTable.vue';
+import waxOutTraceTable from '@/components/waxOutTraceTable.vue';
+import waxOutTraceAdd from '@/components/waxOutTraceAdd.vue';
 
 const router = useRouter();
 const route = useRoute();
