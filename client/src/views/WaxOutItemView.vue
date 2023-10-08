@@ -1,59 +1,61 @@
 <template>
+    <q-icon class="absolute top-0 left-0 cursor-pointer" size="lg" dark name="arrow_back" @click="goListPage" />
+
     <h1 class="mt-32 mb-4 text-5xl">Détail du lot</h1>
 
-    <h2 class="mt-4 text-base text-indigo-300">Informations</h2>
+    <h2 class="mt-4 text-base text-bold text-indigo-300">Informations</h2>
     <q-list v-if="waxOutItem">
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Label</q-item-label>
-                <q-item-label caption>{{ waxOutItem.label }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Label</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxOutItem.label }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Numéro de lot</q-item-label>
-                <q-item-label caption>{{ waxOutItem.number }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Numéro de lot</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxOutItem.number }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Quantité initial</q-item-label>
-                <q-item-label caption>{{ waxOutItem.weight }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Quantité initial</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxOutItem.weight }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Quantité restante</q-item-label>
-                <q-item-label caption>{{ waxOutItem.weight_left }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Quantité restante</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxOutItem.weight_left }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Quantité sortie</q-item-label>
-                <q-item-label caption>{{ weightOut }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Quantité sortie</q-item-label>
+                <q-item-label class="text-base text-grey">{{ weightOut }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Date de début</q-item-label>
-                <q-item-label caption>{{ waxOutItem.start_date }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Date de début</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxOutItem.start_date }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Type de lot</q-item-label>
-                <q-item-label caption>{{ waxPerso }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Type de lot</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxPerso }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Type de cire</q-item-label>
-                <q-item-label caption>{{ waxType }}</q-item-label>
+            <q-item-section class="py-4">
+                <q-item-label class="text-lg">Type de cire</q-item-label>
+                <q-item-label class="text-base text-grey">{{ waxType }}</q-item-label>
             </q-item-section>
         </q-item>
     </q-list>
 
-    <h2 class="mt-4 text-base text-indigo-300">Media</h2>
+    <h2 class="mt-4 text-base text-bold text-indigo-300">Media</h2>
     <h3 v-if="waxOutItem && waxOutItem.pictures.length > 0">Photos du lot</h3>
     <mediaList v-if="waxOutItem && waxOutItem.pictures.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.pictures" mediaType="pictures" />
     <h3 v-if="waxOutItem && waxOutItem.analyzes.length > 0">Analyses</h3>
@@ -67,18 +69,18 @@
 
     <waxInMediaUploader v-if="waxOutItem" :waxItem="waxOutItem" />
 
-    <h2 class="mt-4 text-base text-indigo-300">Tracabilité de fabrication</h2>
+    <h2 class="mt-4 text-base text-bold text-indigo-300">Tracabilité de fabrication</h2>
     <waxInOutTraceTable v-if="waxOutItem" :waxOutItem="waxOutItem" />
     <waxInOutTraceAdd v-if="waxOutItem" :waxOutItem="waxOutItem" />
 
-    <h2 class="mt-4 text-base text-indigo-300">Tracabilité de sorties</h2>
+    <h2 class="mt-4 text-base text-bold text-indigo-300">Tracabilité de sorties</h2>
     <waxOutTraceTable v-if="waxOutItem" :waxOutItem="waxOutItem" />
     <waxOutTraceAdd v-if="waxOutItem" :waxOutItem="waxOutItem" />
 
-    <h2 class="mt-4 text-base text-indigo-300">Actions</h2>
+    <h2 class="mt-4 text-base text-bold text-indigo-300">Actions</h2>
     <q-list v-if="waxOutItem">
         <q-item class="rounded" dark>
-            <q-item-section>
+            <q-item-section class="py-4">
                 <q-item-label class="text-lg">Supprimer le lot de sortie</q-item-label>
             </q-item-section>
             <q-item-section side>
@@ -150,6 +152,10 @@ function onRemove() {
 
 function goEditPage() {
     router.push({ name: 'WaxOutEditView', params: { id: id.value } });
+}
+
+function goListPage() {
+    router.push({ name: 'WaxOutView' });
 }
 
 const weightOut = computed(() => {

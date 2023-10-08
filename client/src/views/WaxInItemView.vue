@@ -1,4 +1,5 @@
 <template>
+    <q-icon class="absolute top-0 left-0 cursor-pointer" size="lg" dark name="arrow_back" @click="goListPage" />
     <h1 class="mt-32 mb-4 text-5xl">Détail du lot</h1>
 
     <h2 class="mt-4 text-base text-indigo-300">Informations</h2>
@@ -148,6 +149,10 @@ function onRemove() {
 
 function goEditPage() {
     router.push({ name: 'WaxInEditView', params: { id: id.value } });
+}
+
+function goListPage() {
+    router.push({ name: 'WaxInView' });
 }
 
 const waxPerso = computed(() => {
