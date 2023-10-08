@@ -18,19 +18,19 @@
         <q-item clickable v-ripple dark>
             <q-item-section>
                 <q-item-label>Quantité initial</q-item-label>
-                <q-item-label caption>{{ waxOutItem.weight_net }}</q-item-label>
-            </q-item-section>
-        </q-item>
-        <q-item clickable v-ripple dark>
-            <q-item-section>
-                <q-item-label>Quantité sortie</q-item-label>
-                <q-item-label caption>{{ waxOutItem.weight_out }}</q-item-label>
+                <q-item-label caption>{{ waxOutItem.weight }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
             <q-item-section>
                 <q-item-label>Quantité restante</q-item-label>
-                <q-item-label caption>{{ weightLeft }}</q-item-label>
+                <q-item-label caption>{{ waxOutItem.weight_left }}</q-item-label>
+            </q-item-section>
+        </q-item>
+        <q-item clickable v-ripple dark>
+            <q-item-section>
+                <q-item-label>Quantité sortie</q-item-label>
+                <q-item-label caption>{{ weightOut }}</q-item-label>
             </q-item-section>
         </q-item>
         <q-item clickable v-ripple dark>
@@ -152,12 +152,12 @@ function goEditPage() {
     router.push({ name: 'WaxOutEditView', params: { id: id.value } });
 }
 
-const weightLeft = computed(() => {
-    let weight = 0;
+const weightOut = computed(() => {
+    let w = 0;
     if (waxOutItem.value) {
-        weight = waxOutItem.value.weight_net - waxOutItem.value.weight_out;
+        w = waxOutItem.value.weight - waxOutItem.value.weight_left;
     }
-    return weight;
+    return w;
 });
 
 const waxPerso = computed(() => {
