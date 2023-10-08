@@ -92,7 +92,13 @@
     </q-list>
 
     <q-page-sticky position="bottom-right" :offset="[32, 32]">
-        <q-btn round icon="edit" color="orange" size="lg" @click="goEditPage" />
+        <q-fab color="purple" icon="keyboard_arrow_up" direction="up">
+        <q-fab-action color="primary" @click="goEditPage" icon="edit" label="Modifier" />
+        <!-- <q-fab-action color="secondary" @click="goEditPage" icon="attach_file" label="Ajouter un fichier" /> -->
+        <!-- <q-fab-action color="secondary" @click="goEditPage" icon="input" label="Lier un lot d'entrée" /> -->
+        <!-- <q-fab-action color="secondary" @click="goEditPage" icon="input" label="Lier un lot d'entrée" /> -->
+    </q-fab>
+        <!-- <q-btn round icon="edit" color="orange" size="lg" @click="goEditPage" /> -->
     </q-page-sticky>
 
     <q-dialog v-model="removeAlert">
