@@ -22,7 +22,7 @@ const {
     sync: syncWaxOutList,
 } = usePocketbaseList('wax_out');
 
-const sort = ref({ label: "N° de lot", value: 'number', arrangement: '+' });
+const sort = ref({ label: "N° de lot", value: 'number', arrangement: '-' });
 const sortOptions = [
     { label: "N° de lot", value: 'number', arrangement: '+' },
     { label: "Label", value: 'label', arrangement: '+' },
