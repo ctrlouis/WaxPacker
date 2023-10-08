@@ -91,15 +91,13 @@
         </q-item>
     </q-list>
 
-    <q-page-sticky position="bottom-right" :offset="[32, 32]">
+    <waxItemActionButton @edit="goEditPage" />
+
+    <!-- <q-page-sticky position="bottom-right" :offset="[32, 32]">
         <q-fab color="purple" icon="keyboard_arrow_up" direction="up">
-        <q-fab-action color="primary" @click="goEditPage" icon="edit" label="Modifier" />
-        <!-- <q-fab-action color="secondary" @click="goEditPage" icon="attach_file" label="Ajouter un fichier" /> -->
-        <!-- <q-fab-action color="secondary" @click="goEditPage" icon="input" label="Lier un lot d'entrée" /> -->
-        <!-- <q-fab-action color="secondary" @click="goEditPage" icon="input" label="Lier un lot d'entrée" /> -->
-    </q-fab>
-        <!-- <q-btn round icon="edit" color="orange" size="lg" @click="goEditPage" /> -->
-    </q-page-sticky>
+            <q-fab-action color="primary" @click="goEditPage" icon="edit" label="Modifier" />
+        </q-fab>
+    </q-page-sticky> -->
 
     <q-dialog v-model="removeAlert">
         <q-card dark>
@@ -129,6 +127,7 @@ import waxInOutTraceAdd from '@/components/waxInOutTraceAdd.vue';
 import waxInOutTraceTable from '@/components/waxInOutTraceTable.vue';
 import waxOutTraceTable from '@/components/waxOutTraceTable.vue';
 import waxOutTraceAdd from '@/components/waxOutTraceAdd.vue';
+import waxItemActionButton from '@/components/waxItemActionButton.vue';
 
 const router = useRouter();
 const route = useRoute();
