@@ -63,13 +63,11 @@ const props = defineProps([ 'waxOutItem' ]);
 const emit = defineEmits([ 'traceAdd' ]);
 
 const {
-    list: waxInList,
     sync: syncWaxInList,
     generateListAsOptions: generateselectWaxInAsOptions,
 } = usePocketbaseList('wax_in');
 
 const {
-    list: thirdPartiesList,
     sync: syncThirdPartiesList,
     generateListAsOptions: generateThirdPartiesListAsOptions,
 } = usePocketbaseList('third_parties');
