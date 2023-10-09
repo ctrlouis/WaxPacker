@@ -100,12 +100,12 @@ function onRemove() {
     if(thirdPartiesItem.value) {
         removethirdPartiesItem(thirdPartiesItem.value.id);
         closeAskDelete();
-        router.push({ name: 'thirdPartiesView' });
+        router.push({ name: 'ThirdPartiesView' });
     }
 }
 
 function goEditPage() {
-    router.push({ name: 'thirdPartiesEditView', params: { id: id.value } });
+    router.push({ name: 'ThirdPartiesEditView', params: { id: id.value } });
 }
 
 onMounted(async () => {
