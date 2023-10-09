@@ -1,6 +1,5 @@
 <template>
-    <q-btn label="Ajouter" @click="onShow" />
-    <q-dialog v-model="show">
+    <q-dialog v-model="show" @hide="onHide">
         <q-card dark>
             <q-card-section>
                 <q-select standout dark v-model="mediaType" :options="mediaTypeOptions" label="Type de document" />
@@ -23,10 +22,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 
-const props = defineProps([ 'waxItem' ]);
+const props = defineProps(['modelValue', 'waxItem']);
+
+const emit = defineEmits(['update:modelValue']);
 
 const {
     update: updateWaxInItem,
@@ -36,12 +37,9 @@ const show = ref(false);
 const media = ref();
 const mediaType = ref();
 
-function onShow() {
-    show.value = true;
-}
-
 function onHide() {
     show.value = false;
+    emit('update:modelValue', show.value);
 }
 
 async function uploadFile() {
@@ -78,5 +76,9 @@ const mediaTypeOptions = computed(() => {
         ];
     }
     return options;
+});
+
+watch(() => props.modelValue, (newValue) => {
+    show.value = newValue;
 });
 </script>

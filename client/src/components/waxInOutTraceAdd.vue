@@ -1,7 +1,5 @@
 <template>
-    <q-btn label="ajouter" @click="open" />
-
-    <q-dialog v-model="show">
+    <q-dialog v-model="show" @show="onShow" @hide="onHide">
         <q-card dark>
             <q-card-section>
                 <div class="text-h6">Lier un lot d'entrée</div>
@@ -41,7 +39,7 @@
             </q-card-section>
 
             <q-card-actions align="right">
-                <q-btn flat label="Annuler" color="primary" @click="close" />
+                <q-btn flat label="Annuler" color="primary" @click="onHide" />
                 <q-btn label="Ajouter" color="primary" @click="onCreate" />
             </q-card-actions>
         </q-card>
@@ -49,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import type { RecordModel } from 'pocketbase';
 import { usePocketbaseList } from '@/composables/usePocketbaseList';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
@@ -59,8 +57,9 @@ interface SelectRecordModel {
     value: RecordModel,
 }
 
-const props = defineProps([ 'waxOutItem' ]);
-const emit = defineEmits([ 'traceAdd' ]);
+const props = defineProps(['modelValue', 'waxOutItem', 'waxInItem']);
+
+const emit = defineEmits([ 'update:modelValue', 'traceAdd' ]);
 
 const {
     sync: syncWaxInList,
@@ -85,8 +84,7 @@ const waxInSelected = ref<SelectRecordModel|null>();
 const thirdPartiesSelected = ref<SelectRecordModel|null>();
 const weight = ref(0);
 
-async function open() {
-    show.value = true;
+async function onShow() {
     waxInSelected.value = null;
     const options = {
         filter: "weight_left > 0",
@@ -95,8 +93,9 @@ async function open() {
     await syncThirdPartiesList();
 }
 
-function close() {
+function onHide() {
     show.value = false;
+    emit('update:modelValue', show.value);
 }
 
 async function onCreate() {
@@ -126,4 +125,9 @@ async function onCreate() {
 
 const selectWaxInOptions = generateselectWaxInAsOptions('number');
 const selectThirdPartiesOptions = generateThirdPartiesListAsOptions('name');
+
+watch(() => props.modelValue, (newValue) => {
+    console.log(newValue);
+    show.value = newValue;
+});
 </script>

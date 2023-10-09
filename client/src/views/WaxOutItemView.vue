@@ -3,101 +3,105 @@
 
     <h1 class="mt-32 mb-4 text-5xl">Détail du lot</h1>
 
-    <h2 class="mt-4 text-base text-bold text-indigo-300">Informations</h2>
-    <q-list v-if="waxOutItem">
-        <q-item clickable v-ripple dark>
-            <q-item-section class="py-4">
-                <q-item-label class="text-lg">Label</q-item-label>
-                <q-item-label class="text-base text-grey">{{ waxOutItem.label }}</q-item-label>
-            </q-item-section>
-        </q-item>
-        <q-item clickable v-ripple dark>
-            <q-item-section class="py-4">
-                <q-item-label class="text-lg">Numéro de lot</q-item-label>
-                <q-item-label class="text-base text-grey">{{ waxOutItem.number }}</q-item-label>
-            </q-item-section>
-        </q-item>
-        <q-item clickable v-ripple dark>
-            <q-item-section class="py-4">
-                <q-item-label class="text-lg">Quantité initial</q-item-label>
-                <q-item-label class="text-base text-grey">{{ waxOutItem.weight }}</q-item-label>
-            </q-item-section>
-        </q-item>
-        <q-item clickable v-ripple dark>
-            <q-item-section class="py-4">
-                <q-item-label class="text-lg">Quantité restante</q-item-label>
-                <q-item-label class="text-base text-grey">{{ waxOutItem.weight_left }}</q-item-label>
-            </q-item-section>
-        </q-item>
-        <q-item clickable v-ripple dark>
-            <q-item-section class="py-4">
-                <q-item-label class="text-lg">Quantité sortie</q-item-label>
-                <q-item-label class="text-base text-grey">{{ weightOut }}</q-item-label>
-            </q-item-section>
-        </q-item>
-        <q-item clickable v-ripple dark>
-            <q-item-section class="py-4">
-                <q-item-label class="text-lg">Date de début</q-item-label>
-                <q-item-label class="text-base text-grey">{{ waxOutItem.start_date }}</q-item-label>
-            </q-item-section>
-        </q-item>
-        <q-item clickable v-ripple dark>
-            <q-item-section class="py-4">
-                <q-item-label class="text-lg">Type de lot</q-item-label>
-                <q-item-label class="text-base text-grey">{{ waxPerso }}</q-item-label>
-            </q-item-section>
-        </q-item>
-        <q-item clickable v-ripple dark>
-            <q-item-section class="py-4">
-                <q-item-label class="text-lg">Type de cire</q-item-label>
-                <q-item-label class="text-base text-grey">{{ waxType }}</q-item-label>
-            </q-item-section>
-        </q-item>
-    </q-list>
+    <div>
+        <h2 class="mt-4 text-base text-bold text-indigo-300">Informations</h2>
+        <q-list v-if="waxOutItem">
+            <q-item clickable v-ripple dark>
+                <q-item-section class="py-4">
+                    <q-item-label class="text-lg">Label</q-item-label>
+                    <q-item-label class="text-base text-grey">{{ waxOutItem.label }}</q-item-label>
+                </q-item-section>
+            </q-item>
+            <q-item clickable v-ripple dark>
+                <q-item-section class="py-4">
+                    <q-item-label class="text-lg">Numéro de lot</q-item-label>
+                    <q-item-label class="text-base text-grey">{{ waxOutItem.number }}</q-item-label>
+                </q-item-section>
+            </q-item>
+            <q-item clickable v-ripple dark>
+                <q-item-section class="py-4">
+                    <q-item-label class="text-lg">Quantité initial</q-item-label>
+                    <q-item-label class="text-base text-grey">{{ waxOutItem.weight }}</q-item-label>
+                </q-item-section>
+            </q-item>
+            <q-item clickable v-ripple dark>
+                <q-item-section class="py-4">
+                    <q-item-label class="text-lg">Quantité restante</q-item-label>
+                    <q-item-label class="text-base text-grey">{{ waxOutItem.weight_left }}</q-item-label>
+                </q-item-section>
+            </q-item>
+            <q-item clickable v-ripple dark>
+                <q-item-section class="py-4">
+                    <q-item-label class="text-lg">Quantité sortie</q-item-label>
+                    <q-item-label class="text-base text-grey">{{ weightOut }}</q-item-label>
+                </q-item-section>
+            </q-item>
+            <q-item clickable v-ripple dark>
+                <q-item-section class="py-4">
+                    <q-item-label class="text-lg">Date de début</q-item-label>
+                    <q-item-label class="text-base text-grey">{{ waxOutItem.start_date }}</q-item-label>
+                </q-item-section>
+            </q-item>
+            <q-item clickable v-ripple dark>
+                <q-item-section class="py-4">
+                    <q-item-label class="text-lg">Type de lot</q-item-label>
+                    <q-item-label class="text-base text-grey">{{ waxPerso }}</q-item-label>
+                </q-item-section>
+            </q-item>
+            <q-item clickable v-ripple dark>
+                <q-item-section class="py-4">
+                    <q-item-label class="text-lg">Type de cire</q-item-label>
+                    <q-item-label class="text-base text-grey">{{ waxType }}</q-item-label>
+                </q-item-section>
+            </q-item>
+        </q-list>
+    </div>
 
-    <h2 class="mt-4 text-base text-bold text-indigo-300">Media</h2>
-    <h3 v-if="waxOutItem && waxOutItem.pictures.length > 0">Photos du lot</h3>
-    <mediaList v-if="waxOutItem && waxOutItem.pictures.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.pictures" mediaType="pictures" />
-    <h3 v-if="waxOutItem && waxOutItem.analyzes.length > 0">Analyses</h3>
-    <mediaList v-if="waxOutItem && waxOutItem.analyzes.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.analyzes" mediaType="analyzes" />
-    <h3 v-if="waxOutItem && waxOutItem.certificates.length > 0">Certificat</h3>
-    <mediaList v-if="waxOutItem && waxOutItem.certificates.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.certificates" mediaType="certificates" />
-    <h3 v-if="waxOutItem && waxOutItem.delivery_notes.length > 0">Bon de livraison</h3>
-    <mediaList v-if="waxOutItem && waxOutItem.delivery_notes.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.delivery_notes" mediaType="delivery_notes" />
-    <h3 v-if="waxOutItem && waxOutItem.other_files.length > 0">Divers</h3>
-    <mediaList v-if="waxOutItem && waxOutItem.other_files.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.other_files" mediaType="other_files" />
+    <div v-if="waxOutItem">
+        <h2 class="mt-4 text-base text-bold text-indigo-300">Media</h2>
+        <h3 v-if="waxOutItem.pictures.length > 0">Photos du lot</h3>
+        <mediaList v-if="waxOutItem.pictures.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.pictures" mediaType="pictures" />
+        <h3 v-if="waxOutItem.analyzes.length > 0">Analyses</h3>
+        <mediaList v-if="waxOutItem.analyzes.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.analyzes" mediaType="analyzes" />
+        <h3 v-if="waxOutItem.certificates.length > 0">Certificat</h3>
+        <mediaList v-if="waxOutItem.certificates.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.certificates" mediaType="certificates" />
+        <h3 v-if="waxOutItem.delivery_notes.length > 0">Bon de livraison</h3>
+        <mediaList v-if="waxOutItem.delivery_notes.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.delivery_notes" mediaType="delivery_notes" />
+        <h3 v-if="waxOutItem.other_files.length > 0">Divers</h3>
+        <mediaList v-if="waxOutItem.other_files.length > 0" :waxItem="waxOutItem" :medias="waxOutItem.other_files" mediaType="other_files" />
+        <waxInMediaUploader v-model="showAddFile" :waxItem="waxOutItem" />
+    </div>
 
-    <waxInMediaUploader v-if="waxOutItem" :waxItem="waxOutItem" />
 
-    <h2 class="mt-4 text-base text-bold text-indigo-300">Tracabilité de fabrication</h2>
-    <waxInOutTraceTable v-if="waxOutItem" :waxOutItem="waxOutItem" />
-    <waxInOutTraceAdd v-if="waxOutItem" :waxOutItem="waxOutItem" />
+    <div v-if="waxOutItem">
+        <h2 class="mt-4 text-base text-bold text-indigo-300">Tracabilité de fabrication</h2>
+        <waxInOutTraceTable :waxOutItem="waxOutItem" />
+        <waxInOutTraceAdd v-model="showWaxInOutTraceAdd" :waxOutItem="waxOutItem" />
+    </div>
 
-    <h2 class="mt-4 text-base text-bold text-indigo-300">Tracabilité de sorties</h2>
-    <waxOutTraceTable v-if="waxOutItem" :waxOutItem="waxOutItem" />
-    <waxOutTraceAdd v-if="waxOutItem" :waxOutItem="waxOutItem" />
+    <div v-if="waxOutItem">
+        <h2 class="mt-4 text-base text-bold text-indigo-300">Tracabilité de sorties</h2>
+        <waxOutTraceTable v-if="waxOutItem" :waxOutItem="waxOutItem" />
+        <waxOutTraceAdd v-if="waxOutItem" :waxOutItem="waxOutItem" />
+    </div>
 
-    <h2 class="mt-4 text-base text-bold text-indigo-300">Actions</h2>
-    <q-list v-if="waxOutItem">
-        <q-item class="rounded" dark>
-            <q-item-section class="py-4">
-                <q-item-label class="text-lg">Supprimer le lot de sortie</q-item-label>
-            </q-item-section>
-            <q-item-section side>
-                <div>
-                    <q-btn flat label="supprimer" color="red" @click="askDelete" />
-                </div>
-            </q-item-section>
-        </q-item>
-    </q-list>
+    <div v-if="waxOutItem">
+        <h2 class="mt-4 text-base text-bold text-indigo-300">Actions</h2>
+        <q-list>
+            <q-item class="rounded" dark>
+                <q-item-section class="py-4">
+                    <q-item-label class="text-lg">Supprimer le lot de sortie</q-item-label>
+                </q-item-section>
+                <q-item-section side>
+                    <div>
+                        <q-btn flat label="supprimer" color="red" @click="askDelete" />
+                    </div>
+                </q-item-section>
+            </q-item>
+        </q-list>
+    </div>
 
-    <waxItemActionButton @edit="goEditPage" />
-
-    <!-- <q-page-sticky position="bottom-right" :offset="[32, 32]">
-        <q-fab color="purple" icon="keyboard_arrow_up" direction="up">
-            <q-fab-action color="primary" @click="goEditPage" icon="edit" label="Modifier" />
-        </q-fab>
-    </q-page-sticky> -->
+    <waxItemActionButton @edit="goEditPage" @addFile="onAddFile" @linkWaxIn="onLinkWaxIn" />
 
     <q-dialog v-model="removeAlert">
         <q-card dark>
@@ -132,6 +136,8 @@ import waxItemActionButton from '@/components/waxItemActionButton.vue';
 const router = useRouter();
 const route = useRoute();
 const id = ref(String(route.params.id));
+const showAddFile = ref(false);
+const showWaxInOutTraceAdd = ref(false);
 
 const {
     item: waxOutItem,
@@ -161,6 +167,14 @@ function goEditPage() {
 
 function goListPage() {
     router.push({ name: 'WaxOutView' });
+}
+
+function onAddFile() {
+    showAddFile.value = true;
+}
+
+function onLinkWaxIn() {
+    showWaxInOutTraceAdd.value = true;
 }
 
 const weightOut = computed(() => {
