@@ -3,14 +3,14 @@
         <div>
             <h1 class="mb-4 text-4xl text-center">Connexion</h1>
             <q-form @submit="connection" class="flex flex-col gap-y-2">
-                <q-input v-model="username" standout dark round placeholder="Identifiant" required />
-                <q-input v-model="password" standout dark round placeholder="Mot de passe" :type="!showPassword ? 'password' : 'text'" required>
+                <q-input v-model="username" standout dark round placeholder="Identifiant" :disable="loading" required />
+                <q-input v-model="password" standout dark round placeholder="Mot de passe" :type="!showPassword ? 'password' : 'text'" :disable="loading" required>
                     <template v-slot:append>
                         <q-icon :name="showPassword ? 'visibility_off' : 'visibility'" class="cursor-pointer" @click="toggleShowPassword"
                         />
                     </template>
                 </q-input>
-                <q-btn label="Connection" type="submit" dark color="primary" :loading="loading" />
+                <q-btn label="Connection" type="submit" dark color="primary" :disable="loading" :loading="loading" />
             </q-form>
         </div>
     </div>
