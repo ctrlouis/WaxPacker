@@ -3,19 +3,19 @@
     <h1 v-if="mode === 'create'" class="mt-32 mb-4 text-5xl">Ajouter un lot de sortie</h1>
     <h1 v-if="mode === 'edit'" class="mt-32 mb-4 text-5xl">Modifier le lot de sortie</h1>
     <q-form @submit="onSubmit" @reset="onReset" class="flex flex-col gap-y-2">
-        <q-input v-model="number" class="mb-4" dark standout label="Numéro de lot" required />
-        <q-input v-model="label"  class="mb-4" dark standout label="Nom" />
-        <q-input v-model="weight" class="mb-4" dark standout label="Quantité (Kg)" type="number" min="0" />
-        <q-input v-model="startDate" class="mb-4" dark standout label="Date de début" type="date" />
+        <q-input v-model="number" class="mb-4" dark standout label="Numéro de lot" :disable="loading" required />
+        <q-input v-model="label"  class="mb-4" dark standout label="Nom" :disable="loading" />
+        <q-input v-model="weight" class="mb-4" dark standout label="Quantité (Kg)" type="number" min="0" :disable="loading" />
+        <q-input v-model="startDate" class="mb-4" dark standout label="Date de début" type="date" :disable="loading" />
         <div>
-            <q-toggle v-model="perso" color="green" label="Perso" />
+            <q-toggle v-model="perso" color="green" label="Perso" :disable="loading" />
         </div>
         <div>
-            <q-toggle v-model="bio" color="green" label="Bio" />
+            <q-toggle v-model="bio" color="green" label="Bio" :disable="loading" />
         </div>
         <div class="flex justify-end">
-            <q-btn type="reset" label="Annuler" flat class="mr-4" color="orange" />
-            <q-btn type="submit" :label="submitButtonLabel" color="orange" />
+            <q-btn type="reset" label="Annuler" flat class="mr-4" color="orange" :disable="loading" />
+            <q-btn type="submit" :label="submitButtonLabel" color="orange" :disable="loading" :loading="loading" />
         </div>
     </q-form>
 </template>
@@ -43,6 +43,7 @@ const weight = ref(0);
 const startDate = ref(DateTime.now().toFormat('yyyy-MM-dd'));
 const perso = ref(false);
 const bio = ref(false);
+const loading = ref(false);
 
 function defaultNumber() {
     return `SC-${DateTime.now().toFormat('yyMMdd')}`;
@@ -70,10 +71,20 @@ function initDate() {
 }
 
 async function onSubmit() {
-    if (mode.value === 'create') {
-        await create();
-    } else if (mode.value === 'edit') {
-        await edit();
+    try {
+        loading.value = true;
+        if (mode.value === 'create') {
+            await create();
+        } else if (mode.value === 'edit') {
+            await edit();
+        }
+    } catch(error: any) {
+        if (error && error.message) {
+            console.error(error.message);
+            alert(error.message);
+        }
+    } finally {
+        loading.value = false;
     }
 }
 
@@ -95,34 +106,20 @@ async function create() {
         perso: perso.value,
         bio: bio.value,
     }
-    try {
-        await createWaxOutItem(data);
-        router.push({ name: 'WaxOutView' });
-    } catch(error: any) {
-        if (error && error.message) {
-            console.error(error.message);
-            alert(error.message);
-        }
-    }
+    await createWaxOutItem(data);
+    router.push({ name: 'WaxOutView' });
 }
 
 async function edit() {
-    try {
-        if (!waxOutItem.value) throw new Error("Aucuns lot de sortie trouvé");
-        const data: any = {};
-        if (number.value !== waxOutItem.value.number) data.number = number.value;
-        if (label.value !== waxOutItem.value.label) data.label = label.value;
-        if (weight.value !== waxOutItem.value.weight) data.weight = weight.value;
-        if (startDate.value !== waxOutItem.value.entry_date) data.entry_date = startDate.value;
-        if (perso.value !== waxOutItem.value.perso) data.perso = perso.value;
-        if (bio.value !== waxOutItem.value.bio) data.bio = bio.value;
-        await updateWaxOutItem(data);
-    } catch(error: any) {
-        if (error && error.message) {
-            console.error(error.message);
-            alert(error.message);
-        }
-    }
+    if (!waxOutItem.value) throw new Error("Aucuns lot de sortie trouvé");
+    const data: any = {};
+    if (number.value !== waxOutItem.value.number) data.number = number.value;
+    if (label.value !== waxOutItem.value.label) data.label = label.value;
+    if (weight.value !== waxOutItem.value.weight) data.weight = weight.value;
+    if (startDate.value !== waxOutItem.value.entry_date) data.entry_date = startDate.value;
+    if (perso.value !== waxOutItem.value.perso) data.perso = perso.value;
+    if (bio.value !== waxOutItem.value.bio) data.bio = bio.value;
+    await updateWaxOutItem(data);
 }
 
 function goItemPage() {

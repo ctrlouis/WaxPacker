@@ -3,10 +3,10 @@
     <h1 v-if="mode === 'create'" class="mt-32 mb-4 text-5xl">Ajouter un lot d'entrée</h1>
     <h1 v-else-if="mode === 'edit'" class="mt-32 mb-4 text-5xl">Modifier un lot d'entrée</h1>
     <q-form @submit="onSubmit" @reset="onReset" class="flex flex-col gap-y-2">
-        <q-input v-model="number" class="mb-4" dark standout label="Numéro de lot" required />
-        <q-input v-model="label" class="mb-4" dark standout label="Label" />
+        <q-input v-model="number" class="mb-4" dark standout label="Numéro de lot" :disable="loading" required />
+        <q-input v-model="label" class="mb-4" dark standout label="Label" :disable="loading" />
         <div v-if="showMoreWeight">
-            <q-input  v-model="weightRaw" class="mb-4" dark standout label="Quantité brute (Kg)" type="number" min="0">
+            <q-input  v-model="weightRaw" class="mb-4" dark standout label="Quantité brute (Kg)" type="number" min="0" :disable="loading">
                 <template v-slot:append>
                     <q-icon v-if="!isScale" class="mb-4 cursor-pointer" name="scale" color="orange" @click="scaleWeightRaw">
                         <q-tooltip>
@@ -15,7 +15,7 @@
                     </q-icon>
                 </template>
             </q-input>
-            <q-input v-model="lossCoef" class="mb-4" dark standout label="Coefficient de perte (%)" type="number" min="0" max="100">
+            <q-input v-model="lossCoef" class="mb-4" dark standout label="Coefficient de perte (%)" type="number" min="0" max="100" :disable="loading">
                 <template v-slot:append>
                     <q-icon v-if="!isScale" name="scale" color="orange" class="cursor-pointer" @click="scaleLossCoef">
                         <q-tooltip>
@@ -25,7 +25,7 @@
                 </template>
             </q-input>
         </div>
-        <q-input v-model="weightNet" class="mb-4" dark standout label="Poids net (Kg)" type="number" min="0" required>
+        <q-input v-model="weightNet" class="mb-4" dark standout label="Poids net (Kg)" type="number" min="0" :disable="loading" required>
             <template v-slot:prepend>
                 <q-icon v-if="!showMoreWeight" dark name="add" class="cursor-pointer" @click="showMoreWeightToggle">
                     <q-tooltip>
@@ -46,17 +46,17 @@
                 </q-icon>
             </template>
         </q-input>
-        <q-input v-model="entryDate" class="mb-4" dark standout label="Date d'entrée" type="date" required />
+        <q-input v-model="entryDate" class="mb-4" dark standout label="Date d'entrée" type="date" :disable="loading" required />
         <div>
-            <q-checkbox v-model="perso" class="mb-4" dark color="teal" label="Lot perso" />
+            <q-checkbox v-model="perso" class="mb-4" dark color="teal" label="Lot perso" :disable="loading" />
         </div>
         <div>
-            <q-checkbox v-model="bio" class="mb-4" dark color="green" label="Bio" />
+            <q-checkbox v-model="bio" class="mb-4" dark color="green" label="Bio" :disable="loading" />
         </div>
-        <ThirdPartiesSelect v-model="thirdPartieSelected" class="mb-4" />
+        <ThirdPartiesSelect v-model="thirdPartieSelected" class="mb-4" :disable="loading" />
         <div class="flex justify-end">
-            <q-btn type="reset" label="Annuler" flat class="mr-4" color="orange" />
-            <q-btn type="submit" :label="submitButtonLabel" color="orange" />
+            <q-btn type="reset" label="Annuler" flat class="mr-4" color="orange" :disable="loading" />
+            <q-btn type="submit" :label="submitButtonLabel" color="orange" :disable="loading" :loading="loading" />
         </div>
     </q-form>
 </template>
@@ -89,6 +89,7 @@ const perso = ref(false);
 const bio = ref(false);
 const thirdPartieSelected = ref();
 const showMoreWeight = ref(false);
+const loading = ref(false);
 
 function defaultNumber() {
     return `EC-${DateTime.now().toFormat('yyMMdd')}`;
@@ -134,10 +135,20 @@ function initTirdPartie() {
 }
 
 async function onSubmit() {
-    if (mode.value === 'create') {
-        await create();
-    } else if (mode.value === 'edit') {
-        await edit();
+    try {
+        loading.value = true;
+        if (mode.value === 'create') {
+            await create();
+        } else if (mode.value === 'edit') {
+            await edit();
+        }
+    } catch(error: any) {
+        if (error && error.message) {
+            console.error(error.message);
+            alert(error.message);
+        }
+    } finally {
+        loading.value = false;
     }
 }
 
@@ -150,55 +161,41 @@ function onReset() {
 }
 
 async function create() {
-    try {
-        let thirdPartieID = null;
-        if (thirdPartieSelected.value && thirdPartieSelected.value.value.id) thirdPartieID = thirdPartieSelected.value.value.id;
-        if (!showMoreWeight) {
-            lossCoef.value = 0;
-            scaleWeightRaw;
-        }
-        const data = {
-            number: number.value,
-            label: label.value,
-            weight_raw: weightRaw.value,
-            loss_coefficient: lossCoef.value,
-            weight_net: weightNet.value,
-            weight_left: weightNet.value,
-            entry_date: entryDate.value,
-            perso: perso.value,
-            bio: bio.value,
-            third_partie: thirdPartieID,
-        }
-        await createWaxInItem(data);
-        router.push({ name: 'WaxInView' });
-    } catch(error: any) {
-        if (error && error.message) {
-            console.error(error.message);
-            alert(error.message);
-        }
+    let thirdPartieID = null;
+    if (thirdPartieSelected.value && thirdPartieSelected.value.value.id) thirdPartieID = thirdPartieSelected.value.value.id;
+    if (!showMoreWeight) {
+        lossCoef.value = 0;
+        scaleWeightRaw;
     }
+    const data = {
+        number: number.value,
+        label: label.value,
+        weight_raw: weightRaw.value,
+        loss_coefficient: lossCoef.value,
+        weight_net: weightNet.value,
+        weight_left: weightNet.value,
+        entry_date: entryDate.value,
+        perso: perso.value,
+        bio: bio.value,
+        third_partie: thirdPartieID,
+    }
+    await createWaxInItem(data);
+    router.push({ name: 'WaxInView' });
 }
 
 async function edit() {
-    try {
-        if (!waxInItem.value) throw new Error("Aucuns lot d'entrée trouvé");
-        let thirdPartieID = null;
-        if (thirdPartieSelected.value && thirdPartieSelected.value.value.id) thirdPartieID = thirdPartieSelected.value.value.id;
-        const data: any = {};
-        if (number.value !== waxInItem.value.number) data.number = number.value;
-        if (label.value !== waxInItem.value.label) data.label = label.value;
-        if (weightNet.value !== waxInItem.value.weight_net) data.weight_net = weightNet.value;
-        if (entryDate.value !== waxInItem.value.entry_date) data.entry_date = entryDate.value;
-        if (perso.value !== waxInItem.value.perso) data.perso = perso.value;
-        if (bio.value !== waxInItem.value.bio) data.bio = bio.value;
-        if (thirdPartieSelected.value !== waxInItem.value.third_partie) data.third_partie = thirdPartieID;
-        await updateWaxInItem(data);
-    } catch(error: any) {
-        if (error && error.message) {
-            console.error(error.message);
-            alert(error.message);
-        }
-    }
+    if (!waxInItem.value) throw new Error("Aucuns lot d'entrée trouvé");
+    let thirdPartieID = null;
+    if (thirdPartieSelected.value && thirdPartieSelected.value.value.id) thirdPartieID = thirdPartieSelected.value.value.id;
+    const data: any = {};
+    if (number.value !== waxInItem.value.number) data.number = number.value;
+    if (label.value !== waxInItem.value.label) data.label = label.value;
+    if (weightNet.value !== waxInItem.value.weight_net) data.weight_net = weightNet.value;
+    if (entryDate.value !== waxInItem.value.entry_date) data.entry_date = entryDate.value;
+    if (perso.value !== waxInItem.value.perso) data.perso = perso.value;
+    if (bio.value !== waxInItem.value.bio) data.bio = bio.value;
+    if (thirdPartieSelected.value !== waxInItem.value.third_partie) data.third_partie = thirdPartieID;
+    await updateWaxInItem(data);
 }
 
 function goItemPage() {

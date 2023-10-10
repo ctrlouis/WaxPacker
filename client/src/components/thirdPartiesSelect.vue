@@ -6,6 +6,8 @@
         label="Tier"
         :options="thirdPartiesListOptions"
         @update:model-value="onUpdate"
+        :disable="loading"
+        :loading="loading"
     >
         <template v-slot:no-option>
             <q-item>
@@ -22,7 +24,19 @@ import { onMounted, ref, watch } from 'vue';
 import { usePocketbaseList } from '@/composables/usePocketbaseList';
 import type { QSelectOption } from 'quasar';
 
-const props = defineProps(['modelValue']);
+const props = defineProps({
+    modelValue: {
+        required: true,
+    },
+    disable: {
+        type: Boolean,
+        default: false,
+    },
+    loading: {
+        type: Boolean,
+        default: false,
+    },
+});
 
 const emit = defineEmits(['update:modelValue']);
 
