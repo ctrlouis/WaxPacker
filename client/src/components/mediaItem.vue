@@ -22,8 +22,6 @@ async function onRemove() {
     const propertie = `${props.mediaType}-`;
     const data = <any>{};
     data[propertie] = [ props.name ];
-    console.log(data);
-    
     await updateWaxInItem(data, props.waxItem.id);
 }
 

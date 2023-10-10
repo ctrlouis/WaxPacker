@@ -29,7 +29,6 @@ const showPassword = ref(false);
 const loading = ref(false);
 
 async function connection() {
-    console.log("connection()");
     try {
         loading.value = true;
         await authentication.login(username.value, password.value);

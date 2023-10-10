@@ -127,7 +127,6 @@ const selectWaxInOptions = generateselectWaxInAsOptions('number');
 const selectThirdPartiesOptions = generateThirdPartiesListAsOptions('name');
 
 watch(() => props.modelValue, (newValue) => {
-    console.log(newValue);
     show.value = newValue;
 });
 </script>

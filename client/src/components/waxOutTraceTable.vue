@@ -52,6 +52,5 @@ onMounted(async () => {
        expand: 'wax_out,third_partie',
    };
    await syncWaxOutTrace(options);
-   console.log(waxOuTrace);
 })
 </script>
