@@ -91,7 +91,7 @@
                 </q-item-section>
                 <q-item-section class="py-4">
                     <div>
-                        <q-btn flat label="supprimer" color="red" @click="askDelete" />
+                        <q-btn flat label="supprimer" color="red" @click="onDelete" />
                     </div>
                 </q-item-section>
             </q-item>
@@ -99,28 +99,12 @@
     </div>
 
     <waxItemActionButton @edit="goEditPage" @addFile="onAddFile" @linkWaxOut="onLinkWaxOut" />
-
-    <q-dialog v-model="removeAlert">
-        <q-card dark>
-            <q-card-section>
-                <div class="text-h6">Suppression</div>
-            </q-card-section>
-
-            <q-card-section v-if="waxInItem" class="q-pt-none">
-                <p>Etes vous sur de vouloir supprimer le lot d'entrée {{ waxInItem.label }} - {{ waxInItem.number }} ?</p>
-            </q-card-section>
-
-            <q-card-actions align="right">
-                <q-btn flat label="Annuler" color="red" @click="closeAskDelete" />
-                <q-btn label="Supprimer" color="red" @click="onRemove" />
-            </q-card-actions>
-        </q-card>
-    </q-dialog>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import { useQuasar } from 'quasar';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 import mediaList from '@/components/mediaList.vue';
 import waxInMediaUploader from '@/components/waxInMediaUploader.vue';
@@ -130,6 +114,8 @@ import waxItemActionButton from '@/components/waxItemActionButton.vue';
 
 const router = useRouter();
 const route = useRoute();
+const $q = useQuasar();
+
 const id = ref(String(route.params.id));
 const showAddFile = ref(false);
 const showWaxInOutTraceAdd = ref(false);
@@ -140,18 +126,22 @@ const {
     remove: removeWaxInItem,
 } = usePocketbaseItem('wax_in');
 
-const removeAlert = ref(false);
-function askDelete(event: Event) {
+function onDelete(event: Event) {
     event.stopPropagation();
-    removeAlert.value = true;
+    $q.dialog({
+        color: 'red',
+        dark: true,
+        message: "Voulez-vous vraiment supprimer l'élément sélectionné ?",
+        cancel: true,
+        persistent: false,
+    }).onOk(async () => {
+        await remove();
+    });
 }
-function closeAskDelete() {
-    removeAlert.value = false;
-}
-function onRemove() {
+
+async function remove() {
     if(waxInItem.value) {
-        removeWaxInItem(waxInItem.value.id);
-        closeAskDelete();
+        await removeWaxInItem(waxInItem.value.id);
         router.push({ name: 'WaxInView' });
     }
 }
