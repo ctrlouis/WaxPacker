@@ -1,23 +1,23 @@
 <template>
-    <q-icon class="absolute top-0 left-0 cursor-pointer" size="lg" dark name="arrow_back" @click="goItemPage" />
+    <q-icon class="absolute top-0 left-0 cursor-pointer" size="lg" dark name="arrow_back" @click="onReset" />
     <h1 v-if="mode === 'create'" class="mt-32 mb-4 text-5xl">Ajouter un lot de sortie</h1>
     <h1 v-if="mode === 'edit'" class="mt-32 mb-4 text-5xl">Modifier le lot de sortie</h1>
-    <q-input v-model="number" class="mb-4" dark standout label="Numéro de lot" required />
-    <q-input v-model="label"  class="mb-4" dark standout label="Nom" />
-    <q-input v-model="weight" class="mb-4" dark standout label="Quantité (Kg)" type="number" min="0" />
-    <q-input v-model="startDate" class="mb-4" dark standout label="Date de début" type="date" />
-    <div>
-        <q-toggle v-model="perso" color="green" label="Perso" />
-    </div>
-    <div>
-        <q-toggle v-model="bio" color="green" label="Bio" />
-    </div>
-    <div class="flex justify-end">
-        <q-btn v-if="mode === 'create'" class="mr-4" flat label="Annuler" color="orange" @click="goListPage" />
-        <q-btn v-if="mode === 'create'" label="Ajouter" color="orange" @click="onCreate" />
-        <q-btn v-if="mode === 'edit'" class="mr-4" flat label="Annuler" color="orange" @click="goItemPage" />
-        <q-btn v-if="mode === 'edit'" label="Modifier" color="orange" @click="onEdit" />
-    </div>
+    <q-form @submit="onSubmit" @reset="onReset" class="flex flex-col gap-y-2">
+        <q-input v-model="number" class="mb-4" dark standout label="Numéro de lot" required />
+        <q-input v-model="label"  class="mb-4" dark standout label="Nom" />
+        <q-input v-model="weight" class="mb-4" dark standout label="Quantité (Kg)" type="number" min="0" />
+        <q-input v-model="startDate" class="mb-4" dark standout label="Date de début" type="date" />
+        <div>
+            <q-toggle v-model="perso" color="green" label="Perso" />
+        </div>
+        <div>
+            <q-toggle v-model="bio" color="green" label="Bio" />
+        </div>
+        <div class="flex justify-end">
+            <q-btn type="reset" label="Annuler" flat class="mr-4" color="orange" />
+            <q-btn type="submit" :label="submitButtonLabel" color="orange" />
+        </div>
+    </q-form>
 </template>
 
 <script setup lang="ts">
@@ -69,7 +69,23 @@ function initDate() {
     startDate.value = date;
 }
 
-async function onCreate() {
+async function onSubmit() {
+    if (mode.value === 'create') {
+        await create();
+    } else if (mode.value === 'edit') {
+        await edit();
+    }
+}
+
+function onReset() {
+    if (mode.value === 'create') {
+        goListPage();
+    } else if (mode.value === 'edit') {
+        goItemPage();
+    }
+}
+
+async function create() {
     const data = {
         number: number.value,
         label: label.value,
@@ -90,7 +106,7 @@ async function onCreate() {
     }
 }
 
-async function onEdit() {
+async function edit() {
     try {
         if (!waxOutItem.value) throw new Error("Aucuns lot de sortie trouvé");
         const data: any = {};
@@ -125,6 +141,16 @@ const mode = computed(() => {
         mode = 'edit';
     }
     return mode;
+});
+
+const submitButtonLabel = computed(() => {
+    let label = "";
+    if (mode.value === 'create') {
+        label = "Ajouter";
+    } else if (mode.value === 'edit') {
+        label = "Modifier";
+    }
+    return label;
 });
 
 onMounted(async () => {

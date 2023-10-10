@@ -1,42 +1,64 @@
 <template>
-    <q-icon class="absolute top-0 left-0 cursor-pointer" size="lg" dark name="arrow_back" @click="goItemPage" />
+    <q-icon class="absolute top-0 left-0 cursor-pointer" size="lg" dark name="arrow_back" @click="onReset" />
     <h1 v-if="mode === 'create'" class="mt-32 mb-4 text-5xl">Ajouter un lot d'entrée</h1>
-    <h1 v-if="mode === 'edit'" class="mt-32 mb-4 text-5xl">Modifier un lot d'entrée</h1>
-    <q-input v-model="number" class="mb-4" dark standout label="Numéro de lot" required />
-    <q-input v-model="label" class="mb-4" dark standout label="Nom" />
-    <q-input v-if="showMoreWeight" v-model="weightRaw" class="mb-4" dark standout label="Quantité brute (Kg)" type="number" min="0">
-        <template v-slot:append>
-            <q-icon v-if="showMoreWeight && !isScale" class="mb-4 cursor-pointer" name="scale" color="orange" @click="scaleWeightRaw" />
-        </template>
-    </q-input>
-    <q-input v-if="showMoreWeight" v-model="lossCoef" class="mb-4" dark standout label="Coefficient de perte (%)" type="number" min="0" max="100">
-        <template v-slot:append>
-            <q-icon v-if="showMoreWeight && !isScale" name="scale" color="orange" class="cursor-pointer" @click="scaleLossCoef" />
-        </template>
-    </q-input>
-    <q-input v-model="weightNet" class="mb-4" dark standout label="Poids net (Kg)" type="number" min="0">
-        <template v-slot:append>
-            <q-icon v-if="showMoreWeight && !isScale" name="scale" color="orange" class="cursor-pointer" @click="scaleWeightNet" />
-        </template>
-    </q-input>
-    <div class="flex justify-center">
-        <q-btn v-if="!showMoreWeight" class="mb-4" dark icon="add" label="voir plus" @click="showMoreWeightToggle" />
-        <q-btn v-if="showMoreWeight" class="mb-4" dark icon="remove" label="voir moins" @click="showMoreWeightToggle" />
-    </div>
-    <q-input v-model="entryDate" class="mb-4" dark standout label="Date d'entrée" type="date" />
-    <div>
-        <q-checkbox v-model="perso" class="mb-4" dark color="teal" label="Lot perso" />
-    </div>
-    <div>
-        <q-checkbox v-model="bio" class="mb-4" dark color="green" label="Bio" />
-    </div>
-    <ThirdPartiesSelect v-model="thirdPartieSelected" class="mb-4" />
-    <div class="flex justify-end">
-        <q-btn v-if="mode === 'create'" class="mr-4" flat label="Annuler" color="orange" @click="goListPage" />
-        <q-btn v-if="mode === 'create'" label="Ajouter" color="orange" @click="onCreate" />
-        <q-btn v-if="mode === 'edit'" class="mr-4" flat label="Annuler" color="orange" @click="goItemPage" />
-        <q-btn v-if="mode === 'edit'" label="Modifier" color="orange" @click="onEdit" />
-    </div>
+    <h1 v-else-if="mode === 'edit'" class="mt-32 mb-4 text-5xl">Modifier un lot d'entrée</h1>
+    <q-form @submit="onSubmit" @reset="onReset" class="flex flex-col gap-y-2">
+        <q-input v-model="number" class="mb-4" dark standout label="Numéro de lot" required />
+        <q-input v-model="label" class="mb-4" dark standout label="Label" />
+        <div v-if="showMoreWeight">
+            <q-input  v-model="weightRaw" class="mb-4" dark standout label="Quantité brute (Kg)" type="number" min="0">
+                <template v-slot:append>
+                    <q-icon v-if="!isScale" class="mb-4 cursor-pointer" name="scale" color="orange" @click="scaleWeightRaw">
+                        <q-tooltip>
+                            Ajuster
+                        </q-tooltip>
+                    </q-icon>
+                </template>
+            </q-input>
+            <q-input v-model="lossCoef" class="mb-4" dark standout label="Coefficient de perte (%)" type="number" min="0" max="100">
+                <template v-slot:append>
+                    <q-icon v-if="!isScale" name="scale" color="orange" class="cursor-pointer" @click="scaleLossCoef">
+                        <q-tooltip>
+                            Ajuster
+                        </q-tooltip>
+                    </q-icon>
+                </template>
+            </q-input>
+        </div>
+        <q-input v-model="weightNet" class="mb-4" dark standout label="Poids net (Kg)" type="number" min="0" required>
+            <template v-slot:prepend>
+                <q-icon v-if="!showMoreWeight" dark name="add" class="cursor-pointer" @click="showMoreWeightToggle">
+                    <q-tooltip>
+                        Voir plus
+                    </q-tooltip>
+                </q-icon>
+                <q-icon v-if="showMoreWeight" dark name="remove" class="cursor-pointer" @click="showMoreWeightToggle">
+                    <q-tooltip>
+                        Voir moins
+                    </q-tooltip>
+                </q-icon>
+            </template>
+            <template v-slot:append>
+                <q-icon v-if="showMoreWeight && !isScale" name="scale" color="orange" class="cursor-pointer" @click="scaleWeightNet">
+                    <q-tooltip>
+                        Ajuster
+                    </q-tooltip>
+                </q-icon>
+            </template>
+        </q-input>
+        <q-input v-model="entryDate" class="mb-4" dark standout label="Date d'entrée" type="date" required />
+        <div>
+            <q-checkbox v-model="perso" class="mb-4" dark color="teal" label="Lot perso" />
+        </div>
+        <div>
+            <q-checkbox v-model="bio" class="mb-4" dark color="green" label="Bio" />
+        </div>
+        <ThirdPartiesSelect v-model="thirdPartieSelected" class="mb-4" />
+        <div class="flex justify-end">
+            <q-btn type="reset" label="Annuler" flat class="mr-4" color="orange" />
+            <q-btn type="submit" :label="submitButtonLabel" color="orange" />
+        </div>
+    </q-form>
 </template>
 
 <script setup lang="ts">
@@ -111,7 +133,23 @@ function initTirdPartie() {
     thirdPartieSelected.value = thirdPartie;
 }
 
-async function onCreate() {
+async function onSubmit() {
+    if (mode.value === 'create') {
+        await create();
+    } else if (mode.value === 'edit') {
+        await edit();
+    }
+}
+
+function onReset() {
+    if (mode.value === 'create') {
+        goListPage();
+    } else if (mode.value === 'edit') {
+        goItemPage();
+    }
+}
+
+async function create() {
     try {
         let thirdPartieID = null;
         if (thirdPartieSelected.value && thirdPartieSelected.value.value.id) thirdPartieID = thirdPartieSelected.value.value.id;
@@ -141,7 +179,7 @@ async function onCreate() {
     }
 }
 
-async function onEdit() {
+async function edit() {
     try {
         if (!waxInItem.value) throw new Error("Aucuns lot d'entrée trouvé");
         let thirdPartieID = null;
@@ -195,6 +233,16 @@ const mode = computed(() => {
         mode = 'edit';
     }
     return mode;
+});
+
+const submitButtonLabel = computed(() => {
+    let label = "";
+    if (mode.value === 'create') {
+        label = "Ajouter";
+    } else if (mode.value === 'edit') {
+        label = "Modifier";
+    }
+    return label;
 });
 
 const isScale = computed(() => {
