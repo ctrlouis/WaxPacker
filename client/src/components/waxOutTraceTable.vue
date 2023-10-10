@@ -22,7 +22,7 @@ const {
 
 const props = defineProps([ 'waxOutItem' ]);
 
-const columns = ref([
+const columns = ref<any>([
    {
        name: 'wax_out',
        label: "Lot de sortie",
