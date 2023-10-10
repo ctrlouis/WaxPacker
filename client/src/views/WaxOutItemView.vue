@@ -8,14 +8,13 @@
         <q-list v-if="waxOutItem">
             <q-item clickable v-ripple dark>
                 <q-item-section class="py-4">
-                    <q-item-label class="text-lg">Label</q-item-label>
-                    <q-item-label class="text-base text-grey">{{ waxOutItem.label }}</q-item-label>
-                </q-item-section>
-            </q-item>
-            <q-item clickable v-ripple dark>
-                <q-item-section class="py-4">
                     <q-item-label class="text-lg">Numéro de lot</q-item-label>
-                    <q-item-label class="text-base text-grey">{{ waxOutItem.number }}</q-item-label>
+                    <q-item-label class="text-base text-grey">
+                        {{ waxOutItem.number }}
+                        <q-badge v-if="waxOutItem.label.length > 0" color="grey">
+                            <q-icon name="label" /> {{ waxOutItem.label }}
+                        </q-badge>
+                    </q-item-label>
                 </q-item-section>
             </q-item>
             <q-item clickable v-ripple dark>

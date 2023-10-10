@@ -7,14 +7,13 @@
         <q-list v-if="waxInItem">
             <q-item clickable v-ripple dark>
                 <q-item-section class="py-4">
-                    <q-item-label class="text-lg">Label</q-item-label>
-                    <q-item-label class="text-base text-grey">{{ waxInItem.label }}</q-item-label>
-                </q-item-section>
-            </q-item>
-            <q-item clickable v-ripple dark>
-                <q-item-section class="py-4">
                     <q-item-label class="text-lg">Numéro de lot</q-item-label>
-                    <q-item-label class="text-base text-grey">{{ waxInItem.number }}</q-item-label>
+                    <q-item-label class="text-base text-grey">
+                        {{ waxInItem.number }}
+                        <q-badge v-if="waxInItem.label.length > 0" color="grey">
+                            <q-icon name="label" /> {{ waxInItem.label }}
+                        </q-badge>
+                    </q-item-label>
                 </q-item-section>
             </q-item>
             <q-item v-if="waxInItem.lossCoef !== 0" clickable v-ripple dark>
