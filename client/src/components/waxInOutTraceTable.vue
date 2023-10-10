@@ -23,7 +23,7 @@ const {
 
 const props = defineProps([ 'waxInItem', 'waxOutItem' ]);
 
-const columns = ref([
+const columns = ref<any>([
     {
         name: 'wax_in',
         label: "Lot d'entrée",
