@@ -8,6 +8,6 @@ FROM nginx:latest AS image
 WORKDIR /app
 COPY --from=build /app/dist /usr/share/nginx/html
 
-FROM nginx:latest-alpine AS image-alpine
+FROM nginx:alpine AS image-alpine
 WORKDIR /app
 COPY --from=build /app/dist /usr/share/nginx/html
