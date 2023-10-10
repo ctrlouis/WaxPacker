@@ -65,12 +65,18 @@
 import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { DateTime } from 'luxon';
+import { useError } from '@/composables/useError';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 import ThirdPartiesSelect from '@/components/thirdPartiesSelect.vue';
 
 const route = useRoute();
 const router = useRouter();
 const id = ref(String(route.params.id));
+
+const {
+    getErrorMessage,
+    reportError,
+} = useError();
 
 const {
     item: waxInItem,
@@ -143,10 +149,7 @@ async function onSubmit() {
             await edit();
         }
     } catch(error: any) {
-        if (error && error.message) {
-            console.error(error.message);
-            alert(error.message);
-        }
+        reportError({message: getErrorMessage(error)});
     } finally {
         loading.value = false;
     }
