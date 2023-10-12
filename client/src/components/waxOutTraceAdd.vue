@@ -25,6 +25,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import type { RecordModel } from 'pocketbase';
+import { useError } from '@/composables/useError';
 import { usePocketbaseList } from '@/composables/usePocketbaseList';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 import thirdPartiesSelect from './thirdPartiesSelect.vue';
@@ -36,6 +37,11 @@ interface SelectRecordModel {
 
 const props = defineProps([ 'waxOutItem' ]);
 const emit = defineEmits([ 'traceAdd' ]);
+
+const {
+    getErrorMessage,
+    reportError,
+} = useError();
 
 const {
     update: updateWaxOutItem,
@@ -91,11 +97,8 @@ async function onCreate() {
         await updateWaxOutItem(updateWaxOutData, props.waxOutItem.id);
         show.value = false;
         emit('traceAdd');
-    } catch(error: any) {
-        if (error && error.message) {
-            console.error(error.message);
-            alert(error.message);
-        }
+    } catch(error) {
+        reportError({message: getErrorMessage(error)});
     }
 }
 

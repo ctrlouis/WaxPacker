@@ -19,10 +19,16 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useError } from '@/composables/useError';
 import { useAuthentication } from '@/stores/authentication';
 
 const router = useRouter();
+const {
+    getErrorMessage,
+    reportError,
+} = useError();
 const authentication = useAuthentication();
+
 const username = ref("");
 const password = ref("");
 const showPassword = ref(false);
@@ -32,11 +38,8 @@ async function connection() {
     try {
         loading.value = true;
         await authentication.login(username.value, password.value);
-    } catch(error: any) {
-        if (error && error.message) {
-            console.error(error.message);
-            alert(error.message);
-        }
+    } catch(error) {
+        reportError({message: getErrorMessage(error)});
     } finally {
         loading.value = false;
     }

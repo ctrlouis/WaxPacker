@@ -148,7 +148,7 @@ async function onSubmit() {
         } else if (mode.value === 'edit') {
             await edit();
         }
-    } catch(error: any) {
+    } catch(error) {
         reportError({message: getErrorMessage(error)});
     } finally {
         loading.value = false;

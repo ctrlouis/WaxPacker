@@ -23,11 +23,17 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
+import { useError } from '@/composables/useError';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 
 const props = defineProps(['modelValue', 'waxItem']);
 
 const emit = defineEmits(['update:modelValue']);
+
+const {
+    getErrorMessage,
+    reportError,
+} = useError();
 
 const {
     update: updateWaxInItem,
@@ -48,11 +54,8 @@ async function uploadFile() {
         formData.append(mediaType.value.value, media.value);
         await updateWaxInItem(formData, props.waxItem.id);
         onHide();
-    } catch(error: any) {
-        if (error && error.message) {
-            console.error(error.message);
-            alert(error.message);
-        }
+    } catch(error) {
+        reportError({message: getErrorMessage(error)});
     }
 }
 

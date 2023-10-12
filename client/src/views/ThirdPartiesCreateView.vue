@@ -19,11 +19,17 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useError } from '@/composables/useError';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 
 const route = useRoute();
 const router = useRouter();
 const id = ref(String(route.params.id));
+
+const {
+    getErrorMessage,
+    reportError,
+} = useError();
 
 const {
     item: thirdPartieItem,
@@ -63,11 +69,8 @@ async function onCreate() {
     try {
         await createThirdPartiesItem(data);
         router.push({ name: 'ThirdPartiesView' });
-    } catch(error: any) {
-        if (error && error.message) {
-            console.error(error.message);
-            alert(error.message);
-        }
+    } catch(error) {
+        reportError({message: getErrorMessage(error)});
     }
 }
 

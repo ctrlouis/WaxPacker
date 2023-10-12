@@ -49,6 +49,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import type { RecordModel } from 'pocketbase';
+import { useError } from '@/composables/useError';
 import { usePocketbaseList } from '@/composables/usePocketbaseList';
 import { usePocketbaseItem } from '@/composables/usePocketbaseItem';
 
@@ -60,6 +61,11 @@ interface SelectRecordModel {
 const props = defineProps(['modelValue', 'waxOutItem', 'waxInItem']);
 
 const emit = defineEmits([ 'update:modelValue', 'traceAdd' ]);
+
+const {
+    getErrorMessage,
+    reportError,
+} = useError();
 
 const {
     sync: syncWaxInList,
@@ -114,11 +120,8 @@ async function onCreate() {
             await updateWaxInItem(updateWaxInData, waxInSelected.value.value.id);
             show.value = false;
             emit('traceAdd');
-        } catch(error: any) {
-            if (error && error.message) {
-                console.error(error.message);
-                alert(error.message);
-            }
+        } catch(error) {
+            reportError({message: getErrorMessage(error)});
         }
     }
 }
