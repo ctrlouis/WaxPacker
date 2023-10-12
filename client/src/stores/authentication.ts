@@ -27,4 +27,4 @@ export const useAuthentication = defineStore('authentication', () => {
         logout,
         isConnected,
     };
-})
+});
